@@ -14,6 +14,8 @@ set drive=%drive:F=f%
 set directory=%~p0
 :: replace backslashes with forward slashes
 set directory=%directory:\=/%
+:: remove '/scripts' from the end of the directory path
+set directory=%directory:~0,-8%
 
 :: set `srcdir` as "/"+`drive`+`directory`+"src"
 set srcdir=/%drive%%directory%src
