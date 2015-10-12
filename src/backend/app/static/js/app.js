@@ -56,8 +56,6 @@
 
 	var _componentsMain2 = _interopRequireDefault(_componentsMain);
 
-	console.log('tester');
-
 	_react2['default'].render(_react2['default'].createElement(_componentsMain2['default'], null), document.getElementById('content'));
 
 /***/ },

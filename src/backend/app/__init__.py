@@ -7,3 +7,6 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 from app import main
+
+from app.api.views import mod as apiModule
+app.register_blueprint(apiModule)
