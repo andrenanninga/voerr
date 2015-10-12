@@ -21,7 +21,7 @@ set directory=%directory:~0,-8%
 set srcdir=/%drive%%directory%src
 
 :: save full command to run docker
-set command=docker run^ -it -p 5000:5000 -p 3306:3306 -v %srcdir%:/flask/src voerr-dev
+set command=docker run^ -it -p 5000:5000 -p 3306:3306 -v %srcdir%:/voerr/src voerr-dev
 
 :: echo command for manual use
 echo %command%

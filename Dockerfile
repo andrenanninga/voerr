@@ -14,27 +14,47 @@ RUN apt-get install -y build-essential python2.7 python2.7-dev python3.4 python-
 RUN pip install -U pip
 RUN pip install virtualenv
 
-# setup working directory /flask
-RUN mkdir -p /flask/{src,sql,scripts}
-VOLUME ["/flask"]
+# install node
+RUN apt-get -y install curl
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
+RUN apt-get -y install nodejs
+
+# install webpack
+RUN npm install -g webpack
+
+# install foreman
+RUN apt-get -y install ruby
+RUN gem install foreman
+
+# setup working directory /voerr
+RUN mkdir -p /voerr/src && mkdir -p /voerr/sql && mkdir -p /voerr/scripts
+WORKDIR "/voerr"
 
 # install pip packages
-ADD requirements.txt /flask/requirements.txt
-RUN pip install --no-cache-dir -r /flask/requirements.txt
+ADD requirements.txt /voerr/requirements.txt
+RUN pip install --no-cache-dir -r /voerr/requirements.txt
 
-# add src/run.py to /flask
-ADD src/run.py /flask/src/run.py
+# install node packages
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN cp -a /tmp/node_modules /voerr/
 
-# add scripts to /flask
-ADD scripts/*.sh /flask/scripts/
+# add webpack config
+ADD webpack.config.js /voerr/webpack.config.js
+
+# add procfile
+ADD Procfile /voerr/Procfile
+
+# add scripts to /voerr
+ADD scripts/*.sh /voerr/scripts/
 # make scripts executable
-RUN chmod +x /flask/scripts/*.sh
+RUN chmod +x /voerr/scripts/*.sh
 
 # set mysql `bind-address` to "0.0.0.0" to enable access from outside the container
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
 # copy sql files
-ADD sql/*.sql /flask/sql/
+ADD sql/*.sql /voerr/sql/
 
 # expose flask devserver port
 EXPOSE 5000
@@ -43,4 +63,4 @@ EXPOSE 5000
 EXPOSE 3306
 
 # run setup script
-CMD /flask/scripts/setup.sh && echo "\nrun '/flask/scripts/start.sh' to start flask\n" && /bin/bash
+CMD /voerr/scripts/setup.sh && echo "\nrun 'foreman start' to start voerr\n" && /bin/bash
