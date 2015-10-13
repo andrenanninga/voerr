@@ -26,6 +26,9 @@ RUN npm install -g webpack
 RUN apt-get -y install ruby
 RUN gem install foreman
 
+# install livereload
+RUN npm install -g livereload
+
 # setup working directory /voerr
 RUN mkdir -p /voerr/src && mkdir -p /voerr/sql && mkdir -p /voerr/scripts
 WORKDIR "/voerr"
@@ -61,6 +64,9 @@ EXPOSE 5000
 
 # expose mysql port
 EXPOSE 3306
+
+# expose livereload port
+EXPOSE 35729
 
 # run setup script
 CMD /voerr/scripts/setup.sh && echo "\nrun 'foreman start' to start voerr\n" && /bin/bash
