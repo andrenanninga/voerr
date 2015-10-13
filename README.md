@@ -6,7 +6,7 @@
 
 * Build the docker image with the `scripts/build.bat` script 
 * Run the docker image with the `scripts/run.bat` script
-* Execute `foreman start` inside the image to run flask and webpack
+* Execute `foreman start` inside the image to run flask, webpack and livereload
 
 ### Setup docker
 
