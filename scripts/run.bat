@@ -1,14 +1,15 @@
 @echo off
 
 :: set `drive` as current drive without path
-set drive=%~d0
-:: remove trailing ":"
-set drive=%drive:~0,1%
-:: make lowercase
-set drive=%drive:C=c%
-set drive=%drive:D=d%
-set drive=%drive:E=e%
-set drive=%drive:F=f%
+:: set drive=%~d0
+:: :: remove trailing ":"
+:: set drive=%drive:~0,1%
+:: :: make lowercase
+:: set drive=%drive:C=c%
+:: set drive=%drive:D=d%
+:: set drive=%drive:E=e%
+:: set drive=%drive:F=f%
+set drive=c
 
 :: set `directory` as current path without drive
 set directory=%~p0
