@@ -1,11 +1,11 @@
 INSERT INTO user (`id`, `name`, `email`, `password`) 
 VALUES (1, 'test', 'test@test.com', 'test'),
-VALUES (2, 'henk', 'henk@aol.com', 'wachtwoord');
+(2, 'henk', 'henk@aol.com', 'wachtwoord');
 
 
 INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`) 
 VALUES (1, 'ik ben een kok', 'groningen', POINT(0, 0), 1),
-VALUES (2, 'Ik hou niet van koken', 'Groningen', POINT(1, 1), 2);
+(2, 'Ik hou niet van koken', 'Groningen', POINT(1, 1), 2);
 
 INSERT INTO category (`id`, `name`, `parent_id`) VALUES
 -- Category Menugang
