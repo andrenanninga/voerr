@@ -6,4 +6,4 @@ INSERT INTO dish (name, description, cook_id) VALUES ('potje test', 'een lekker 
 
 INSERT INTO allergy (id, name, description) VALUES (1, 'gluten', 'gluten');
 
-INSERT INTO dish_allergy (dish_id, allergy_ud) VALUES (1, 1)
+INSERT INTO dish_allergy (dish_id, allergy_id) VALUES (1, 1)
