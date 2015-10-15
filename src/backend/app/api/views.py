@@ -28,7 +28,8 @@ def getMeal():
 	return jsonify(object = "meal")
 
 def getUser():
-	return jsonify(object = "user")
+	from app.api.models.user import User
+	return jsonify(User)
 
 def getMeals(id):
 	return jsonify(object = "meal", id = id)

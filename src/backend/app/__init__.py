@@ -10,6 +10,3 @@ from app import main
 
 from app.api.views import mod as apiModule
 app.register_blueprint(apiModule)
-
-from app.api.user.views import mod as userModule
-app.register_blueprint(userModule)
