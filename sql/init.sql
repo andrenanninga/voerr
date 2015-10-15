@@ -104,8 +104,7 @@ INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (2, 48), (2, 38), (2
 
 -- Insert dish Citroentaart met zomer bessen
 INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
-VALUES (3, 'Citroentaart met zomer bessen
-', 'Een zingy lemon tart van de heer Ramsay. Gordon\'s versie van de klassieke Franse Tarte au citron is de moeite waard.', 2);
+VALUES (3, 'Citroentaart met zomer bessen', 'Een zingy lemon tart van de heer Ramsay. Gordon\'s versie van de klassieke Franse Tarte au citron is de moeite waard.', 2);
 
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (3, 2), (3, 10);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (3, 48), (3, 39), (3, 24), (3, 2);

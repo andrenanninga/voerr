@@ -1,24 +1,24 @@
-CREATE TABLE `user` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(127) NOT NULL, `avatar` int(13) DEFAULT NULL, `date_created` datetime, `date_updated` datetime);
+CREATE TABLE `user` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(127) NOT NULL, `avatar` int(13) DEFAULT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;;
 
-CREATE TABLE `cook` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `description` varchar(255) NOT NULL, `location` varchar(255) NOT NULL, `coordinates` POINT NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime);
+CREATE TABLE `cook` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `description` varchar(255) NOT NULL, `location` varchar(255) NOT NULL, `coordinates` POINT NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `dish` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `description` varchar(255) NOT NULL, `cook_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime);
+CREATE TABLE `dish` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `description` varchar(255) NOT NULL, `cook_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `category` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(63) NOT NULL, `parent_id` int(13) DEFAULT NULL);
+CREATE TABLE `category` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(63) NOT NULL, `parent_id` int(13) DEFAULT NULL) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `dish_category` (`dish_id` int(13) NOT NULL, `category_id` int(13) NOT NULL, `date_created` datetime);
+CREATE TABLE `dish_category` (`dish_id` int(13) NOT NULL, `category_id` int(13) NOT NULL, `date_created` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `allergy` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(63), `description` varchar(255));
+CREATE TABLE `allergy` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(63), `description` varchar(255)) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `dish_allergy` (`dish_id` int(13) NOT NULL, `allergy_id` int(13) NOT NULL, `date_created` datetime);
+CREATE TABLE `dish_allergy` (`dish_id` int(13) NOT NULL, `allergy_id` int(13) NOT NULL, `date_created` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `review` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `content` text, `rating` TINYINT UNSIGNED NOT NULL, `user_id` int(13) DEFAULT NULL, `dish_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime);
+CREATE TABLE `review` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `content` text, `rating` TINYINT UNSIGNED NOT NULL, `user_id` int(13) DEFAULT NULL, `dish_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `meal` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `price` double NOT NULL, `available_from` datetime NOT NULL, `available_until` datetime NOT NULL, `dinner_time` datetime NULL, `portions` int(2) NOT NULL, `portions_claimed` int(2) DEFAULT 0, `location` varchar(255) DEFAULT NULL, `notes` varchar(255) DEFAULT NULL, `is_takeout` tinyint(1) DEFAULT 0, `dish_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime);
+CREATE TABLE `meal` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `price` double NOT NULL, `available_from` datetime NOT NULL, `available_until` datetime NOT NULL, `dinner_time` datetime NULL, `portions` int(2) NOT NULL, `portions_claimed` int(2) DEFAULT 0, `location` varchar(255) DEFAULT NULL, `notes` varchar(255) DEFAULT NULL, `is_takeout` tinyint(1) DEFAULT 0, `dish_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `order` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `amount_meals` int(2) DEFAULT 1, `is_takeout` tinyint(1) DEFAULT 0, `start_time` datetime, `total_amount` double NOT NULL, `meal_id` int(13) NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime);
+CREATE TABLE `order` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `amount_meals` int(2) DEFAULT 1, `is_takeout` tinyint(1) DEFAULT 0, `start_time` datetime, `total_amount` double NOT NULL, `meal_id` int(13) NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `photo` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127), `dish_id` int(13) DEFAULT NULL, `user_id` int(13) DEFAULT NULL,  `cook_id` int(13) DEFAULT NULL, `date_created` datetime);
+CREATE TABLE `photo` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127), `dish_id` int(13) DEFAULT NULL, `user_id` int(13) DEFAULT NULL,  `cook_id` int(13) DEFAULT NULL, `date_created` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
 ALTER TABLE `user` ADD INDEX `ix_user_id` (`id`);
 ALTER TABLE `cook` ADD INDEX `ix_cook_id` (`id`);
