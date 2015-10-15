@@ -1,6 +1,11 @@
-INSERT INTO user (`id`, `name`, `email`, `password`) VALUES (1, 'test', 'test@test.com', 'test');
+INSERT INTO user (`id`, `name`, `email`, `password`) 
+VALUES (1, 'test', 'test@test.com', 'test');
+VALUES (2, 'henk', 'henk@aol.com', 'wachtwoord');
 
-INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`) VALUES (1, 'ik ben een kok', 'groningen', POINT(0, 0), 1);
+
+INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`) 
+VALUES (1, 'ik ben een kok', 'groningen', POINT(0, 0), 1),
+VALUES (2, 'Ik hou niet van koken', 'Groningen', POINT(1, 1), 2);
 
 INSERT INTO category (`id`, `name`, `parent_id`) VALUES
 -- Category Menugang
@@ -79,10 +84,47 @@ INSERT INTO allergy (`id`, `name`, `description`) VALUES
 (14, 'Lupine', NULL),
 (15, 'Weekdieren', NULL);
 
--- 
+-- Insert dish Lamsrack
 INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
 VALUES (1, 'Lamsrack met warme salade van gemengde bonen en langzaam-geroosterde tomaten', 'Mals, mager lamsvlees en een selectie van de beste groenten maakt dit een romantische gerecht dat je niet snel zult vergeten
 ', 1);
+
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (1, 2), (1,11);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (1, 48), (1, 39), (1, 24), (1, 14), (1, 2);
+-- 
+
+-- Insert dish Beef Wellington
+INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
+VALUES (2, 'Beef Wellington', 'Gordon Ramsay\'s versie van het klassieke steak gerecht - het middelpunt op een speciale gelegenheid.
+', 1);
+
+INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (2, 2), (2, 10);
+INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (2, 48), (2, 38), (2, 24), (2, 14), (2, 2);
+-- 
+
+-- Insert dish Citroentaart met zomer bessen
+INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
+VALUES (3, 'Citroentaart met zomer bessen
+', 'Een zingy lemon tart van de heer Ramsay. Gordon\'s versie van de klassieke Franse Tarte au citron is de moeite waard.', 2);
+
+INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (3, 2), (3, 10);
+INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (3, 48), (3, 39), (3, 24), (3, 2);
+-- 
+
+-- Insert dish Mediterrane zalmfilet
+INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
+VALUES (4, 'Mediterrane zalmfilet', 'Zalm gevuld met mediterrane smaken, dit licht, gezonde voorjaar lunch wordt gemaakt om te delen met vrienden.
+', 1);
+
+INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (4, 4), (4, 1);
+INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (4, 48), (4, 25), (4, 2);
+-- 
+
+-- Insert dish Zomer bessen meringues
+INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
+VALUES (4, 'Zomer bessen meringues', 'Gordon Ramsay geeft ons een masterclass in meringues - de perfecte voorbereiding-ahead pudding
+.', 2);
+
+INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (5, 2), (5, 10);
+INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (5, 48), (5, 39), (5, 4);
 -- 
