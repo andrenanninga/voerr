@@ -9,5 +9,8 @@ mysql -uroot -e "create database voerr;"
 echo "Creating voerr tables"
 mysql -uroot voerr < /voerr/sql/voerr.sql
 
+echo "Creating voerr data"
+mysql -uroot voerr < /voerr/sql/init.sql
+
 echo "Setup 'root' as password for user 'root'"
 mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root'); GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';"
