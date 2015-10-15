@@ -1,5 +1,5 @@
 INSERT INTO user (`id`, `name`, `email`, `password`) 
-VALUES (1, 'test', 'test@test.com', 'test');
+VALUES (1, 'test', 'test@test.com', 'test'),
 VALUES (2, 'henk', 'henk@aol.com', 'wachtwoord');
 
 
