@@ -1,5 +1,6 @@
 from app import db
-import datetime
+# from app.api.models.cook import Cook
+import datetime, Cook
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -10,6 +11,7 @@ class User(db.Model):
     password = db.Column('password', db.String(127))
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    cook = db.relationship('Cook', uselist=False, backref='user')
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
