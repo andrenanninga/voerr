@@ -1,4 +1,5 @@
 from app import db
+import datetime
 
 class Photo(db.Model):
     __tablename__ = 'photo'

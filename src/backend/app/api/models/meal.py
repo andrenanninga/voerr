@@ -1,4 +1,5 @@
 from app import db
+import datetime
 
 class Meal(db.Model):
     __tablename__ = 'meal'

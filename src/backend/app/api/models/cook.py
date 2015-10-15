@@ -1,4 +1,5 @@
 from app import db
+import datetime
 
 class Cook(db.Model):
     __tablename__ = 'cook'
