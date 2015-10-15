@@ -7,4 +7,4 @@ mod = Blueprint('api', __name__, url_prefix='/api')
 def index():
     print(User)
     print(User.query.first ())
-    # return jsonify(test1='test',test2='test2')
+    return jsonify(test1='test',test2='test2')
