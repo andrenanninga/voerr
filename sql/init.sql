@@ -122,7 +122,7 @@ INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (4, 48), (4, 25), (4
 
 -- Insert dish Zomer bessen meringues
 INSERT INTO dish (`id`, `name`, `description`, `cook_id`) 
-VALUES (4, 'Zomer bessen meringues', 'Gordon Ramsay geeft ons een masterclass in meringues - de perfecte voorbereiding-ahead pudding
+VALUES (5, 'Zomer bessen meringues', 'Gordon Ramsay geeft ons een masterclass in meringues - de perfecte voorbereiding-ahead pudding
 .', 2);
 
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (5, 2), (5, 10);
