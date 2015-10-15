@@ -24,3 +24,17 @@ class Dish(db.Model):
 
     def __repr__(self):
         return '<Dish %r>' % (self.name)
+
+    def serialize(self, related = True):
+        dishDict = {
+            'id' : self.id,
+            'name' : self.name,
+            'description' : self.description
+        }
+
+        if(related):
+            dishDict['allergies']  = []
+            for allergy in self.allergies:
+                dishDict['allergies'].append(allergy.serialize())
+
+        return dishDict

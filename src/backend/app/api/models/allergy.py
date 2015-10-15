@@ -13,3 +13,12 @@ class Allergy(db.Model):
 
     def __repr__(self):
         return '<Allergy %r>' % (self.name)
+
+    def serialize(self, related = True):
+        allergyDict = {
+            'id' : self.id,
+            'name' : self.name,
+            'description' : self.description
+        }
+
+        return allergyDict

@@ -23,3 +23,18 @@ class Cook(db.Model):
 
     def __repr__(self):
         return '<Cook %r>' % (self.description)
+
+    def serialize(self, related = True):
+        cookDict = {
+            'id' : self.id,
+            'description' : self.description,
+            'location' : self.location,
+            'coordinates' : self.coordinates
+        }
+
+        if(related):
+            cookDict['dishes']  = []
+            for dish in self.dishes:
+                cookDict['dishes'].append(dish.serialize())
+
+        return cookDict
