@@ -5,7 +5,7 @@ class Meal(db.Model):
     __tablename__ = 'meal'
 
     id = db.Column('id', db.Integer, primary_key=True)
-    price = db.Column('name', db.Integer)
+    price = db.Column('price', db.Integer)
     available_from = db.Column('available_from', db.DateTime)
     available_until = db.Column('available_until', db.DateTime)
     dinner_time = db.Column('dinner_time', db.DateTime)
@@ -32,3 +32,19 @@ class Meal(db.Model):
 
     def __repr__(self):
         return '<Meal %r>' % (self.price)
+
+    def serialize(self, related = True):
+        mealDict = {
+            'price' : self.price,
+            'available_from' : self.available_from,
+            'available_until' : self.available_until,
+            'dinner_time' : self.dinner_time,
+            'portions' : self.portions,
+            'portions_claimed' : self.portions_claimed,
+            'location' : self.location,
+            'notes' : self.notes,
+            'is_takeout' : self.is_takeout,
+            'dish_id' : self.dish_id
+        }
+
+        return mealDict
