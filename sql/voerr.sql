@@ -43,7 +43,7 @@ ALTER TABLE `photo` ADD INDEX `ix_photo_dish_id` (`dish_id`);
 ALTER TABLE `photo` ADD INDEX `ix_photo_user_id` (`user_id`);
 ALTER TABLE `photo` ADD INDEX `ix_photo_cook_id` (`cook_id`);
 
--- ALTER TABLE `cook` ADD SPATIAL INDEX `sp_cook_coordinates` (`coordinates`); --werkt alleen voor MyISAM tables, niet voor InnoDB. MyISAM heb je geen FK
+ALTER TABLE `cook` ADD SPATIAL INDEX `sp_cook_coordinates` (`coordinates`);
 
 
 ALTER TABLE `category` ADD FOREIGN KEY (`parent_id`) REFERENCES `category`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; 
