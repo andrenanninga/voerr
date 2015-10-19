@@ -4,7 +4,7 @@ var webpack    = require('webpack');
 var path       = require('path');
 
 var srcPath    = path.join(__dirname, 'src/frontend');
-var buildPath  = path.join(__dirname, 'src/backend/app/static/js');
+var buildPath  = path.join(__dirname, 'src/frontend/assets/js');
 var modulePath = path.join(srcPath, 'run.js');
 
 console.log(buildPath)
