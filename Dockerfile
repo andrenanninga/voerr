@@ -44,6 +44,8 @@ RUN cp -a /tmp/node_modules /voerr/
 
 # add webpack config
 ADD webpack.config.js /voerr/webpack.config.js
+ADD .babelrc /voerr/.babelrc
+ADD .eslintrc /voerr/.eslintrc
 
 # add procfile
 ADD Procfile /voerr/Procfile
@@ -67,6 +69,8 @@ EXPOSE 3306
 
 # expose livereload port
 EXPOSE 35729
+
+EXPOSE 1989
 
 # run setup script
 CMD /voerr/scripts/setup.sh && echo "\nrun 'foreman start' to start voerr\n" && /bin/bash

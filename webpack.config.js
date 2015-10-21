@@ -17,7 +17,7 @@ module.exports = {
 	},
 	resolve: {
 		root: srcPath,
-		extensions: ['', '.js', '.scss'],
+		extensions: ['', '.js', '.scss', '.css'],
 		modulesDirections: ['node_modules', 'src']
 	},
 	output: {
@@ -27,9 +27,9 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{test: /\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
-			{ test: /\.scss$/, loader: 'style!css!sass' },
-			{ test: /\.css$/, loader: 'style!css' }
+			{ test: /\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
+			{ test: /\.scss$/, loader: 'style!css!sass!autoprefixer' },
+			{ test: /\.css$/, loader: 'style!css!autoprefixer' }
 		]
 	},
 	plugins: [
