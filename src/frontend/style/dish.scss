@@ -8,7 +8,7 @@
 	align-self: stretch;
 	padding: 2rem;
 	border: 1rem solid #eee;
-
+	width: 100%;
 
 	@media screen and (min-width: 600px) {
 		width: 50%;
@@ -18,8 +18,12 @@
 		width: 33.3333%;
 	}
 
+	@media screen and (min-width: 1300px) {
+		width: 25%;
+	}
+
 	h2 {
-		font-size: 2rem;
+		font-size: 2.5rem;
 	}
 
 	.slick-slider {

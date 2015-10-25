@@ -40,7 +40,7 @@ class Dish extends React.Component {
 				<div className="cook">
 					<img src='http://unsplash.it/40?random' width="30" height="30" /> <h3>{this.props.cook.name}</h3>
 				</div>
-				<p>{this.props.description}</p>
+				<p>{this.props.description} {this.props.description} {this.props.description}</p>
 			</div>
 		);
 	}
