@@ -1,20 +1,22 @@
 @charset "UTF-8";
 
+@import "_gradients";
+
 // Default Variables
 
 $slick-font-path: "/fonts/" !default;
 $slick-font-family: "slick" !default;
 $slick-loader-path: "/images/" !default;
 $slick-arrow-color: white !default;
-$slick-dot-color: black !default;
+$slick-dot-color: white !default;
 $slick-dot-color-active: $slick-dot-color !default;
 $slick-prev-character: "←" !default;
 $slick-next-character: "→" !default;
 $slick-dot-character: "•" !default;
-$slick-dot-size: 6px !default;
-$slick-opacity-default: 0.75 !default;
+$slick-dot-size: 8px !default;
+$slick-opacity-default: 1 !default;
 $slick-opacity-on-hover: 1 !default;
-$slick-opacity-not-active: 0.25 !default;
+$slick-opacity-not-active: 0.7 !default;
 
 @function slick-image-url($url) {
     @if function-exists(image-url) {
@@ -133,18 +135,22 @@ $slick-opacity-not-active: 0.25 !default;
 
 .slick-dots {
     position: absolute;
-    bottom: -45px;
+    bottom: 0;
     list-style: none;
     display: block;
     text-align: center;
-    padding: 0;
+    padding: 5px 0 10px 0;
     width: 100%;
+    margin: 0;
+
+    @include gradient-vertical(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7), 0%, 90%);
+
     li {
         position: relative;
         display: inline-block;
         height: 20px;
         width: 20px;
-        margin: 0 5px;
+        margin: 0 3px;
         padding: 0;
         cursor: pointer;
         button {
@@ -185,6 +191,8 @@ $slick-opacity-not-active: 0.25 !default;
         &.slick-active button:before {
             color: $slick-dot-color-active;
             opacity: $slick-opacity-default;
+            font-size: $slick-dot-size + 3;
+
         }
     }
 }

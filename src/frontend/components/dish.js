@@ -15,8 +15,8 @@ class Dish extends React.Component {
 			slidesToShow: 1,
 			slidesToScroll: 1,
 			arrows: false,
+			dots: true,
 			centerMode: true,
-			centerPadding: '60px',
 			lazyLoad: true
 		};
 
@@ -25,17 +25,21 @@ class Dish extends React.Component {
 		n = n.slice(0, Math.random() * 4 + 2);
 
 		let images = _.map(n, (i) => {
-			let size = 500 + i;
+			let size = 600 + i;
 			let src = 'http://unsplash.it/' + size + '/?random';
-			return <div><img src={src} width="500" height="500" key={size} /></div>;
+			return <div><img src={src} key={size} /></div>;
 		});
+
 
 		return (
 			<div className="dish">
+				<h2>{this.props.name}</h2>
 				<Slider {...sliderSettings}>
 					{images}
 				</Slider>
-				<h2>{this.props.name}</h2>
+				<div className="cook">
+					<img src='http://unsplash.it/40?random' width="30" height="30" /> <h3>{this.props.cook.name}</h3>
+				</div>
 				<p>{this.props.description}</p>
 			</div>
 		);

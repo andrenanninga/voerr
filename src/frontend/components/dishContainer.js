@@ -3,6 +3,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import DishActions from 'actions/dishActions';
 import DishStore from 'stores/dishStore';
 import Dish from 'components/Dish';
+import 'style/dishContainer';
 
 @connectToStores
 class DishContainer extends React.Component {
@@ -28,7 +29,7 @@ class DishContainer extends React.Component {
 			return <Dish key={key} {...dish} />
 		});
 
-		return <div className="dishes">{dishes}</div>;
+		return <div className="dishContainer">{dishes}</div>;
 	}
 }
 

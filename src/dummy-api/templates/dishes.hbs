@@ -1,13 +1,14 @@
 {
 	"dishes": [
-		{{#repeat 6}} 
+		{{#repeat 7}} 
 		{
 			"id": {{index}},
-			"name": "{{lorem_sentence}}",
-			"description": "{{text}}",
+			"name": "{{commerce_productName}}",
+			"description": "{{lorem_sentence}}",
 			"cook": {
 				"id": {{uniqueIndex}},
 				"name": "{{name_findName}}",
+				"avatar": "{{image_people}}",
 				"email": "{{internet_email}}",
 				"description": "{{text}}",
 				"location": "{{address_streetName}} {{random_number max=200}}, {{address_city}}",
@@ -16,6 +17,11 @@
 					"long": {{address_longitude}}
 				}
 			},
+			"images": [
+				{{#repeat 2 5}}
+					"{{image_food}}"
+				{{/repeat}}
+			],
 			"allergies": [
 				{{#repeat 0 5}}
 				{

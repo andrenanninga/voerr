@@ -1,13 +1,51 @@
 @import "_variables";
 
 .dish {
-	display: block;
-	max-width: 500px;
-	margin: 20px auto;
-	padding: 10px;
-	background-color: darken($light-color, 5);
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	background-color: #FFF;
+	align-self: stretch;
+	padding: 2rem;
+	border: 1rem solid #eee;
+
+
+	@media screen and (min-width: 600px) {
+		width: 50%;
+	}
+
+	@media screen and (min-width: 900px) {
+		width: 33.3333%;
+	}
+
+	h2 {
+		font-size: 2rem;
+	}
+
+	.slick-slider {
+		background: #DDD;
+	}
 
 	img {
-		height: 500px;
+		max-width: 100% !important;
+		height: auto;
+		display: block;
+	}
+
+	.cook {
+		display: flex;
+	  align-items: center;
+	
+		img {
+			border-radius: 1000px;
+		}
+		h3 {
+			font-size: 1.8rem;
+			margin: 0 10px;
+		}
+	}
+
+	p {
+		margin: 2rem 0;
 	}
 }
