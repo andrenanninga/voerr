@@ -1,0 +1,13 @@
+@import "_variables";
+
+.dish {
+	display: block;
+	max-width: 500px;
+	margin: 20px auto;
+	padding: 10px;
+	background-color: darken($light-color, 5);
+
+	img {
+		height: 500px;
+	}
+}

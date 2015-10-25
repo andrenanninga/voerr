@@ -1,7 +1,11 @@
 @import "_variables";
+@import "_normalize";
+@import "_skeleton";
+@import "_slick";
+@import "_slick-theme";
 
 section.hero {
-	background-image: url('/static/img/hero-2.jpg');
+	background-image: url('/images/hero-2.jpg');
 	background-size: cover;
 	background-position: center 70%;
 	padding: 20rem 0 19rem;
