@@ -7,7 +7,7 @@ var srcPath    = path.join(__dirname, 'src/frontend');
 var buildPath  = path.join(__dirname, 'src/frontend/build');
 var modulePath = path.join(srcPath, 'run.js');
 
-var fileName = '[name].[ext]?[sha512:hash:base64:7]';
+var fileName = '[name]-[hash:7].[ext]';
 
 module.exports = {
 	target: 'web',
