@@ -20,3 +20,17 @@ class Review(db.Model):
 
     def __repr__(self):
         return '<Review %r>' % (self.name)
+
+    def serialize(self, related = True):
+        userDict = {
+            'id' : self.id,
+            'content' : self.content,
+            'rating' : self.rating,
+            'user_id': self.user_id,
+            'dish_id': self.dish_id
+        }
+
+        # if(related):
+        #     userDict['cook'] = self.cook.serialize()
+
+        return userDict

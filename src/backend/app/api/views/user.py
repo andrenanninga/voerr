@@ -1,5 +1,5 @@
 from flask import Response, json, Blueprint
-from flask_inputs import Inputs
+# from flask_inputs import Inputs
 from app.api.models.user import User
 
 mod = Blueprint('user', __name__, url_prefix='/api/user')
