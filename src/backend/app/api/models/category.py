@@ -5,7 +5,7 @@ class Category(db.Model):
 
     id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(63))
-    parent_id = db.Column('parent_id', db.Integer
+    parent_id = db.Column('parent_id', db.Integer)
 
     def __init__(self, name=None, parent_id=None):
         self.name = name

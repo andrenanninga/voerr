@@ -6,5 +6,9 @@ mod = Blueprint('allergy', __name__, url_prefix='/api/allergy')
 
 @mod.route('/<id>', methods=['GET'])
 def getAllergy(id):
-    allergy = Allergy.query.get(id)
-    return Response(json.dumps(allergy.serialize()), mimetype='application/json')
+    try:
+        allergy = Allergy.query.get(id)
+        return Response(json.dumps(allergy.serialize()), mimetype='application/json')
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})

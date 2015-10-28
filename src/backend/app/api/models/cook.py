@@ -1,7 +1,7 @@
 from app import db
 # from app.api.models.dish import Dish
 # from app.api.models.user import User
-import datetime, Dish
+import datetime
 
 class Cook(db.Model):
     __tablename__ = 'cook'

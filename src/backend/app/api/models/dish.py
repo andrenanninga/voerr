@@ -1,5 +1,5 @@
 from app import db
-import datetime, Allergy
+import datetime
 
 dish_allergy = db.Table('dish_allergy',
     db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),

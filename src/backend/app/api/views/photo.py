@@ -6,5 +6,8 @@ mod = Blueprint('photo', __name__, url_prefix='/api/photo')
 
 @mod.route('/<id>', methods=['GET'])
 def getPhoto(id):
-    photo = Photo.query.get(id)
-    return Response(json.dumps(photo.serialize()), mimetype='application/json')
+    try:
+        photo = Photo.query.get(id)
+        return Response(json.dumps(photo.serialize()), mimetype='application/json')
+    except Exception as e:
+        return json.dumps({'error': str(e)})

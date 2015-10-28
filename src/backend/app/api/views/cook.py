@@ -6,5 +6,8 @@ mod = Blueprint('cook', __name__, url_prefix='/api/cook')
 
 @mod.route('/<id>', methods=['GET'])
 def getCook(id):
-    cook = Cook.query.get(id)
-    return Response(json.dumps(cook.serialize()), mimetype='application/json')
+    try:
+        cook = Cook.query.get(id)
+        return Response(json.dumps(cook.serialize()), mimetype='application/json')
+    except Exception as e:
+        return json.dumps({'error': str(e)})

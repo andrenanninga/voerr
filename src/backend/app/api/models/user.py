@@ -1,6 +1,6 @@
 from app import db
 # from app.api.models.cook import Cook
-import datetime, Cook
+import datetime
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -11,7 +11,7 @@ class User(db.Model):
     password = db.Column('password', db.String(127))
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
-    cook = db.relationship('Cook', uselist=False, backref='user')
+    # cook = db.relationship('Cook', uselist=False, backref='user')
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
@@ -40,7 +40,7 @@ class User(db.Model):
             'email' : self.email
         }
 
-        if(related):
-            userDict['cook'] = self.cook.serialize()
+        # if(related):
+        #     userDict['cook'] = self.cook.serialize()
 
         return userDict
