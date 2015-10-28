@@ -1,12 +1,14 @@
 import React from 'react';
-import DishContainer from 'components/dishContainer';
-import 'style/main';
+// import DishContainer from 'components/dishContainer';
+import Test from 'components/test';
+// import 'style/main';
 
 import heroImage from 'images/hero-2.jpg';
 
 class Main extends React.Component {
 	render() {
-console.log(heroImage);
+		return <Test/>;
+		
 		return (
 			<div>
 				<section className="hero">

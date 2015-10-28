@@ -1,0 +1,83 @@
+@import "_variables";
+@import "_normalize";
+@import "_skeleton";
+@import "_evilicons";
+
+html, body, #content {
+	height: 100%;
+}
+
+.test {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	.header {
+		flex-grow: 0;
+		padding: 10px;
+		border-bottom: 1px solid #d1d1d1;
+
+		.menu {
+			display: flex;
+			h1 {
+				margin: 0;
+				flex-grow: 1;
+				font-family: $header-type;
+				color: $primary-color;
+				line-height: 1;
+			}
+
+			a {
+				text-align: right;
+				flex-grow: 0;
+				display: inline-block;
+				align-self: center;
+				color: $primary-color;
+			}
+		}
+
+		.search {
+			display: flex;
+			.search-input {
+				flex-grow: 3;
+				margin: 0 10px 10px 0;
+			}
+
+			.search-button {
+				flex-grow: 1;
+				margin: 0;
+				max-width: 200px;
+			}
+
+			@media (max-width: 350px) {
+				& {
+					display: block;
+					flex-wrap: wrap;
+				}
+
+				.search-button, .search-input {
+					max-width: none;
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.map {
+		flex-grow: 1;
+		position: relative;
+	}
+
+	.dish {
+		border-top: 1px solid #d1d1d1;
+		flex-grow: 0;
+		margin: 10px 10px -400px 10px;
+		display: none;
+
+		img {
+			max-width: 100% !important;
+			height: auto;
+			display: block;
+		}
+	}
+}

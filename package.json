@@ -23,9 +23,9 @@
     "babel-runtime": "^5.8.24",
     "faker": "^3.0.1",
     "lodash": "^3.10.1",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3",
-    "react-slick": "^0.6.6"
+    "react": "^0.14.0",
+    "react-evil-icons": "^0.4.0",
+    "react-google-maps": "^4.2.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
