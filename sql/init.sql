@@ -127,3 +127,7 @@ VALUES (5, 'Zomer bessen meringues', 'Gordon Ramsay geeft ons een masterclass in
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (5, 2), (5, 10);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (5, 48), (5, 39), (5, 4);
 -- 
+
+-- Insert review
+INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`) VALUES (1, 'Hello, world!', 5, 1, 1);
+--
