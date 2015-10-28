@@ -1,7 +1,21 @@
-from flask import Response, request, jsonify, json, Blueprint, make_response
-from app import app, db
+from flask import Response, json, Blueprint
 
-mod = Blueprint('user', __name__, url_prefix='/user')
+from app.api.models.user import User
 
-@mod.route('/getUser',  methods=['GET'])
-def getUser():
+mod = Blueprint('user', __name__, url_prefix='/api/user')
+
+
+@mod.route('/<id>', methods=['GET'])
+def getUser(id):
+    user = User.query.get(id)
+    return Response(json.dumps(user.serialize()), mimetype='application/json')
+
+@mod.route('/<id>/email', methods=['GET'])
+def getUserEmail(id):
+    user = User.query.get(id)
+
+    response = {
+        'email': user.email
+    }
+
+    return Response(json.dumps(response), mimetype='application/json')
