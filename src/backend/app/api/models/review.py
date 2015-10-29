@@ -1,8 +1,10 @@
 from wtforms.validators import DataRequired, length, Length, NumberRange
 from app import db
-import datetime
-from app.api.validators.models import dish_exists
+from sqlalchemy.orm import validates
+from app.api.errors.NumberError import NumberError
 
+import datetime
+# from app.api.validators.models import dish_exists
 
 class Review(db.Model):
     __tablename__ = 'review'
@@ -24,28 +26,14 @@ class Review(db.Model):
     def __repr__(self):
         return '<Review %r>' % (self.name)
 
-    def serialize(self, related = True):
-        userDict = {
-            'id' : self.id,
-            'content' : self.content,
-            'rating' : self.rating,
-            'user_id': self.user_id,
-            'dish_id': self.dish_id
-        }
+    @validates('rating')
+    def validate_rating(self, key, rating):
+        if (not type(rating) is int) or (rating <= 1 or rating >= 5):
+            exception = NumberError(name='Rating', min=1, max=5)
+            raise exception
 
-        # if(related):
-        #     userDict['cook'] = self.cook.serialize()
+        return rating
 
-        return userDict
-
-    @staticmethod
-    def rules():
-
-        ruleDict = {
-            'id' : [DataRequired()],
-            'dish_id' : [DataRequired(), dish_exists],
-            'content' : [DataRequired(), Length(min=10, max=200)],
-            'rating' : [DataRequired(), NumberRange(min=1, max=5)]
-        }
-
-        return ruleDict
+    def getExclude():
+        return [
+        ]

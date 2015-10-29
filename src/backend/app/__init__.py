@@ -3,6 +3,7 @@ import flask.ext.sqlalchemy
 import flask.ext.restless
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from app.api.errors.NumberError import NumberError
 
 
 app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
@@ -16,19 +17,22 @@ manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 # Create API endpoints, which will be available at /api/<tablename> by
 # default. Allowed HTTP methods can be specified as well.
 from app.api.models.user import User
-manager.create_api(User, url_prefix='/api/v1', collection_name='users', methods=['GET', 'POST', 'PATCH', 'DELETE'], exclude_columns=User.getExclude())
+manager.create_api(User, url_prefix='/api/v1', collection_name='users', methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], exclude_columns=User.getExclude())
 
-from app.api.models.allergy import Allergy
-manager.create_api(Allergy, methods=['GET', 'POST', 'DELETE'])
+from app.api.models.review import Review
+manager.create_api(Review, url_prefix='/api/v1', collection_name='reviews', methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], exclude_columns=Review.getExclude(), validation_exceptions=[NumberError])
 
-from app.api.models.category import Category
-manager.create_api(Category, methods=['GET', 'POST', 'DELETE'])
+# from app.api.models.allergy import Allergy
+# manager.create_api(Allergy, methods=['GET', 'POST', 'DELETE'])
 
-from app.api.models.cook import Cook
-manager.create_api(Cook, methods=['GET', 'POST', 'DELETE'])
+# from app.api.models.category import Category
+# manager.create_api(Category, methods=['GET', 'POST', 'DELETE'])
 
-from app.api.models.dish import Dish
-manager.create_api(Dish, methods=['GET', 'POST', 'DELETE'])
+# from app.api.models.cook import Cook
+# manager.create_api(Cook, methods=['GET', 'POST', 'DELETE'])
+
+# from app.api.models.dish import Dish
+# manager.create_api(Dish, methods=['GET', 'POST', 'DELETE'])
 
 from app import main
 
