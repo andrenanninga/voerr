@@ -1,4 +1,3 @@
-
 from app import db, app
 # from app.api.models.cook import Cook
 import datetime
@@ -35,15 +34,8 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.name)
 
-    def serialize(self, related = True):
-        userDict = {
-            'id' : self.id,
-            'name' : self.name,
-            'email' : self.email
-        }
-
-        # if(related):
-        #     userDict['cook'] = self.cook.serialize()
-
-        return userDict
+    def getExclude():
+        return [
+            'password'
+        ]
 
