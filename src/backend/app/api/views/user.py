@@ -1,8 +1,6 @@
-from django.contrib.sites import requests
 from flask import Response, json, Blueprint
 from app.api.models.user import User
 
-<<<<<<< HEAD
 mod = Blueprint('user', __name__, url_prefix='/api/user')
 
 @mod.route('/<id>', methods=['GET'])
@@ -28,8 +26,3 @@ def getUserEmail(id):
 
     except Exception as e:
         return json.dumps({'error': str(e)})
-
-
-=======
-mod = Blueprint('user', __name__, url_prefix='/api/user')
->>>>>>> cdb44a096fb372ba8020af12e24f2393de094170
