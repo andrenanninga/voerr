@@ -9,11 +9,8 @@ RUN export DEBIAN_FRONTEND=noninteractive
 # install mysql
 RUN apt-get install -q -y mysql-server libmysqlclient-dev
 
-# install python
-# RUN apt-get install -y build-essential python2.7 python2.7-dev python3.4 python-pip git
+# install git and pip
 RUN apt-get install -y build-essential git python3-pip
-# RUN pip install -U pip
-# RUN pip install virtualenv
 
 # install node
 RUN apt-get -y install curl
