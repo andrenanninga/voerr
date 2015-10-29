@@ -1,8 +1,5 @@
 from flask import Response, json, Blueprint
 from app.api.models.user import User
-import flask
-import flask.ext.sqlalchemy
-import flask.ext.restless
 
 mod = Blueprint('user', __name__, url_prefix='/api/user')
 
