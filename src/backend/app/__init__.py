@@ -16,7 +16,7 @@ manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 # Create API endpoints, which will be available at /api/<tablename> by
 # default. Allowed HTTP methods can be specified as well.
 from app.api.models.user import User
-manager.create_api(User, methods=['GET', 'POST', 'DELETE'])
+manager.create_api(User, url_prefix='/api/v1', collection_name='users', methods=['GET', 'POST', 'PATCH', 'DELETE'], exclude_columns=User.getExclude())
 
 from app.api.models.allergy import Allergy
 manager.create_api(Allergy, methods=['GET', 'POST', 'DELETE'])
