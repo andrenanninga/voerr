@@ -1,5 +1,8 @@
+from wtforms.validators import DataRequired, length, Length, NumberRange
 from app import db
 import datetime
+from app.api.validators.models import dish_exists
+
 
 class Review(db.Model):
     __tablename__ = 'review'
@@ -34,3 +37,15 @@ class Review(db.Model):
         #     userDict['cook'] = self.cook.serialize()
 
         return userDict
+
+    @staticmethod
+    def rules():
+
+        ruleDict = {
+            'id' : [DataRequired()],
+            'dish_id' : [DataRequired(), dish_exists],
+            'content' : [DataRequired(), Length(min=10, max=200)],
+            'rating' : [DataRequired(), NumberRange(min=1, max=5)]
+        }
+
+        return ruleDict

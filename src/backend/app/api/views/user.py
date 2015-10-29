@@ -1,9 +1,10 @@
 from flask import Response, json, Blueprint
-# from flask_inputs import Inputs
 from app.api.models.user import User
+import flask
+import flask.ext.sqlalchemy
+import flask.ext.restless
 
 mod = Blueprint('user', __name__, url_prefix='/api/user')
-
 
 @mod.route('/<id>', methods=['GET'])
 def getUser(id):
