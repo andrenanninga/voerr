@@ -1,3 +1,4 @@
+from django.contrib.sites import requests
 from flask import Response, json, Blueprint
 from app.api.models.user import User
 
@@ -26,3 +27,5 @@ def getUserEmail(id):
 
     except Exception as e:
         return json.dumps({'error': str(e)})
+
+
