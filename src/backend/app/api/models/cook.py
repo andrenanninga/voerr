@@ -1,6 +1,5 @@
 from app import db
-# from app.api.models.dish import Dish
-# from app.api.models.user import User
+from app.api.models.dish import Dish
 import datetime
 
 class Cook(db.Model):
@@ -13,7 +12,7 @@ class Cook(db.Model):
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
-    # dishes = db.relationship('Dish', backref='cook')
+    dishes = db.relationship('Dish', backref='cook')
 
     def __init__(self, description=None, location=None, coordinates=None, user_id=None):
         self.description = description
@@ -32,9 +31,9 @@ class Cook(db.Model):
             # 'coordinates' : self.coordinates
         }
 
-        # if(related):
-        #     cookDict['dishes']  = []
-        #     for dish in self.dishes:
-        #         cookDict['dishes'].append(dish.serialize())
+        if(related):
+            cookDict['dishes']  = []
+            for dish in self.dishes:
+                cookDict['dishes'].append(dish.serialize())
 
         return cookDict
