@@ -38,3 +38,5 @@ class Dish(db.Model):
                 dishDict['allergies'].append(allergy.serialize())
 
         return dishDict
+
+

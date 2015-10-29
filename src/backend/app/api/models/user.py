@@ -1,6 +1,8 @@
-from app import db
+
+from app import db, app
 # from app.api.models.cook import Cook
 import datetime
+
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -44,3 +46,4 @@ class User(db.Model):
         #     userDict['cook'] = self.cook.serialize()
 
         return userDict
+
