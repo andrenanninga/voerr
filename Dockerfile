@@ -1,7 +1,7 @@
 FROM ubuntu
 
 # install packages
-RUN apt-get -y update && apt-get -y upgrade
+RUN apt-get -y update --fix-missing && apt-get -y upgrade
 
 # set as noninteractive to prevent prompts
 RUN export DEBIAN_FRONTEND=noninteractive
@@ -10,9 +10,10 @@ RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -q -y mysql-server libmysqlclient-dev
 
 # install python
-RUN apt-get install -y build-essential python2.7 python2.7-dev python3.4 python-pip git
-RUN pip install -U pip
-RUN pip install virtualenv
+# RUN apt-get install -y build-essential python2.7 python2.7-dev python3.4 python-pip git
+RUN apt-get install -y build-essential git python3-pip
+# RUN pip install -U pip
+# RUN pip install virtualenv
 
 # install node
 RUN apt-get -y install curl
@@ -35,7 +36,7 @@ WORKDIR "/voerr"
 
 # install pip packages
 ADD requirements.txt /voerr/requirements.txt
-RUN pip install --no-cache-dir -r /voerr/requirements.txt
+RUN pip3 install -r /voerr/requirements.txt
 
 # install node packages
 ADD package.json /tmp/package.json

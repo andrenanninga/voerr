@@ -1,4 +1,4 @@
-chardet==2.0.1
+chardet==2.3.0
 colorama==0.2.5
 Flask==0.10.1
 Flask-Inputs==0.1.0
