@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 import DishesStore from 'stores/dishStore';
-import Slider from 'react-slick';
+// import Slider from 'react-slick';
 import 'style/dish';
 
 class Dish extends React.Component {
@@ -34,9 +34,7 @@ class Dish extends React.Component {
 		return (
 			<div className="dish">
 				<h2>{this.props.name}</h2>
-				<Slider {...sliderSettings}>
-					{images}
-				</Slider>
+				{images[0]}
 				<div className="cook">
 					<img src='http://unsplash.it/40?random' width="30" height="30" /> <h3>{this.props.cook.name}</h3>
 				</div>
