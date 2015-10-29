@@ -1,10 +1,34 @@
+import flask
+import flask.ext.sqlalchemy
+import flask.ext.restless
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
+
+# Create the Flask-Restless API manager.
+manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
+
+# Create API endpoints, which will be available at /api/<tablename> by
+# default. Allowed HTTP methods can be specified as well.
+from app.api.models.user import User
+manager.create_api(User, methods=['GET', 'POST', 'DELETE'])
+
+from app.api.models.allergy import Allergy
+manager.create_api(Allergy, methods=['GET', 'POST', 'DELETE'])
+
+from app.api.models.category import Category
+manager.create_api(Category, methods=['GET', 'POST', 'DELETE'])
+
+from app.api.models.cook import Cook
+manager.create_api(Cook, methods=['GET', 'POST', 'DELETE'])
+
+from app.api.models.dish import Dish
+manager.create_api(Dish, methods=['GET', 'POST', 'DELETE'])
 
 from app import main
 
