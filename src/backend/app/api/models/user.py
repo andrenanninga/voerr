@@ -1,4 +1,4 @@
-from app import db, app
+from app import db
 # from app.api.models.cook import Cook
 import datetime
 

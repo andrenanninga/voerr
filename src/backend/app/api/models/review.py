@@ -1,9 +1,14 @@
-from wtforms.validators import DataRequired, length, Length, NumberRange
 from app import db
+from flask import Response, json
+
 from sqlalchemy.orm import validates
-from app.api.errors.NumberError import NumberError
+from app.api.errors.errors import Error
+from app.api.validators.number import NumberValidator
+from app.api.models.user import User
+from app.api.models.dish import Dish
 
 import datetime
+
 # from app.api.validators.models import dish_exists
 
 class Review(db.Model):
@@ -24,15 +29,34 @@ class Review(db.Model):
         self.dish_id = dish_id
 
     def __repr__(self):
-        return '<Review %r>' % (self.name)
+        return '<Review %r>' % self.name
 
     @validates('rating')
     def validate_rating(self, key, rating):
-        if (not type(rating) is int) or (rating <= 1 or rating >= 5):
-            exception = NumberError(name='Rating', min=1, max=5)
-            raise exception
-
+        if not NumberValidator.between(1, 5, rating):
+            print("ok")
+            raise Error(name='rating', message='Number must be between 1 and 5')
         return rating
+
+    @validates('user_id')
+    def validate_user_id(self, key, user_id):
+        if not NumberValidator.is_int(user_id):
+            raise Error(name='user_id', message='Not a valid user id')
+
+        if User.query.get(user_id) is None:
+            raise Error(name='user_id', message='Could not find user with user id %r' % user_id)
+
+        return user_id
+
+    @validates('dish_id')
+    def validate_user_id(self, key, dish_id):
+        if not NumberValidator.is_int(dish_id):
+            raise Error(name='dish_id', message='Not a valid dish id')
+
+        if Dish.query.get(dish_id) is None:
+            raise Error(name='dish_id', message='Could not find dish with dish id %r' % dish_id)
+
+        return dish_id
 
     def getExclude():
         return [
