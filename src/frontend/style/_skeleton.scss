@@ -243,6 +243,17 @@ select {
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box; }
+input[type="email"].error,
+input[type="number"].error,
+input[type="search"].error,
+input[type="text"].error,
+input[type="tel"].error,
+input[type="url"].error,
+input[type="password"].error,
+textarea.error,
+select.error {
+  border-color: #F04848;
+}
 /* Removes awkward default styles on some inputs for iOS */
 input[type="email"],
 input[type="number"],

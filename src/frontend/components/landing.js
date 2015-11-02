@@ -1,10 +1,10 @@
 import React from 'react';
 import geolocator from 'geolocator';
+import classNames from 'classnames';
 import 'style/landing';
 
 // geolocator needs to a global variable for the locateIp fallback method
 window.geolocator = geolocator;
-console.log(window);
 
 export default class Landing extends React.Component {
 	constructor() {
@@ -12,7 +12,11 @@ export default class Landing extends React.Component {
 
 		this.state = {
 			inputLocation: false,
-			location: null
+			location: null,
+			formErrors: {
+				food: false,
+				location: false
+			}
 		};
 	}
 
@@ -23,9 +27,9 @@ export default class Landing extends React.Component {
 	onGeoError(error) {
 	}
 
-	onChooseLocation() {
+	onChooseLocation(e) {
+		e.preventDefault();
 		this.setState({ inputLocation: true });
-		return false;
 	}
 
 	onSubmit(e) {
@@ -34,7 +38,13 @@ export default class Landing extends React.Component {
 		let food = this.refs.food.value.trim();
 		let location = this.state.inputLocation ? this.refs.location.value.trim() : this.state.location;
 
-		console.log(food, location);
+		if(location && food) {
+			this.setState({ formErrors: { food: false, location: false }});
+		}
+		else {
+			return this.setState({ formErrors: { food: !food, location: !location }});
+		}
+
 	}
 
 	componentWillMount() {
@@ -49,6 +59,8 @@ export default class Landing extends React.Component {
 	render() {
 		let location;
 		let onChooseLocation = this.onChooseLocation.bind(this);
+		let foodClass = classNames({ error: this.state.formErrors.food });
+		let locationClass = classNames({ error: this.state.formErrors.location });
 
 		if(this.state.location) {
 			location = (
@@ -65,15 +77,16 @@ export default class Landing extends React.Component {
 
 		if(this.state.inputLocation) {
 			location = (
-				<input ref="location" name="location" type="text" placeholder="regio"/>
+				<input ref="location" name="location" type="text" placeholder="regio" className={locationClass}/>
 			);
 		}
+
 
 		return (
 			<div className="landing">
 				<form onSubmit={this.onSubmit.bind(this)}>
-					<h2>Waar heb je zin in?</h2>
-					<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot of barbeque" />
+					<h2>waar heb je zin in?</h2>
+					<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot of barbeque" className={foodClass} />
 					<div className="options">
 						{location}
 						<button type="submit" className="button button-primary">zoeken</button>
