@@ -3,3 +3,5 @@ class Error(Exception):
         self.errors = {
             name: message
         }
+        self.name = name
+        self.message = message

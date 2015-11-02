@@ -27,7 +27,7 @@ def login():
     except (ValueError, KeyError, TypeError):
         return make_response('Could not log in', 400)
     except Error as e:
-        return e['name']
+        return make_response(jsonify({e.name: e.message}), 400)
 
     return 'Done'
 
