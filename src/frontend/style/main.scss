@@ -13,6 +13,15 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: $header-type;
 }
 
+
+.highlight {
+	color: $primary-color;
+}
+
+a {
+	color: $primary-color;
+}
+
 section.hero {
 	background-image: url('/images/hero-2.jpg');
 	background-size: cover;

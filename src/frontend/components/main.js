@@ -1,12 +1,15 @@
 import React from 'react';
 // import DishContainer from 'components/dishContainer';
 import Test from 'components/test';
-// import 'style/main';
+import Landing from 'components/landing';
+import 'style/main';
 
 import heroImage from 'images/hero-2.jpg';
 
 class Main extends React.Component {
 	render() {
+		return <Landing/>;
+
 		return <Test/>;
 		
 		return (
