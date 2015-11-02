@@ -3,12 +3,18 @@ import flask.ext.sqlalchemy
 import flask.ext.restless
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.restless import ProcessingException
+from flask.ext.login import LoginManager
 from app.api.errors.errors import Error
 
 app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 
 # Create the Flask-Restless API manager.
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
@@ -17,8 +23,6 @@ from app.api.models.user import User
 from app.api.models.review import Review
 from app.api.models.dish import Dish
 
-# Create API endpoints, which will be available at /api/<tablename> by
-# default. Allowed HTTP methods can be specified as well.
 manager.create_api(User,
                    url_prefix='/api/v1',
                    collection_name='users',
@@ -27,12 +31,29 @@ manager.create_api(User,
                    validation_exceptions=[Error]
                    )
 
+
+def check_auth(instance_id=None, **kw):
+    raise ProcessingException(description='Not Authorized',
+                                  code=401)
+    pass
+
+
+def post_review_preprocessor(data=None, **kw):
+    """Accepts a single argument, `data`, which is the dictionary of
+    fields to set on the new instance of the model.
+
+    """
+    pass
+
 manager.create_api(Review,
                    url_prefix='/api/v1',
                    collection_name='reviews',
                    methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
                    exclude_columns=Review.getExclude(),
-                   validation_exceptions=[Error])
+                   validation_exceptions=[Error],
+                   preprocessors={
+                       'POST': [check_auth, post_review_preprocessor]
+                   })
 
 manager.create_api(Dish,
                    url_prefix='/api/v1',
@@ -84,5 +105,8 @@ app.register_blueprint(photoModule)
 
 from app.api.views.review import mod as reviewModule
 app.register_blueprint(reviewModule)
+
+from app.api.views.login import mod as loginModule
+app.register_blueprint(loginModule)
 
 
