@@ -23,8 +23,6 @@ from app.api.models.user import User
 from app.api.models.review import Review
 from app.api.models.dish import Dish
 
-# Create API endpoints, which will be available at /api/<tablename> by
-# default. Allowed HTTP methods can be specified as well.
 manager.create_api(User,
                    url_prefix='/api/v1',
                    collection_name='users',
@@ -107,5 +105,8 @@ app.register_blueprint(photoModule)
 
 from app.api.views.review import mod as reviewModule
 app.register_blueprint(reviewModule)
+
+from app.api.views.login import mod as loginModule
+app.register_blueprint(loginModule)
 
 
