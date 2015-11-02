@@ -22,6 +22,7 @@
     "babel": "^5.8.23",
     "babel-runtime": "^5.8.24",
     "faker": "^3.0.1",
+    "geolocator": "fakeyou/geolocator",
     "lodash": "^3.10.1",
     "react": "^0.14.0",
     "react-evil-icons": "^0.4.0",

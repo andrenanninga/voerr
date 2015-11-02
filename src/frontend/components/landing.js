@@ -73,7 +73,7 @@ export default class Landing extends React.Component {
 			<div className="landing">
 				<form onSubmit={this.onSubmit.bind(this)}>
 					<h2>Waar heb je zin in?</h2>
-					<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot, barbeque" />
+					<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot of barbeque" />
 					<div className="options">
 						{location}
 						<button type="submit" className="button button-primary">zoeken</button>
