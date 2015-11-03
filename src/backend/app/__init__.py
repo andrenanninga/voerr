@@ -21,15 +21,8 @@ api_manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 def check_auth(instance_id=None, **kw):
     if not current_user.is_authenticated:
-        raise ProcessingException(description='Not Authorized 2', code=401)
+        raise ProcessingException(description='Not Authorized', code=401)
 
-
-def post_review_preprocessor(data=None, **kw):
-    """Accepts a single argument, `data`, which is the dictionary of
-    fields to set on the new instance of the model.
-
-    """
-    pass
 
 from app.api.models.user import User
 api_manager.create_api(User,
