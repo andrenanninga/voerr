@@ -6,9 +6,9 @@ import json
 
 from app.api.models.user import User
 
-mod = Blueprint('login', __name__, url_prefix='/api/v1')
+mod = Blueprint('login', __name__, url_prefix='/api/v1/login')
 
-@mod.route('/login', methods=['POST'])
+@mod.route('/', methods=['POST'])
 def login():
     try:
         form_data = json.loads(request.get_data().decode('utf-8'))
@@ -20,7 +20,7 @@ def login():
 
             login_user(user)
 
-            session['hello'] = 'hoi'
+            # session['hello'] = 'hoi'
 
             return make_response(current_user.email)
 

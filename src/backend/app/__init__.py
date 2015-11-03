@@ -5,7 +5,7 @@ import flask.ext.restless
 from flask import Flask, session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import ProcessingException
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, current_user
 from app.api.errors.errors import Error
 
 app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
@@ -20,13 +20,7 @@ login_manager.init_app(app)
 api_manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 def check_auth(instance_id=None, **kw):
-    pprint(session)
-    if session.get('user'):
-        if session['user']['is-logged-in']:
-            pass
-        else:
-            raise ProcessingException(description='Not Authorized 1', code=401)
-    else:
+    if not current_user.is_authenticated:
         raise ProcessingException(description='Not Authorized 2', code=401)
 
 
