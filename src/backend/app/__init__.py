@@ -19,42 +19,45 @@ login_manager.init_app(app)
 # Create the Flask-Restless API manager.
 api_manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
+
 def check_auth(instance_id=None, **kw):
     if not current_user.is_authenticated:
         raise ProcessingException(description='Not Authorized', code=401)
 
 
 from app.api.models.user import User
+
 api_manager.create_api(User,
-                   url_prefix='/api/v1',
-                   collection_name='users',
-                   methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
-                   exclude_columns=User.getExclude(),
-                   validation_exceptions=[Error, ProcessingException]
-                   )
+                       url_prefix='/api/v1',
+                       collection_name='users',
+                       methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+                       exclude_columns=User.getExclude(),
+                       validation_exceptions=[Error, ProcessingException]
+                       )
 
 from app.api.models.review import Review
+
 api_manager.create_api(Review,
-                   url_prefix='/api/v1',
-                   collection_name='reviews',
-                   methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
-                   exclude_columns=Review.getExclude(),
-                   validation_exceptions=[Error, ProcessingException],
-                   preprocessors={
-                       'POST': [check_auth, Review.post_single_preprocessor]
-                   })
+                       url_prefix='/api/v1',
+                       collection_name='reviews',
+                       methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+                       exclude_columns=Review.getExclude(),
+                       validation_exceptions=[Error, ProcessingException],
+                       preprocessors={
+                           'POST': [check_auth, Review.post_single_preprocessor]
+                       })
 
 from app.api.models.dish import Dish
+
 api_manager.create_api(Dish,
-                   url_prefix='/api/v1',
-                   collection_name='dishes',
-                   methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
-                   exclude_columns=Dish.getExclude(),
-                   validation_exceptions=[Error])
+                       url_prefix='/api/v1',
+                       collection_name='dishes',
+                       methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+                       exclude_columns=Dish.getExclude(),
+                       validation_exceptions=[Error])
+
 
 from app import main
-
 from app.api.views.login import mod as loginModule
+
 app.register_blueprint(loginModule)
-
-
