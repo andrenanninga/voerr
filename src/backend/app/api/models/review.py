@@ -1,13 +1,17 @@
-from app import db
-from flask import Response, json
+import datetime
+import flask
+
 from flask.ext.login import current_user
+from flask.ext.restless import ProcessingException
+
 from sqlalchemy.orm import validates
+
+from app import db
 from app.api.errors.errors import Error
 from app.api.validators.number import NumberValidator
 from app.api.models.user import User
 from app.api.models.dish import Dish
 
-import datetime
 
 class Review(db.Model):
     __tablename__ = 'review'
@@ -56,8 +60,20 @@ class Review(db.Model):
             raise Error(name='rating', message='Number must be between 1 and 5')
         return rating
 
+    @validates('content')
+    def validate_content(self, key, content):
+        if len(content) < 10:
+            raise Error(name='content', message='Review must be longer than or equal to 10 characters')
+        return content
+
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
-        data['user_id'] = current_user.id
+        getReview = Review.query.filter(Review.user_id == current_user.id, Review.dish_id == data['dish_id']).first()
+        if getReview is not None:
+            raise ProcessingException(
+                description='A review was already found for this user and dish: Review with ID %r' % getReview.id,
+                code=400
+            )
 
+        data['user_id'] = current_user.id
         return data
