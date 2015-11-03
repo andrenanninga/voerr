@@ -1,6 +1,6 @@
 from app import db
 from flask import Response, json
-
+from flask.ext.login import current_user
 from sqlalchemy.orm import validates
 from app.api.errors.errors import Error
 from app.api.validators.number import NumberValidator
@@ -42,6 +42,7 @@ class Review(db.Model):
     @validates('user_id')
     def validate_user_id(self, key, user_id):
 
+        print(current_user)
         # if not NumberValidator.is_int(user_id):
         #     raise Error(name='user_id', message='Not a valid user id')
         #

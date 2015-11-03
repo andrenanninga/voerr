@@ -1,7 +1,6 @@
-from app import db
+from app import db, login_manager
 # from app.api.models.cook import Cook
 import datetime
-
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -38,4 +37,8 @@ class User(db.Model):
         return [
             'password'
         ]
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 

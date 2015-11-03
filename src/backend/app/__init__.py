@@ -5,6 +5,7 @@ import flask.ext.restless
 from flask import Flask, session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import ProcessingException
+from flask.ext.login import LoginManager
 from flask_kvsession import KVSessionExtension
 from app.api.errors.errors import Error
 
@@ -13,6 +14,8 @@ app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 # Create the Flask-Restless API manager.
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
