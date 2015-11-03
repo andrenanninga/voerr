@@ -43,11 +43,8 @@ class Review(db.Model):
 
     @validates('dish_id')
     def validate_dish_id(self, key, dish_id):
-        # raise Error(name='dish_id', message='Not a valid dish id')
-
         if not NumberValidator.is_int(dish_id):
             raise Error(name='dish_id', message='Not a valid dish id')
-
         if Dish.query.get(dish_id) is None:
             raise Error(name='dish_id', message='Could not find dish with dish id %r' % dish_id)
 
