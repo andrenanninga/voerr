@@ -5,8 +5,7 @@ import flask.ext.restless
 from flask import Flask, session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import ProcessingException
-from flask_kvsession import KVSessionExtension
-from app.api.errors.errors import Error
+gfrom app.api.errors.errors import Error
 
 app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
 app.config.from_object('config')
