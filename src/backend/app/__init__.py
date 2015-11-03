@@ -1,19 +1,17 @@
+from pprint import pprint
 import flask
 import flask.ext.sqlalchemy
 import flask.ext.restless
-from flask import Flask
+from flask import Flask, session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import ProcessingException
-from flask.ext.login import LoginManager
+from flask_kvsession import KVSessionExtension
 from app.api.errors.errors import Error
 
 app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
 
 
 # Create the Flask-Restless API manager.
@@ -33,9 +31,14 @@ manager.create_api(User,
 
 
 def check_auth(instance_id=None, **kw):
-    raise ProcessingException(description='Not Authorized',
-                                  code=401)
-    pass
+    pprint(session)
+    if session.get('user'):
+        if session['user']['is-logged-in']:
+            pass
+        else:
+            raise ProcessingException(description='Not Authorized 1', code=401)
+    else:
+        raise ProcessingException(description='Not Authorized 2', code=401)
 
 
 def post_review_preprocessor(data=None, **kw):

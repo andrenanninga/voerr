@@ -41,11 +41,12 @@ class Review(db.Model):
 
     @validates('user_id')
     def validate_user_id(self, key, user_id):
-        if not NumberValidator.is_int(user_id):
-            raise Error(name='user_id', message='Not a valid user id')
 
-        if User.query.get(user_id) is None:
-            raise Error(name='user_id', message='Could not find user with user id %r' % user_id)
+        # if not NumberValidator.is_int(user_id):
+        #     raise Error(name='user_id', message='Not a valid user id')
+        #
+        # if User.query.get(user_id) is None:
+        raise Error(name='user_id', message='Could not find user with user id %r' % user_id)
 
         return user_id
 

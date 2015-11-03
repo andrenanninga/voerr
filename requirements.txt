@@ -5,6 +5,7 @@ Flask-Inputs==0.1.0
 Flask-Restless==0.17.0
 Flask-SQLAlchemy==2.0
 Flask-Login==0.3.2
+Flask-KVSession==0.6.2
 html5lib==0.999
 itsdangerous==0.24
 Jinja2==2.8
