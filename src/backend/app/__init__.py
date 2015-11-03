@@ -30,7 +30,7 @@ api_manager.create_api(User,
                    collection_name='users',
                    methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
                    exclude_columns=User.getExclude(),
-                   validation_exceptions=[Error]
+                   validation_exceptions=[Error, ProcessingException]
                    )
 
 from app.api.models.review import Review
@@ -39,7 +39,7 @@ api_manager.create_api(Review,
                    collection_name='reviews',
                    methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
                    exclude_columns=Review.getExclude(),
-                   validation_exceptions=[Error],
+                   validation_exceptions=[Error, ProcessingException],
                    preprocessors={
                        'POST': [check_auth, Review.post_single_preprocessor]
                    })

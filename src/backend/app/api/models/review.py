@@ -13,12 +13,12 @@ class Review(db.Model):
     __tablename__ = 'review'
 
     id = db.Column('id', db.Integer, primary_key=True)
-    content = db.Column('content', db.String(255))
-    rating = db.Column('rating', db.Integer)
     user_id = db.Column('user_id', db.Integer)
     dish_id = db.Column('dish_id', db.Integer)
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    content = db.Column('content', db.String(255))
+    rating = db.Column('rating', db.Integer)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
     def __init__(self, content=None, rating=None, user_id=None, dish_id=None):
         self.content = content
@@ -32,27 +32,19 @@ class Review(db.Model):
     def getExclude():
         return []
 
-    @validates('rating')
-    def validate_rating(self, key, rating):
-        if not NumberValidator.between(1, 5, rating):
-            print("ok")
-            raise Error(name='rating', message='Number must be between 1 and 5')
-        return rating
-
     @validates('user_id')
     def validate_user_id(self, key, user_id):
-
-        print(current_user)
-        # if not NumberValidator.is_int(user_id):
-        #     raise Error(name='user_id', message='Not a valid user id')
-        #
-        # if User.query.get(user_id) is None:
-        raise Error(name='user_id', message='Could not find user with user id %r' % user_id)
+        if not NumberValidator.is_int(user_id):
+            raise Error(name='user_id', message='Not a valid user id')
+        if User.query.get(user_id) is None:
+            raise Error(name='user_id', message='Could not find user with user id %r' % user_id)
 
         return user_id
 
     @validates('dish_id')
-    def validate_user_id(self, key, dish_id):
+    def validate_dish_id(self, key, dish_id):
+        # raise Error(name='dish_id', message='Not a valid dish id')
+
         if not NumberValidator.is_int(dish_id):
             raise Error(name='dish_id', message='Not a valid dish id')
 
@@ -60,6 +52,12 @@ class Review(db.Model):
             raise Error(name='dish_id', message='Could not find dish with dish id %r' % dish_id)
 
         return dish_id
+
+    @validates('rating')
+    def validate_rating(self, key, rating):
+        if not NumberValidator.between(1, 5, rating):
+            raise Error(name='rating', message='Number must be between 1 and 5')
+        return rating
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
