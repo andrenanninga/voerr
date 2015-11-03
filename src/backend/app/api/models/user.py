@@ -34,9 +34,7 @@ class User(db.Model):
         return '<User %r>' % (self.name)
 
     def getExclude():
-        return [
-            'password'
-        ]
+        return ['password']
 
 @login_manager.user_loader
 def load_user(id):

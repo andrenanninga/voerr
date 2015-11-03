@@ -48,7 +48,7 @@ api_manager.create_api(Review,
                    exclude_columns=Review.getExclude(),
                    validation_exceptions=[Error],
                    preprocessors={
-                       'POST': [check_auth, post_review_preprocessor]
+                       'POST': [check_auth, Review.post_single_preprocessor]
                    })
 
 from app.api.models.dish import Dish

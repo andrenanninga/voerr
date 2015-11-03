@@ -9,9 +9,6 @@ from app.api.models.dish import Dish
 
 import datetime
 
-
-# from app.api.validators.models import dish_exists
-
 class Review(db.Model):
     __tablename__ = 'review'
 
@@ -31,6 +28,9 @@ class Review(db.Model):
 
     def __repr__(self):
         return '<Review %r>' % self.name
+
+    def getExclude():
+        return []
 
     @validates('rating')
     def validate_rating(self, key, rating):
@@ -61,14 +61,8 @@ class Review(db.Model):
 
         return dish_id
 
-    # @validates('user_id', 'dish_id')
-    # def validate_content(self, key, field):
-    #     raise Error(name='tyfus', message=self)
-    #     if db.session.query(Review).filter(Review.user_id == self.user_id, Review.dish_id == self.dish_id):
-    #         raise Error(name='review', message='User id %r has already written a review for dish id %r' % (self.user_id, self.dish_id))
-    #
-    #     return field
+    @staticmethod
+    def post_single_preprocessor(data=None, **kw):
+        data['user_id'] = current_user.id
 
-    def getExclude():
-        return [
-        ]
+        return data
