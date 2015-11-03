@@ -6,12 +6,10 @@ import json
 
 from app.api.models.user import User
 
-mod = Blueprint('login', __name__, url_prefix='/api')
+mod = Blueprint('login', __name__, url_prefix='/api/v1')
 
 @mod.route('/login', methods=['POST'])
 def login():
-    pprint(session)
-
     try:
         form_data = json.loads(request.get_data().decode('utf-8'))
 

@@ -9,11 +9,3 @@ import sys
 def catch_all(path):
     print('GET %s' % path)
     return render_template('index.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    pprint(session)
-    if request.method == 'POST':
-        print(request.form)
-
-    return render_template('login.html')
