@@ -1,6 +1,15 @@
-from app import db, login_manager
-# from app.api.models.cook import Cook
 import datetime
+import flask
+
+from flask.ext.login import current_user
+from flask.ext.restless import ProcessingException
+
+from sqlalchemy.orm import validates
+
+from app import db, login_manager
+from app.api.errors.errors import Error
+from app.api.validators.number import NumberValidator
+
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -36,7 +45,18 @@ class User(db.Model):
     def getExclude():
         return ['password']
 
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+    @staticmethod
+    def post_single_preprocessor(data=None, **kw):
+        getUser = User.query.filter(User.email == data['email']).first()
+        if getUser is not None:
+            raise ProcessingException(
+                description='Email address already exists: %r' % getUser.email,
+                code=400
+            )
+        # todo password validator
 
+        return data
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))

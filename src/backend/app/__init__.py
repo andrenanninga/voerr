@@ -32,8 +32,10 @@ api_manager.create_api(User,
                        collection_name='users',
                        methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
                        exclude_columns=User.getExclude(),
-                       validation_exceptions=[Error, ProcessingException]
-                       )
+                       validation_exceptions=[Error, ProcessingException],
+                       preprocessors={
+                           'POST': [User.post_single_preprocessor]
+                       })
 
 from app.api.models.review import Review
 
