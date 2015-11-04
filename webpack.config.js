@@ -30,7 +30,6 @@ module.exports = {
 			{ test: /\.js?$/, exclude: /node_modules/, loader: 'babel?cacheDirectory'},
 			{ test: /\.scss$/, loader: 'style!css?root=..!sass!autoprefixer' },
 			{ test: /\.css$/, loader: 'style!css?root=..!autoprefixer' },
-			{ test: /\.png$/, loader: 'url-loader?limit=100000' },
 			{ test: /\.(png|gif|jpg)$/, loader: 'file-loader', query: { name: fileName } },
 			{ test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader', query: { root: '..', name: fileName }}
 		]
