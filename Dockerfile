@@ -13,9 +13,11 @@ RUN apt-get install -q -y mysql-server libmysqlclient-dev
 RUN apt-get install -y build-essential git python3-pip
 
 # install node
-RUN apt-get -y install curl
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get -y install nodejs
+RUN apt-get install -y software-properties-common apt-transport-https
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 68576280
+RUN apt-add-repository 'deb https://deb.nodesource.com/node_4.x precise main'
+RUN apt-get -y update
+RUN apt-get install -y nodejs
 
 # install webpack
 RUN npm install -g webpack
