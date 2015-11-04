@@ -4,6 +4,10 @@
 @import "_slick";
 @import "_slick-theme";
 
+html, body {
+	min-height: 100%;
+}
+
 body {
 	background-color: #eee;
 	font-family: $text-type;

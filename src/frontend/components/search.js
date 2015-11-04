@@ -1,12 +1,14 @@
 import React from 'react';
+import { transitionTo } from 'react-router';
 import geolocator from 'geolocator';
 import classNames from 'classnames';
-import 'style/landing';
+import slug from 'slug';	
+import 'style/search';
 
 // geolocator needs to a global variable for the locateIp fallback method
 window.geolocator = geolocator;
 
-export default class Landing extends React.Component {
+export default class Search extends React.Component {
 	constructor() {
 		super();
 
@@ -35,8 +37,8 @@ export default class Landing extends React.Component {
 	onSubmit(e) {
 		e.preventDefault();
 
-		let food = this.refs.food.value.trim();
-		let location = this.state.inputLocation ? this.refs.location.value.trim() : this.state.location;
+		let food = this.refs.food.value.trim().toLowerCase();
+		let location = this.state.inputLocation ? this.refs.location.value.trim().toLowerCase() : this.state.location.toLowerCase();
 
 		if(location && food) {
 			this.setState({ formErrors: { food: false, location: false }});
@@ -45,6 +47,7 @@ export default class Landing extends React.Component {
 			return this.setState({ formErrors: { food: !food, location: !location }});
 		}
 
+		this.props.history.pushState(null, '/s/' + slug(location) + '/' + slug(food));
 	}
 
 	componentWillMount() {
@@ -81,9 +84,8 @@ export default class Landing extends React.Component {
 			);
 		}
 
-
 		return (
-			<div className="landing">
+			<div className="search">
 				<form onSubmit={this.onSubmit.bind(this)}>
 					<h2>waar heb je zin in?</h2>
 					<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot of barbeque" className={foodClass} />

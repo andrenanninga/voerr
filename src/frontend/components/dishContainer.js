@@ -20,6 +20,7 @@ class DishContainer extends React.Component {
 	}
 
 	componentWillMount() {
+		console.log('fetchDishes');
 		DishActions.fetchDishes();
 	}
 	
