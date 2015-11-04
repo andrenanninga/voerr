@@ -17,12 +17,14 @@ class Review(db.Model):
     __tablename__ = 'review'
 
     id = db.Column('id', db.Integer, primary_key=True)
-    user_id = db.Column('user_id', db.Integer)
-    dish_id = db.Column('dish_id', db.Integer)
+    user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+    dish_id = db.Column('dish_id', db.Integer, db.ForeignKey('dish.id'))
     content = db.Column('content', db.String(255))
     rating = db.Column('rating', db.Integer)
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    user = db.relationship('User', backref='reviews')
+    dish = db.relationship('Dish', backref='reviews')
 
     def __init__(self, content=None, rating=None, user_id=None, dish_id=None):
         self.content = content
