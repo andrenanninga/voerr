@@ -28,6 +28,15 @@ class Dish(db.Model):
     def __repr__(self):
         return '<Dish %r>' % (self.name)
 
+    def getExclude():
+        return []
+
+    @staticmethod
+    def post_single_preprocessor(data=None, **kw):
+        # todo stuff
+
+        return data
+
     def serialize(self, related = True):
         dishDict = {
             'id' : self.id,
@@ -41,7 +50,3 @@ class Dish(db.Model):
                 dishDict['allergies'].append(allergy.serialize())
 
         return dishDict
-
-    def getExclude():
-        return [
-        ]
