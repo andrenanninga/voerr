@@ -1,6 +1,12 @@
 @import "_variables";
 @import "_breakpoints";
 
+body {
+	background: url('/images/beach.jpg');
+	background-position: center center;
+	background-size: cover;
+}
+
 .landing {
 	height: 100%;
 	display: flex;

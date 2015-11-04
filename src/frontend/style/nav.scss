@@ -9,6 +9,8 @@
 		flex-direction: row;
 		padding: 0 20px;
 		background-color: $light-color;
+		border-bottom: 1px solid desaturate(darken($light-color, 5%), 40%);
+
 
 		h1 {
 			margin: 0;
@@ -42,6 +44,7 @@
 		flex-direction: row;
 		padding: 0 10px;
 		background-color: $light-color;
+		border-bottom: 1px solid desaturate(darken($light-color, 5%), 40%);
 
 		h1 {
 			flex-grow: 1;
