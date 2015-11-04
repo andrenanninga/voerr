@@ -31,5 +31,8 @@ def login():
 
 @mod.route('/logout', methods=['POST'])
 def logout():
+    if not current_user.is_authenticated:
+        raise Error(name='Could not log out', message='Not logged in to log out')
+
     logout_user()
     return make_response("", 204)
