@@ -33,6 +33,15 @@ class Meal(db.Model):
     def __repr__(self):
         return '<Meal %r>' % (self.price)
 
+    def getExclude():
+        return []
+
+    @staticmethod
+    def post_single_preprocessor(data=None, **kw):
+        # todo stuff
+
+        return data
+
     def serialize(self, related = True):
         mealDict = {
             'price' : self.price,
