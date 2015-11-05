@@ -35,19 +35,18 @@ class Dish(db.Model):
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
-
         data['cook_id'] = current_user.id
         from app.api.models.user import User
         getUser = User.query.get(current_user.id)
-        print("############")
-        print(getUser.is_cook())
-        print("############")
 
         if not getUser.is_cook():
             raise ProcessingException(
                 description='User (%r) must be a cook' % getUser.email,
                 code=400
             )
+
+        from app.api.models.allergy import Allergy
+        data['allergies'] = db.session.query(Allergy).filter(Allergy.id.in_(data['allergies'])).all()
 
         return data
 
