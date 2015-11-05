@@ -46,8 +46,16 @@ class Dish(db.Model):
             )
 
         from app.api.models.allergy import Allergy
-        data['allergies'] = db.session.query(Allergy).filter(Allergy.id.in_(data['allergies'])).all()
+        AllergyArray = db.session.query(Allergy).filter(Allergy.id.in_(data['allergies'])).all()
 
+        print("############")
+        if len(data['allergies']) != len(AllergyArray):
+            raise ProcessingException(
+                description='Invalid allergy_id in array',
+                code=400
+            )
+
+        data['allergies'] = AllergyArray
         return data
 
     def serialize(self, related=True):
