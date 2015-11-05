@@ -1,13 +1,15 @@
 from app import db
 import datetime
-
+from flask.ext.login import current_user
+from flask.ext.restless import ProcessingException
 from app.api.models.cook import Cook
 from app.api.models.allergy import Allergy
 
 dish_allergy = db.Table('dish_allergy',
-    db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),
-    db.Column('allergy_id', db.Integer, db.ForeignKey('allergy.id'))
-)
+                        db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),
+                        db.Column('allergy_id', db.Integer, db.ForeignKey('allergy.id'))
+                        )
+
 
 class Dish(db.Model):
     __tablename__ = 'dish'
@@ -16,8 +18,8 @@ class Dish(db.Model):
     name = db.Column('name', db.String(127))
     description = db.Column('description', db.String(255))
     cook_id = db.Column('cook_id', db.Integer, db.ForeignKey('cook.id'))
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     allergies = db.relationship('Allergy', secondary=dish_allergy)
 
     def __init__(self, name=None, description=None, cook_id=None):
@@ -33,19 +35,31 @@ class Dish(db.Model):
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
-        # todo stuff
+
+        data['cook_id'] = current_user.id
+        from app.api.models.user import User
+        getUser = User.query.get(current_user.id)
+        print("############")
+        print(getUser.is_cook())
+        print("############")
+
+        if not getUser.is_cook():
+            raise ProcessingException(
+                description='User (%r) must be a cook' % getUser.email,
+                code=400
+            )
 
         return data
 
-    def serialize(self, related = True):
+    def serialize(self, related=True):
         dishDict = {
-            'id' : self.id,
-            'name' : self.name,
-            'description' : self.description
+            'id': self.id,
+            'name': self.name,
+            'description': self.description
         }
 
-        if(related):
-            dishDict['allergies']  = []
+        if (related):
+            dishDict['allergies'] = []
             for allergy in self.allergies:
                 dishDict['allergies'].append(allergy.serialize())
 

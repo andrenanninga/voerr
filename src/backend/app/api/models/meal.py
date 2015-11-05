@@ -1,5 +1,11 @@
+from sqlalchemy.orm import validates
+
 from app import db
 import datetime
+
+from app.api.errors.errors import Error
+from app.api.validators.number import NumberValidator
+
 
 class Meal(db.Model):
     __tablename__ = 'meal'
@@ -57,3 +63,41 @@ class Meal(db.Model):
         }
 
         return mealDict
+
+    @validates('price')
+    def validate_price(self, key, price):
+        if not NumberValidator.is_int(price):
+            raise Error(name='price', message='Not a valid price')
+        return price
+
+    @validates('available_from')
+    def validate_available_from(self, key, available_from):
+        if available_from < datetime.now():
+            raise Error(name='available_from', message='The date is in the past')
+
+        return available_from
+    #
+    # @validates('rating')
+    # def validate_rating(self, key, rating):
+    #     if not NumberValidator.between(1, 5, rating):
+    #         raise Error(name='rating', message='Number must be between 1 and 5')
+    #     return rating
+    #
+    # @validates('content')
+    # def validate_content(self, key, content):
+    #     if len(content) < 10:
+    #         raise Error(name='content', message='Review must be longer than or equal to 10 characters')
+    #     return content
+    #
+    # @staticmethod
+    # def post_single_preprocessor(data=None, **kw):
+    #     getReview = Review.query.filter(Review.user_id == current_user.id, Review.dish_id == data['dish_id']).first()
+    #     if getReview is not None:
+    #         raise ProcessingException(
+    #             description='A review was already found for this user and dish: Review with ID %r' % getReview.id,
+    #             code=400
+    #         )
+    #
+    #     data['user_id'] = current_user.id
+    #     return data
+    #

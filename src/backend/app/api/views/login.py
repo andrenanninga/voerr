@@ -8,8 +8,12 @@ from app.api.models.user import User
 
 mod = Blueprint('login', __name__, url_prefix='/api/v1/login')
 
+
 @mod.route('', methods=['POST'])
 def login():
+    if current_user.is_authenticated:
+        raise Error(name='Failed login', message='Already logged in')
+
     try:
         form_data = json.loads(request.get_data().decode('utf-8'))
 
@@ -28,6 +32,7 @@ def login():
             raise Error(name='Failed login', message='Could not log in, email or password not given')
     except Error as e:
         return make_response(jsonify({e.name: e.message}), 400)
+
 
 @mod.route('/logout', methods=['POST'])
 def logout():
