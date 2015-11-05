@@ -14,6 +14,11 @@
 
 		h1 {
 			margin: 0;
+
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
 		}
 
 		nav {
@@ -76,7 +81,7 @@
 				transform: translateX(0);
 
 				&.open {
-					transform: translateX(270px);
+					transform: translateX(280px);
 					box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.6);
 				}			
 
@@ -86,7 +91,7 @@
 				position: absolute;
 				top: 0;
 				bottom: 0;
-				left: -270px;
+				left: -280px;
 				flex-direction: row-reverse;
 				margin: 0;
 				padding: 180px 120px 0 40px;

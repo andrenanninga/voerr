@@ -5,19 +5,31 @@ import { resolve } from 'url';
 import { createActions } from 'alt/utils/decorators';
 
 @createActions(alt)
-export default class SearchResultActions {
+export default class DishesActions {
 	constructor() {
 		this.generateActions(
-			'receiveSearchResults'
+			'receiveDishes'
 		);
 	}
 
-	requestSearchResults() {
+	requestDishes() {
 		let url = resolve(config.apiEndpoint, 'dishes');
-		console.log(url);
 		axios.get(url)
 			.then(res => {
-				this.actions.receiveSearchResults(res.data.objects);
+				this.actions.receiveDishes(res.data.objects);
+			})
+			.catch(e => {
+				console.error(e);
+			});
+	}
+
+	requestDish(id) {
+		let url = resolve(config.apiEndpoint, ['dishes', id].join('/'));
+		console.log(url);
+
+		axios.get(url)
+			.then(res => {
+				this.actions.receiveDishes([res.data]);
 			})
 			.catch(e => {
 				console.error(e);

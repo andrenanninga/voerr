@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import ClassNames from 'classnames';
 import 'assets/style/nav';
 
@@ -24,7 +25,7 @@ export default class Nav extends React.Component {
 			top = <input type="text" name="search" />;
 		}
 		else {
-			top = <h1>voerr</h1>;
+			top = <h1><Link to="/">voerr</Link></h1>;
 		}
 
 		return (
@@ -35,10 +36,9 @@ export default class Nav extends React.Component {
 
 						<li className="header"><h2>voerr</h2></li>
 
-						<li><a href="#">Browse</a></li>
-						<li><a href="#">Sign Up</a></li>
-						<li><a href="#">Log In</a></li>
-						<li><a href="#">How it Works</a></li>
+						<li><a href="#">Registreren</a></li>
+						<li><a href="#">Inloggen</a></li>
+						<li><a href="#">Hoe het Werkt</a></li>
 
 					</ul>
 				</nav>

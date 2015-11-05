@@ -48,8 +48,6 @@ export default class SearchPage extends React.Component {
 			return this.setState({ formErrors: { food: !food, location: !location }});
 		}
 
-		console.log(location, food);
-
 		this.props.history.pushState(null, '/s/' + slug(location) + '/' + slug(food));
 	}
 

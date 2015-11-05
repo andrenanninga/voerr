@@ -1,4 +1,5 @@
 from app import db
+from sqlalchemy.ext.hybrid import hybrid_property
 from app.api.models.user import User
 
 import datetime
@@ -13,7 +14,7 @@ class Cook(db.Model):
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
-    # dishes = db.relationship('Dish', backref='cook')
+    dishes = db.relationship('Dish', backref='cook')
 
     def __init__(self, description=None, location=None, coordinates=None, user_id=None):
         self.description = description
@@ -26,6 +27,10 @@ class Cook(db.Model):
 
     def getExclude():
         return []
+
+    @hybrid_property
+    def name(self):
+        return self.user.name
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
