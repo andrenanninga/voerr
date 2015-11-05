@@ -49,7 +49,7 @@ api_manager.create_api(Dish,
                        collection_name='dishes',
                        methods=['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
                        exclude_columns=Dish.getExclude(),
-                       validation_exceptions=[Error],
+                       validation_exceptions=[Error, ProcessingException],
                        preprocessors={
                            'POST': [check_auth, Dish.post_single_preprocessor]
                        })

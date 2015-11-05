@@ -20,7 +20,7 @@ class User(db.Model):
     password = db.Column('password', db.String(127))
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
-    # cook = db.relationship('Cook', uselist=False, backref='user')
+    cook = db.relationship('Cook', uselist=False, backref='user')
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
@@ -44,6 +44,9 @@ class User(db.Model):
 
     def getExclude():
         return ['password']
+
+    def is_cook(self):
+        return self.cook is not None
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
