@@ -1,0 +1,25 @@
+@import "_variables";
+@import "_normalize";
+@import "_skeleton";
+
+html, body {
+	min-height: 100%;
+}
+
+body {
+	background-color: #eee;
+	font-family: $text-type;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $header-type;
+}
+
+
+.highlight {
+	color: $primary-color;
+}
+
+a {
+	color: $primary-color;
+}
