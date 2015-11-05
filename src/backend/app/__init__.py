@@ -124,5 +124,7 @@ api_manager.create_api(User,
 
 from app import main
 from app.api.views.login import mod as loginModule
+from app.api.views.search import mod as searchModule
 
 app.register_blueprint(loginModule)
+app.register_blueprint(searchModule)
