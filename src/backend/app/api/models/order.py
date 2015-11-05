@@ -1,12 +1,15 @@
 import datetime
 import flask
 
+
 from app import db
 
 from app.api.models.meal import Meal
 
+from sqlalchemy.orm import validates
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
+from app.api.validators.number import NumberValidator
 
 
 class Order(db.Model):
@@ -19,8 +22,8 @@ class Order(db.Model):
     total_amount = db.Column('total_amount', db.Integer)
     meal_id = db.Column('meal_id', db.Integer)
     user_id = db.Column('user_id', db.Integer)
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
     def __init__(self, amount_meals=None, start_time=None, is_takeout=None, total_amount=None, meal_id=None, user_id=None):
         self.amount_meals = amount_meals
@@ -36,11 +39,18 @@ class Order(db.Model):
     def getExclude():
         return []
 
+    @validates('amount_meals')
+    def validate_amount_meals(self, key, amount_meals):
+        if not NumberValidator.is_int(amount_meals) or amount_meals < 1:
+            from app.api.errors.errors import Error
+            raise Error(name='amount_meals', message='Not a valid value, must be larger than or equal to 1')
+        return amount_meals
+
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
         getMeal = Meal.query.get(data['meal_id'])
         if getMeal is None:
-            raise ProcessingError(
+            raise ProcessingException(
                 description='Meal does not exist',
                 code=400
             )
@@ -48,4 +58,8 @@ class Order(db.Model):
         data['total_amount'] = getMeal.price * data['amount_meals']
         data['user_id'] = current_user.id
 
+        return data
+
+    @staticmethod
+    def post_single_postprocessor(data=None, **kw):
         return data

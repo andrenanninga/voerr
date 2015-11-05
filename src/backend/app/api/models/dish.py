@@ -18,8 +18,8 @@ class Dish(db.Model):
     name = db.Column('name', db.String(127))
     description = db.Column('description', db.String(255))
     cook_id = db.Column('cook_id', db.Integer, db.ForeignKey('cook.id'))
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     allergies = db.relationship('Allergy', secondary=dish_allergy)
 
     def __init__(self, name=None, description=None, cook_id=None):
@@ -35,13 +35,9 @@ class Dish(db.Model):
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
-
         data['cook_id'] = current_user.id
         from app.api.models.user import User
         getUser = User.query.get(current_user.id)
-        print("############")
-        print(getUser.is_cook())
-        print("############")
 
         if not getUser.is_cook():
             raise ProcessingException(
@@ -49,6 +45,17 @@ class Dish(db.Model):
                 code=400
             )
 
+        from app.api.models.allergy import Allergy
+        AllergyArray = db.session.query(Allergy).filter(Allergy.id.in_(data['allergies'])).all()
+
+        print("############")
+        if len(data['allergies']) != len(AllergyArray):
+            raise ProcessingException(
+                description='Invalid allergy_id in array',
+                code=400
+            )
+
+        data['allergies'] = AllergyArray
         return data
 
     def serialize(self, related=True):

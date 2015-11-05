@@ -16,15 +16,6 @@ class NumberValidator:
 
     @staticmethod
     def is_double(value):
-        """Checks if the value is an float or int."""
         if isinstance(value, float) or isinstance(value, int):
             return True
         return False
-
-    @staticmethod
-    def is_boolean(value):
-        """Checks if the value is a boolean."""
-        if isinstance(value, bool):
-            return True
-        return False
-
