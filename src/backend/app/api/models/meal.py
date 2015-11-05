@@ -1,4 +1,5 @@
 from sqlalchemy.orm import validates
+from flask.ext.login import current_user
 
 from app import db
 import datetime
@@ -24,7 +25,7 @@ class Meal(db.Model):
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
-    def __init__(self, price=None, available_from=None, available_until=None, dinner_time=None, portions=None, portals_claimed=None, location=None, notes=None, is_takeout=None, dish_id=None):
+    def __init__(self, price=None, available_from=None, available_until=None, dinner_time=None, portions=None, portions_claimed=None, location=None, notes=None, is_takeout=None, dish_id=None):
         self.price = price
         self.available_from = available_from
         self.available_until = available_until
@@ -66,38 +67,37 @@ class Meal(db.Model):
 
     @validates('price')
     def validate_price(self, key, price):
-        if not NumberValidator.is_int(price):
-            raise Error(name='price', message='Not a valid price')
+        if not NumberValidator.is_double(price):
+            raise Error(name='price', message='Not a valid price(int, float)')
         return price
 
     @validates('available_from')
     def validate_available_from(self, key, available_from):
-        if available_from < datetime.now():
+        if available_from < datetime.datetime.utcnow():
             raise Error(name='available_from', message='The date is in the past')
-
         return available_from
-    #
-    # @validates('rating')
-    # def validate_rating(self, key, rating):
-    #     if not NumberValidator.between(1, 5, rating):
-    #         raise Error(name='rating', message='Number must be between 1 and 5')
-    #     return rating
-    #
-    # @validates('content')
-    # def validate_content(self, key, content):
-    #     if len(content) < 10:
-    #         raise Error(name='content', message='Review must be longer than or equal to 10 characters')
-    #     return content
-    #
-    # @staticmethod
-    # def post_single_preprocessor(data=None, **kw):
-    #     getReview = Review.query.filter(Review.user_id == current_user.id, Review.dish_id == data['dish_id']).first()
-    #     if getReview is not None:
-    #         raise ProcessingException(
-    #             description='A review was already found for this user and dish: Review with ID %r' % getReview.id,
-    #             code=400
-    #         )
-    #
-    #     data['user_id'] = current_user.id
-    #     return data
-    #
+
+    @validates('portions')
+    def validate_portions(self, key, portions):
+        if not NumberValidator.is_int(portions):
+            raise Error(name='portions', message='Not a valid number for portions')
+        if portions < 1:
+            raise Error(name='portions', message='The number portions cannot be 0.')
+        return portions
+
+    @validates('portions_claimed', 'portions')
+    def validate_portions_claimed(self, key, portions_claimed):
+        print(portions_claimed)
+        print(self.portions)
+        if portions_claimed > self.portions:
+            raise Error(name='portions_claimed', message='The number of portions_claimed is higher than the portions.')
+        return portions_claimed
+
+    @validates('is_takeout')
+    def validate_is_takeout(self, key, is_takeout):
+        print(type(is_takeout))
+        if not bool(is_takeout):
+            raise Error(name='is_takeout', message='Not a boolean for is_takeout.')
+        return is_takeout
+
+
