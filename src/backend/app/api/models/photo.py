@@ -1,6 +1,7 @@
 from app import db
 import datetime
 
+
 class Photo(db.Model):
     __tablename__ = 'photo'
 
@@ -9,8 +10,8 @@ class Photo(db.Model):
     dish_id = db.Column('dish_id', db.Integer)
     user_id = db.Column('user_id', db.Integer)
     cook_id = db.Column('cook_id', db.Integer)
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
     def __init__(self, name=None, dish_id=None, user_id=None, cook_id=None):
         self.name = name

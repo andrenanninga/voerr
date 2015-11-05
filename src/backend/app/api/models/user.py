@@ -18,8 +18,8 @@ class User(db.Model):
     name = db.Column('name', db.String(127))
     email = db.Column('email', db.String(127), unique=True)
     password = db.Column('password', db.String(127))
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     cook = db.relationship('Cook', uselist=False, backref='user')
 
     def __init__(self, name=None, email=None, password=None):

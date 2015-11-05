@@ -18,8 +18,8 @@ class Dish(db.Model):
     name = db.Column('name', db.String(127))
     description = db.Column('description', db.String(255))
     cook_id = db.Column('cook_id', db.Integer, db.ForeignKey('cook.id'))
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     allergies = db.relationship('Allergy', secondary=dish_allergy)
 
     def __init__(self, name=None, description=None, cook_id=None):

@@ -19,8 +19,8 @@ class Order(db.Model):
     total_amount = db.Column('total_amount', db.Integer)
     meal_id = db.Column('meal_id', db.Integer)
     user_id = db.Column('user_id', db.Integer)
-    data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
-    data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+    date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
+    date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
     def __init__(self, amount_meals=None, start_time=None, is_takeout=None, total_amount=None, meal_id=None, user_id=None):
         self.amount_meals = amount_meals
@@ -40,7 +40,7 @@ class Order(db.Model):
     def post_single_preprocessor(data=None, **kw):
         getMeal = Meal.query.get(data['meal_id'])
         if getMeal is None:
-            raise ProcessingError(
+            raise ProcessingException(
                 description='Meal does not exist',
                 code=400
             )
