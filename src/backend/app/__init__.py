@@ -83,6 +83,9 @@ api_manager.create_api(Order,
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
                            'POST': [check_auth, Order.post_single_preprocessor]
+                       },
+                       postprocessors={
+                           'POST': [Order.post_single_postprocessor]
                        })
 
 from app.api.models.photo import Photo

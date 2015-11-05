@@ -13,3 +13,9 @@ class NumberValidator:
         if type(value) is int:
             return True
         return False
+
+    @staticmethod
+    def is_double(value):
+        if isinstance(value, float) or isinstance(value, int):
+            return True
+        return False
