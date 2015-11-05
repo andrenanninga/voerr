@@ -1,12 +1,20 @@
-from app import db
 import datetime
+import flask
+
+from app import db
+
+from app.api.models.meal import Meal
+
+from flask.ext.login import current_user
+from flask.ext.restless import ProcessingException
+
 
 class Order(db.Model):
     __tablename__ = 'order'
 
     id = db.Column('id', db.Integer, primary_key=True)
     amount_meals = db.Column('amount_meals', db.Integer)
-    start_time= db.Column('start_time', db.DateTime)
+    start_time = db.Column('start_time', db.DateTime)
     is_takeout = db.Column('is_takeout', db.Boolean)
     total_amount = db.Column('total_amount', db.Integer)
     meal_id = db.Column('meal_id', db.Integer)
@@ -23,13 +31,21 @@ class Order(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return '<Order %r>' % (self.total_amount)
+        return '<Order %r>' % self.total_amount
 
     def getExclude():
         return []
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
-        # todo stuff
+        getMeal = Meal.query.get(data['meal_id'])
+        if getMeal is None:
+            raise ProcessingError(
+                description='Meal does not exist',
+                code=400
+            )
+
+        data['total_amount'] = getMeal.price * data['amount_meals']
+        data['user_id'] = current_user.id
 
         return data

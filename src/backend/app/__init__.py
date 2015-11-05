@@ -43,6 +43,15 @@ api_manager.create_api(Category,
                        validation_exceptions=[Error, ProcessingException]
                        )
 
+from app.api.models.cook import Cook
+api_manager.create_api(Cook,
+                       url_prefix='/api/v1',
+                       collection_name='cooks',
+                       methods=['GET'],
+                       exclude_columns=Cook.getExclude(),
+                       validation_exceptions=[Error, ProcessingException]
+                       )
+
 from app.api.models.dish import Dish
 api_manager.create_api(Dish,
                        url_prefix='/api/v1',
