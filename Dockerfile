@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -q -y mysql-server libmysqlclient-dev
 
 # install git and pip
-RUN apt-get install -y build-essential git python3-pip
+RUN apt-get install -y build-essential git python3-pip python2.7
 
 # install node
 RUN apt-get install -y software-properties-common apt-transport-https
@@ -18,6 +18,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 68576280
 RUN apt-add-repository 'deb https://deb.nodesource.com/node_4.x precise main'
 RUN apt-get -y update
 RUN apt-get install -y nodejs
+RUN npm config set python python2.7
 
 # install webpack
 RUN npm install -g webpack

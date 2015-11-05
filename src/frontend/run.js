@@ -13,7 +13,6 @@ render((
 			<IndexRoute component={Search} />
 			<Route path="s/:location/:term" component={SearchResults} />
 			<Route path="dishes" component={DishContainer} />
-			<Route path="dish/:id" component={Dish} />
 		</Route>
 	</Router>
 ), document.getElementById('content'));
