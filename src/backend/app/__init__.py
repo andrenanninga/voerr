@@ -83,6 +83,9 @@ api_manager.create_api(Order,
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
                            'POST': [check_auth, Order.post_single_preprocessor]
+                       },
+                       postprocessors={
+                           'POST': [Order.post_single_postprocessor]
                        })
 
 from app.api.models.photo import Photo
@@ -121,5 +124,7 @@ api_manager.create_api(User,
 
 from app import main
 from app.api.views.login import mod as loginModule
+from app.api.views.search import mod as searchModule
 
 app.register_blueprint(loginModule)
+app.register_blueprint(searchModule)

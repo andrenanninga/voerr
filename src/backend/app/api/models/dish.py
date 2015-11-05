@@ -35,13 +35,9 @@ class Dish(db.Model):
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
-
         data['cook_id'] = current_user.id
         from app.api.models.user import User
         getUser = User.query.get(current_user.id)
-        print("############")
-        print(getUser.is_cook())
-        print("############")
 
         if not getUser.is_cook():
             raise ProcessingException(
@@ -49,6 +45,16 @@ class Dish(db.Model):
                 code=400
             )
 
+        from app.api.models.allergy import Allergy
+        AllergyArray = db.session.query(Allergy).filter(Allergy.id.in_(data['allergies'])).all()
+
+        if len(data['allergies']) != len(AllergyArray):
+            raise ProcessingException(
+                description='Invalid allergy_id in array',
+                code=400
+            )
+
+        data['allergies'] = AllergyArray
         return data
 
     def serialize(self, related=True):
