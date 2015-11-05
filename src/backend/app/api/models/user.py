@@ -45,6 +45,9 @@ class User(db.Model):
     def getExclude():
         return ['password']
 
+    def is_cook(self):
+        return self.cook is not None
+
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
         getUser = User.query.filter(User.email == data['email']).first()

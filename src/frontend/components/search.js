@@ -2,7 +2,7 @@ import React from 'react';
 import { transitionTo } from 'react-router';
 import geolocator from 'geolocator';
 import classNames from 'classnames';
-import slug from 'slug';	
+import slug from 'http-slug';	
 import 'style/search';
 
 // geolocator needs to a global variable for the locateIp fallback method
@@ -46,6 +46,8 @@ export default class Search extends React.Component {
 		else {
 			return this.setState({ formErrors: { food: !food, location: !location }});
 		}
+
+		console.log(location, food);
 
 		this.props.history.pushState(null, '/s/' + slug(location) + '/' + slug(food));
 	}
