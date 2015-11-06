@@ -1,9 +1,8 @@
-from sqlalchemy.orm import validates
-from flask.ext.login import current_user
-
-from app import db
 import datetime
 
+from sqlalchemy.orm import validates
+
+from app import db
 from app.api.errors.errors import Error
 from app.api.validators.number import NumberValidator
 
@@ -77,6 +76,18 @@ class Meal(db.Model):
             raise Error(name='available_from', message='The date is in the past')
         return available_from
 
+    @validates('available_until')
+    def validate_available_until(self, key, available_until):
+        if available_until < datetime.datetime.utcnow():
+            raise Error(name='available_until', message='The date is in the past')
+        return available_until
+
+    @validates('dinner_time')
+    def validate_dinner_time(self, key, dinner_time):
+        if dinner_time < datetime.datetime.utcnow():
+            raise Error(name='dinner_time', message='The date is in the past')
+        return dinner_time
+
     @validates('portions')
     def validate_portions(self, key, portions):
         if not NumberValidator.is_int(portions):
@@ -85,17 +96,14 @@ class Meal(db.Model):
             raise Error(name='portions', message='The number portions cannot be 0.')
         return portions
 
-    @validates('portions_claimed', 'portions')
+    @validates('portions_claimed')
     def validate_portions_claimed(self, key, portions_claimed):
-        print(portions_claimed)
-        print(self.portions)
         if portions_claimed > self.portions:
             raise Error(name='portions_claimed', message='The number of portions_claimed is higher than the portions.')
         return portions_claimed
 
     @validates('is_takeout')
     def validate_is_takeout(self, key, is_takeout):
-        print(type(is_takeout))
         if not bool(is_takeout):
             raise Error(name='is_takeout', message='Not a boolean for is_takeout.')
         return is_takeout
