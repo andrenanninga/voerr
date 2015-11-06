@@ -3,7 +3,9 @@ from app import db
 from flask.ext.restless.helpers import to_dict
 
 from app.api.errors.errors import Error
-from app.api.models.allergy import Allergy
+from app.api.models.dish_allergy import DishAllergy
+from app.api.models.dish import Dish
+from app.api.models.cook import Cook
 
 mod = Blueprint('search', __name__, url_prefix='/api/v1/search')
 
@@ -11,21 +13,26 @@ mod = Blueprint('search', __name__, url_prefix='/api/v1/search')
 @mod.route('/dishes', methods=['GET'])
 def search():
     try:
-        allergies = request.args.get('allergies')
+        dishes = Dish.query
+
         # api/v1/search/dishes?allergies=1,2,3,4 returns all dishes that have no allergies 1,2,3,4
+        allergies = request.args.get('allergies')
         if allergies is not None:
-            from app.api.models.dish_allergy import DishAllergy
-            from app.api.models.dish import Dish
 
             if allergies is not None:
                 exclude_ids = allergies.split(',')
                 dish_ids = DishAllergy.dish_id_exclude_allergies(exclude_ids)
-                dishes = Dish.query.filter(~Dish.id.in_(dish_ids))
+                dishes = dishes.filter(~Dish.id.in_(dish_ids))
 
-        term = request.args.get('term')
         # api/v1/search/dishes?term=zalm finds "zalmfilet", "bereid met zalm", "zeezalm"
+        term = request.args.get('term')
         if term is not None:
             dishes = dishes.filter(Dish.name.like('%' + term + '%'))
+
+        # api/v1/search/dishes?location=gro finds "groningen", "grootegast"
+        location = request.args.get('location')
+        if location is not None:
+            dishes = dishes.join(Dish.cook).filter(Cook.location.like('%' + location + '%'))
 
         dishes = dishes.all()
         json = {"objects": []}

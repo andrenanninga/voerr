@@ -6,7 +6,7 @@ VALUES (1, 'test', 'test@test.com', 'test'),
 
 INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`) 
 VALUES (1, 'ik ben een kok', 'groningen', POINT(0, 0), 1),
-(2, 'Ik hou niet van koken', 'Groningen', POINT(1, 1), 2);
+(2, 'Ik hou niet van koken', 'leeuwarden', POINT(1, 1), 2);
 
 INSERT INTO category (`id`, `name`, `parent_id`) VALUES
 -- Category Menugang
