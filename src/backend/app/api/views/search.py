@@ -19,15 +19,15 @@ def search():
 
             if allergies is not None:
                 exclude_ids = allergies.split(',')
-
                 dish_ids = DishAllergy.dish_id_exclude_allergies(exclude_ids)
+                dishes = Dish.query.filter(~Dish.id.in_(dish_ids))
 
-                dishes = Dish.query.filter(~Dish.id.in_(dish_ids)).all()
-            else:
-                dishes = Dish.query.all()
-        else:
-            dishes = Dish.query.all()
+        term = request.args.get('term')
+        # api/v1/search/dishes?term=zalm finds "zalmfilet", "bereid met zalm", "zeezalm"
+        if term is not None:
+            dishes = dishes.filter(Dish.name.like('%' + term + '%'))
 
+        dishes = dishes.all()
         json = {"objects": []}
         for dish in dishes:
             # json["objects"].append(to_dict(dish, deep={"allergies": {"id": {"id"}}}, include_relations={"allergies": ["id"]}))
