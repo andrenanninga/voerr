@@ -1,9 +1,8 @@
-from sqlalchemy.orm import validates
-from flask.ext.login import current_user
-
-from app import db
 import datetime
 
+from sqlalchemy.orm import validates
+
+from app import db
 from app.api.errors.errors import Error
 from app.api.validators.number import NumberValidator
 
