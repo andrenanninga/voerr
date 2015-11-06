@@ -28,7 +28,7 @@ class Dish(db.Model):
         self.cook_id = cook_id
 
     def __repr__(self):
-        return '<Dish %r>' % (self.name)
+        return '<Dish %r>' % self.id
 
     def getExclude():
         return []
@@ -56,6 +56,9 @@ class Dish(db.Model):
 
         data['allergies'] = AllergyArray
         return data
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def serialize(self, related=True):
         dishDict = {
