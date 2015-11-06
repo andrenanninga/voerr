@@ -1,5 +1,5 @@
 from pprint import pprint
-from flask import request, Blueprint, jsonify, make_response, session
+from flask import request, Blueprint, jsonify, make_response, session, redirect
 from flask.ext.login import current_user, login_user, logout_user
 from app.api.errors.errors import Error
 import json
@@ -11,10 +11,10 @@ mod = Blueprint('login', __name__, url_prefix='/api/v1/login')
 
 @mod.route('', methods=['POST'])
 def login():
-    if current_user.is_authenticated:
-        raise Error(name='Failed login', message='Already logged in')
-
     try:
+        if current_user.is_authenticated:
+            raise Error(name='Failed login', message='Already logged in')
+
         form_data = json.loads(request.get_data().decode('utf-8'))
 
         if ('email' in form_data) and ('password' in form_data):
@@ -23,10 +23,7 @@ def login():
                 raise Error(name='Failed login', message='Unknown email/password combination')
 
             login_user(user)
-
-            # session['hello'] = 'hoi'
-
-            return make_response(current_user.email)
+            return redirect('/api/v1/users/%d' % user.id)
 
         else:
             raise Error(name='Failed login', message='Could not log in, email or password not given')
@@ -36,8 +33,11 @@ def login():
 
 @mod.route('/logout', methods=['POST'])
 def logout():
-    if not current_user.is_authenticated:
-        raise Error(name='Could not log out', message='Not logged in to log out')
+    try:
+        if not current_user.is_authenticated:
+            raise Error(name='Could not log out', message='Not logged in to log out')
 
-    logout_user()
-    return make_response("", 204)
+        logout_user()
+        return make_response("", 204)
+    except Error as e:
+        return make_response(jsonify({e.name: e.message}), 400)
