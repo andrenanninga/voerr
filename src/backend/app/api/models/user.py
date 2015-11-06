@@ -27,6 +27,18 @@ class User(db.Model):
         self.email = email
         self.password = password
 
+    def serialize(self, related=True):
+        userDict = {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email
+        }
+
+        if self.cook is not None:
+            userDict['cook'] = self.cook
+
+        return userDict
+
     def is_authenticated(self):
         return True
 

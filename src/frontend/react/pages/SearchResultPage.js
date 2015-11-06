@@ -26,7 +26,8 @@ export default class SearchResultPage extends React.Component {
 	render() {
 		let dishes = this.props.dishes.map(dish => {
 			let key = 'dish_' + dish.id;
-			return <Dish key={key} {...dish} />;
+			let url = '/s/' + this.props.params.location + '/' + this.props.params.term + '/' + dish.id;
+			return <Dish key={key} url={url} {...dish} />;
 		});
 
 		return <div className="searchResults">{dishes}</div>

@@ -3,6 +3,7 @@ $secondary-color: #0B4F6C;
 $tetriary-color: #01BAEF;
 
 $light-color: #FBFBFF;
+$grey-color: desaturate(darken($light-color, 5%), 40%);
 $dark-color: #757575;
 
 $text-type: 'Lato', sans-serif;

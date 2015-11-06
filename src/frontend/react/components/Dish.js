@@ -7,7 +7,7 @@ export default class Dish extends React.Component {
 	render() {
 		let n = 500 + Math.round(Math.random() * 20); 
 		let src = 'http://unsplash.it/' + n + '/' + (n - 200) + '?random';
-		let url = '/gerecht/' + this.props.id;
+		let url = this.props.url || '/gerecht/' + this.props.id;
 		let rating;
 
 		if(this.props.reviews.length) {
