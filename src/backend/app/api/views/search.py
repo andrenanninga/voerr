@@ -38,7 +38,7 @@ def search():
         json = {"objects": []}
         for dish in dishes:
             # json["objects"].append(to_dict(dish, deep={"allergies": {"id": {"id"}}}, include_relations={"allergies": ["id"]}))
-            json["objects"].append(to_dict(dish))
+            json["objects"].append(to_dict(dish, deep={'allergies': [], 'cook': []}))
 
         json["num_results"] = len(dishes)
         return make_response(jsonify(json))
