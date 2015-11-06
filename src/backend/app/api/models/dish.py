@@ -67,8 +67,6 @@ class Dish(db.Model):
 
         if 'allergies' in data:
             data['allergies'] = Allergy.get_allergies_by_list(data['allergies'])
-        else:
-            data['allergies'] = Allergy
 
         return instance_id
 
