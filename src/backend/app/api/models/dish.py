@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from app import db
 import datetime
 from flask.ext.login import current_user
@@ -54,16 +56,12 @@ class Dish(db.Model):
 
     @staticmethod
     def patch_single_preprocessor(instance_id=None, data=None, **kw):
-        data['id'] = instance_id
-        data['cook_id'] = current_user.id
-        from app.api.models.user import User
-        getUser = User.query.get(current_user.id)
 
         dish = Dish.query.get(instance_id)
 
-        if not getUser.is_cook():
+        if dish is None or dish.cook_id is not current_user.id:
             raise ProcessingException(
-                description='User (%r) must be a cook' % getUser.email,
+                description='Dish does not exist',
                 code=400
             )
 
@@ -72,15 +70,7 @@ class Dish(db.Model):
         else:
             data['allergies'] = Allergy
 
-        dish.allergies = data['allergies']
-
-        # str(data['allergies'])
-
-        print("\n#########################################################################################################")
-        print(data)
-        print("#########################################################################################################\n")
-
-        return dish
+        return instance_id
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
