@@ -11,17 +11,20 @@ mod = Blueprint('search', __name__, url_prefix='/api/v1/search')
 @mod.route('/dishes', methods=['GET'])
 def search():
     try:
-        from app.api.models.dish_allergy import DishAllergy
-        from app.api.models.dish import Dish
-
         allergies = request.args.get('allergies')
-
+        # api/v1/search/dishes?allergies=1,2,3,4 returns all dishes that have no allergies 1,2,3,4
         if allergies is not None:
-            exclude_ids = allergies.split(',')
+            from app.api.models.dish_allergy import DishAllergy
+            from app.api.models.dish import Dish
 
-            dish_ids = DishAllergy.dish_id_exclude_allergies(exclude_ids)
+            if allergies is not None:
+                exclude_ids = allergies.split(',')
 
-            dishes = Dish.query.filter(~Dish.id.in_(dish_ids)).all()
+                dish_ids = DishAllergy.dish_id_exclude_allergies(exclude_ids)
+
+                dishes = Dish.query.filter(~Dish.id.in_(dish_ids)).all()
+            else:
+                dishes = Dish.query.all()
         else:
             dishes = Dish.query.all()
 
@@ -30,6 +33,7 @@ def search():
             # json["objects"].append(to_dict(dish, deep={"allergies": {"id": {"id"}}}, include_relations={"allergies": ["id"]}))
             json["objects"].append(to_dict(dish))
 
+        json["num_results"] = len(dishes)
         return make_response(jsonify(json))
 
     except Error as e:
