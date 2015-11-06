@@ -1,4 +1,5 @@
 from app import db
+from flask.ext.restless import ProcessingException
 
 class Allergy(db.Model):
     __tablename__ = 'allergy'
@@ -31,3 +32,14 @@ class Allergy(db.Model):
         }
 
         return allergyDict
+
+    @staticmethod
+    def get_allergies_by_list(list_of_ids):
+        AllergyArray = db.session.query(Allergy).filter(Allergy.id.in_(list_of_ids)).all()
+
+        if len(list_of_ids) != len(AllergyArray):
+            raise ProcessingException(
+                description='Invalid allergy_id in array',
+                code=400
+            )
+        return AllergyArray

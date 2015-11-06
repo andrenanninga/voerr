@@ -45,17 +45,42 @@ class Dish(db.Model):
                 code=400
             )
 
-        from app.api.models.allergy import Allergy
-        AllergyArray = db.session.query(Allergy).filter(Allergy.id.in_(data['allergies'])).all()
+        if 'allergies' in data:
+               data['allergies'] = Allergy.get_allergies_by_list(data['allergies'])
+        else:
+            data['allergies'] = []
 
-        if len(data['allergies']) != len(AllergyArray):
+        return data
+
+    @staticmethod
+    def patch_single_preprocessor(instance_id=None, data=None, **kw):
+        data['id'] = instance_id
+        data['cook_id'] = current_user.id
+        from app.api.models.user import User
+        getUser = User.query.get(current_user.id)
+
+        dish = Dish.query.get(instance_id)
+
+        if not getUser.is_cook():
             raise ProcessingException(
-                description='Invalid allergy_id in array',
+                description='User (%r) must be a cook' % getUser.email,
                 code=400
             )
 
-        data['allergies'] = AllergyArray
-        return data
+        if 'allergies' in data:
+            data['allergies'] = Allergy.get_allergies_by_list(data['allergies'])
+        else:
+            data['allergies'] = Allergy
+
+        dish.allergies = data['allergies']
+
+        # str(data['allergies'])
+
+        print("\n#########################################################################################################")
+        print(data)
+        print("#########################################################################################################\n")
+
+        return dish
 
     def serialize(self, related=True):
         dishDict = {

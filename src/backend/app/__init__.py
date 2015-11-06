@@ -60,7 +60,8 @@ api_manager.create_api(Dish,
                        exclude_columns=Dish.getExclude(),
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
-                           'POST': [check_auth, Dish.post_single_preprocessor]
+                           'POST': [check_auth, Dish.post_single_preprocessor],
+                           'PATCH_SINGLE': [check_auth, Dish.patch_single_preprocessor]
                        })
 
 from app.api.models.meal import Meal
