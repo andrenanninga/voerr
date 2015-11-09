@@ -1,45 +1,68 @@
 import React from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 import { Form } from 'formsy-react';
+
+import LoginStore from 'flux/stores/LoginStore';
+import LoginActions from 'flux/actions/LoginActions';
+
+import Input from 'react/components/form/Input';
+
 import 'assets/style/login';
 
+@connectToStores
 export default class Login extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			canSubmit: false
 		};
 	}
 
-	allowSubmit() {
+	static getStores(props) {
+		return [LoginStore];
+	}
+
+	static getPropsFromStores(props) {
+		return LoginStore.getState();
+	}
+
+	componentWillReceiveProps(props) {
+		if(props.user) {
+			this.props.history.pushState(null, '/');
+		}
+	}
+
+	submit(data) {
+		LoginActions.requestLogin(data.email, data.password);
+	}
+
+	enableSubmit() {
 		this.setState({ canSubmit: true });
 	}
 
-	disallowSubmit() {
+	disableSubmit() {
 		this.setState({ canSubmit: false });
 	}
 
-	submit() {
-		console.log(arguments);
-	}
-
 	render() {
+		let error;
+
+		if(this.props.error) {
+			error = <span className="error">{this.props.error}</span>
+		}
+
 		return (
 			<div>
 				<div className="overlay"></div>
 				<div className="login">
 					<h2>login</h2>
-					<Form onValidSubmit={this.submit} onValid={this.allowSubmit} onInvalid={this.disallowSubmit}>
-						<input type="text" name="email" placeholder="emailadres" validations="isEmail" validationError="poep" required/>
-						<input type="password" name="password" placeholder="wachtwoord" required/>
-						<label>
-							<input type="checkbox" name="remember"/>
-							<span className="label-body">Ingelogd blijven</span>
-						</label>
-
-						<button type="submit" className="button-primary" disabled={!this.state.canSubmit}>Inloggen</button>
+					{error}
+					<Form onSubmit={this.submit} onValid={this.enableSubmit.bind(this)} onInvalid={this.disableSubmit.bind(this)}>
+						<Input name="email" label="emailadres" required validations="isEmail" validationError="Dit is geen geldig emailadres"/>
+						<Input name="password" label="wachtwoord" required validations="minLength:1" validationError="poep" />
+						<button type="submit" disabled={!this.state.canSubmit}>Inloggen</button>
 					</Form>
-
 					<hr/>
 
 					<p>

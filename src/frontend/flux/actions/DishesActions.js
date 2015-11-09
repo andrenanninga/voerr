@@ -13,7 +13,7 @@ export default class DishesActions {
 	}
 
 	requestDishes() {
-		let url = resolve(config.apiEndpoint, 'dishes');
+		let url = [config.apiEndpoint, 'dishes'].join('/');
 		axios.get(url)
 			.then(res => {
 				this.actions.receiveDishes(res.data.objects);
@@ -24,7 +24,7 @@ export default class DishesActions {
 	}
 
 	requestDish(id) {
-		let url = resolve(config.apiEndpoint, ['dishes', id].join('/'));
+		let url = [config.apiEndpoint, 'dishes', id].join('/');
 		console.log(url);
 
 		axios.get(url)
