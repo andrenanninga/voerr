@@ -2,12 +2,9 @@ import datetime
 import hashlib
 
 import flask
-
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
-
 from sqlalchemy.orm import validates
-
 from app import db, login_manager
 from app.api.errors.errors import Error
 from app.api.validators.hash import HashValidator
@@ -67,21 +64,28 @@ class User(db.Model):
     def post_single_preprocessor(data=None, **kw):
         pass_length = 8
 
+        # Check if provided email address already exists
         getUser = User.query.filter(User.email == data['email']).first()
         if getUser is not None:
             raise ProcessingException(
                 description='Email address already exists: %r' % getUser.email,
                 code=400
             )
-        # todo password validator
 
+        # Password length check
         if len(data['password']) < pass_length:
             raise ProcessingException(
                 description='Password must at least contain %r characters' % pass_length,
                 code=400
             )
+        
+        # Hash password
         data['password'] = HashValidator.hash(data['password'])
         return data
+
+    @staticmethod
+    def patch_single_preprocessor(instance_Id=None, data=None, **kw):
+        return instance_Id
 
     @login_manager.user_loader
     def load_user(id):

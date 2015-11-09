@@ -1,6 +1,7 @@
 from pprint import pprint
 from flask import request, Blueprint, jsonify, make_response, session, redirect
 from flask.ext.login import current_user, login_user, logout_user
+from flask.ext.restless.helpers import to_dict
 from app.api.errors.errors import Error
 import json
 
@@ -14,7 +15,7 @@ mod = Blueprint('login', __name__, url_prefix='/api/v1/login')
 def login():
     try:
         if current_user.is_authenticated:
-            raise Error(name='Failed login', message='Already logged in')
+            raise Error(name='Failed login', message='Already logged in as user_id %d' % current_user.id)
 
         form_data = json.loads(request.get_data().decode('utf-8'))
 
@@ -24,7 +25,8 @@ def login():
                 raise Error(name='Failed login', message='Unknown email/password combination')
 
             login_user(user)
-            return redirect('/api/v1/users/%d' % user.id)
+
+            return make_response(jsonify(to_dict(user)))
 
         else:
             raise Error(name='Failed login', message='Could not log in, email or password not given')
