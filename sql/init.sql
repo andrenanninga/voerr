@@ -1,7 +1,7 @@
 INSERT INTO user (`id`, `name`, `email`, `password`) 
-VALUES (1, 'test', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e'), 	-- pw = wachtwoord
-(2, 'henk', 'henk@aol.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e'),			-- pw = wachtwoord
-(3, 'wesley', 'wesley@buurke.nl', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e');		-- pw = wachtwoord
+VALUES (1, 'Test Testinga', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e'), 	-- pw = wachtwoord
+(2, 'Henk van de Woude', 'henk@aol.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e'),			-- pw = wachtwoord
+(3, 'Wesley Buurkake', 'wesley@buurke.nl', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e');		-- pw = wachtwoord
 
 
 INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`) 
