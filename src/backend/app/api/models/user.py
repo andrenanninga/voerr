@@ -1,5 +1,4 @@
 import datetime
-import hashlib
 
 import flask
 from flask.ext.login import current_user
@@ -78,7 +77,7 @@ class User(db.Model):
                 description='Password must at least contain %r characters' % pass_length,
                 code=400
             )
-        
+
         # Hash password
         data['password'] = HashValidator.hash(data['password'])
         return data

@@ -15,7 +15,8 @@ mod = Blueprint('login', __name__, url_prefix='/api/v1/login')
 def login():
     try:
         if current_user.is_authenticated:
-            raise Error(name='Failed login', message='Already logged in as user_id %d' % current_user.id)
+            user = User.query.filter(User.id == current_user.id).first()
+            return make_response(jsonify(to_dict(user, exclude=User.getExclude())))
 
         form_data = json.loads(request.get_data().decode('utf-8'))
 
@@ -26,7 +27,7 @@ def login():
 
             login_user(user)
 
-            return make_response(jsonify(to_dict(user)))
+            return make_response(jsonify(to_dict(user, exclude=User.getExclude())))
 
         else:
             raise Error(name='Failed login', message='Could not log in, email or password not given')
@@ -44,3 +45,12 @@ def logout():
         return make_response("", 204)
     except Error as e:
         return make_response(jsonify({e.name: e.message}), 400)
+
+
+@mod.route('/current_user', methods=['GET'])
+def current():
+    if current_user.is_authenticated:
+        user = User.query.filter(User.id == current_user.id).first()
+        return make_response(jsonify(to_dict(user, exclude=User.getExclude())))
+    else:
+        return make_response(jsonify([]))

@@ -15,9 +15,42 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: $header-type;
 }
 
-
 .highlight {
 	color: $primary-color;
+}
+
+.error {
+	display: block;
+	background-color: $error-color;
+	padding: 5px 10px;
+	border-radius: 3px;
+	margin: 0 0 10px 0;
+	color: #fff;
+}
+
+.error-message {
+	color: $error-color;
+	padding: 0 5px;
+}
+
+input {
+	margin: 0;
+}
+
+.form-group {
+	margin: 0 0 10px 0;
+
+	&.has-error {
+		input {
+			border: 1px solid $error-color;
+		}
+	}
+}
+
+button[disabled], button[disabled]:hover {
+	background-color: $grey-color;
+	border: 1px solid $grey-color;
+	color: initial;
 }
 
 a {
