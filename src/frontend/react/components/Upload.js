@@ -6,7 +6,7 @@ import connectToStores from 'alt/utils/connectToStores';
 import UploadStore from 'flux/stores/UploadStore';
 import UploadActions from 'flux/actions/UploadActions';
 
-import 'assets/style/dishDetail';
+import 'assets/style/upload';
 
 @connectToStores
 export default class Upload extends React.Component {
@@ -40,6 +40,8 @@ export default class Upload extends React.Component {
 		});
 
 		UploadActions.removeUpload(image[0]);
+
+		e.stopPropagation();
 	}
 
 	onUpload() {
@@ -54,22 +56,29 @@ export default class Upload extends React.Component {
 	}
 
 	render() {
+		let message;
 		let images = this.props.uploads.map((image) => {
+			let style = {
+				backgroundImage: 'url(' + image.preview + ')'
+			};
+
 			return (
-					<div key={image.name} onClick={this.onRemoveImage.bind(this)}>
-						<img data-name={image.name} src={image.preview} width="200"/>
+					<div key={image.name} data-name={image.name} onClick={this.onRemoveImage.bind(this)} style={style}>
 					</div>
 				);
 		});
 
+		if(this.props.uploads.length === 0){
+			message = <span>Klik hier, of sleep u foto's om deze te uploaden</span>;
+		}
+
 		return (
-			<div className="images">
-				<Dropzone onDrop={this.onDrop.bind(this)}>
-					<div>Sleep hier u foto's, of klik hier om deze te uploaden.</div>
-				</Dropzone>
-				<div>
+			<div className="upload">
+				<h2>Upload</h2>
+				<Dropzone className="dropzone" onDrop={this.onDrop.bind(this)}>
+					{message}
 					{images}
-				</div>
+				</Dropzone>
 				<button onClick={this.onUpload.bind(this)}>uploaden</button>
 			</div>
 		);
