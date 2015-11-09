@@ -18,7 +18,7 @@ CREATE TABLE `meal` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `price` double NOT
 
 CREATE TABLE `order` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `amount_meals` int(2) DEFAULT 1, `is_takeout` tinyint(1) DEFAULT 0, `start_time` datetime, `total_amount` double NOT NULL, `meal_id` int(13) NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `photo` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127), `dish_id` int(13) DEFAULT NULL, `user_id` int(13) DEFAULT NULL,  `cook_id` int(13) DEFAULT NULL, `date_created` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
+CREATE TABLE `photo` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127), `dish_id` int(13) DEFAULT NULL, `user_id` int(13) DEFAULT NULL,  `cook_id` int(13) DEFAULT NULL, `date_created` datetime, `date_updated` datetime, `base64` varchar(255)) ENGINE=InnoDB CHARACTER SET=utf8;
 
 ALTER TABLE `user` ADD INDEX `ix_user_id` (`id`);
 ALTER TABLE `cook` ADD INDEX `ix_cook_id` (`id`);

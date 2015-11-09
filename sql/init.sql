@@ -1,7 +1,7 @@
 INSERT INTO user (`id`, `name`, `email`, `password`) 
-VALUES (1, 'test', 'test@test.com', 'test'),
-(2, 'henk', 'henk@aol.com', 'wachtwoord'),
-(3, 'wesley', 'wesley@buurke.nl', 'wesley');
+VALUES (1, 'test', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e'), 	-- pw = wachtwoord
+(2, 'henk', 'henk@aol.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e'),			-- pw = wachtwoord
+(3, 'wesley', 'wesley@buurke.nl', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e');		-- pw = wachtwoord
 
 
 INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`) 
@@ -24,15 +24,15 @@ INSERT INTO category (`id`, `name`, `parent_id`) VALUES
 -- Category 'Soort gerecht'
 (12, 'Soort gerect', NULL),
 (13, 'Pasta', 12),
-(14, 'Salade ', 12),
-(15, 'Rijst ', 12),
-(16, 'Soep ', 12),
-(17, 'Brood/sandwiches ', 12),
-(18, 'Gebak ', 12),
-(19, 'Quiche ', 12),
-(20, 'Stamppot ', 12),
-(21, 'Saus/dressing ', 12),
-(22, 'Couscous ', 12),
+(14, 'Salade', 12),
+(15, 'Rijst', 12),
+(16, 'Soep', 12),
+(17, 'Brood/sandwiches', 12),
+(18, 'Gebak', 12),
+(19, 'Quiche', 12),
+(20, 'Stamppot', 12),
+(21, 'Saus/dressing', 12),
+(22, 'Couscous', 12),
 -- Category 'Recepten met'
 (23, 'Recepten met', NULL),
 (24, 'Vlees', 23),

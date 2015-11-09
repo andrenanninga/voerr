@@ -6,11 +6,17 @@ from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
 from app.api.models.cook import Cook
 from app.api.models.allergy import Allergy
+from app.api.models.category import Category
 
 dish_allergy = db.Table('dish_allergy',
                         db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),
                         db.Column('allergy_id', db.Integer, db.ForeignKey('allergy.id'))
                         )
+
+dish_category = db.Table('dish_category',
+                         db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),
+                         db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+                         )
 
 
 class Dish(db.Model):
@@ -23,6 +29,7 @@ class Dish(db.Model):
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     allergies = db.relationship('Allergy', secondary=dish_allergy)
+    categories = db.relationship('Category', secondary=dish_category)
 
     def __init__(self, name=None, description=None, cook_id=None):
         self.name = name
@@ -48,7 +55,7 @@ class Dish(db.Model):
             )
 
         if 'allergies' in data:
-               data['allergies'] = Allergy.get_allergies_by_list(data['allergies'])
+            data['allergies'] = Allergy.get_allergies_by_list(data['allergies'])
         else:
             data['allergies'] = []
 
