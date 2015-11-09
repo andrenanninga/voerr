@@ -25,7 +25,7 @@ def search():
                 dish_ids = DishAllergy.dish_id_exclude_allergies(exclude_ids)
                 dishes = dishes.filter(~Dish.id.in_(dish_ids))
 
-        # api/v1/search/dishes?categories=1,2,3,4 returns all dishes that belong to categories 1,2,3,4
+        # api/v1/search/dishes?categories=1,2,3,4 returns all dishes that belong to EITHER (so it's an OR) categories 1,2,3,4
         categories = request.args.get('categories')
         if categories is not None:
 
