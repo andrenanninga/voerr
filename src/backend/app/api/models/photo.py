@@ -36,8 +36,10 @@ class Photo(db.Model):
     def post_single_preprocessor(data=None, **kw):
         # Convert base64 to image
         image = open("image.png", "wb")
-        image.write(data['base64'])
+        image.write(base64.encodebytes(data['base64'].encode()))
         image.close()
+
+        del data['base64']
 
         return data
 
