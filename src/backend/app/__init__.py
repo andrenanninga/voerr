@@ -119,7 +119,8 @@ api_manager.create_api(User,
                        exclude_columns=User.getExclude(),
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
-                           'POST': [User.post_single_preprocessor]
+                           'POST': [User.post_single_preprocessor],
+                           'PATCH_SINGLE': [User.patch_single_preprocessor]
                        })
 
 
