@@ -3,14 +3,20 @@ import { createStore, bind } from 'alt/utils/decorators';
 
 import LoginActions from 'flux/actions/LoginActions';
 
-@createActions(alt)
+@createStore(alt)
 export default class LoginStore {
 	constructor() {
 		this.user = null;
+		this.error = null;
 	}
 
-	@bind(LoginActions.receiveLogin)
+	@bind(LoginActions.receiveUser)
 	updateUser(user) {
 		this.user = user;
+	}
+
+	@bind(LoginActions.receiveError)
+	updateError(error) {
+		this.error = error;
 	}
 }

@@ -1,9 +1,22 @@
 import React from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 import { Link } from 'react-router';
 import ClassNames from 'classnames';
+
+import LoginStore from 'flux/stores/LoginStore';
+
 import 'assets/style/nav';
 
+@connectToStores
 export default class Nav extends React.Component {
+	static getStores(props) {
+		return [LoginStore];
+	}
+
+	static getPropsFromStores(props) {
+		return LoginStore.getState();
+	}
+
 	constructor() {
 		super();
 
@@ -28,6 +41,24 @@ export default class Nav extends React.Component {
 			top = <h1><Link to="/">voerr</Link></h1>;
 		}
 
+		let links;
+
+		if(this.props.user) {
+			links = [
+				<li>Welkom {this.props.user.name}</li>,
+				<li><a href='#'>Account</a></li>,
+				<li><a href='#'>Hoe het werkt</a></li>,
+				<li><a href='#'>Uitloggen</a></li>
+			];
+		}
+		else {
+			links = [
+				<li><a href='/login'>Inloggen</a></li>,
+				<li><a href='#'>Registeren</a></li>,
+				<li><a href='#'>Hoe het werkt</a></li>
+			];
+		}
+
 		return (
 			<div className="nav">
 				{top}
@@ -36,9 +67,7 @@ export default class Nav extends React.Component {
 
 						<li className="header"><h2>voerr</h2></li>
 
-						<li><a href="#">Registreren</a></li>
-						<li><a href="#">Inloggen</a></li>
-						<li><a href="#">Hoe het Werkt</a></li>
+						{links}
 
 					</ul>
 				</nav>
