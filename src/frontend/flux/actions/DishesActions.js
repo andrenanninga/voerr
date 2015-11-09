@@ -1,7 +1,6 @@
 import alt from 'flux/alt';
 import axios from 'axios';
 import config from 'config';
-import { resolve } from 'url';
 import { createActions } from 'alt/utils/decorators';
 
 @createActions(alt)
