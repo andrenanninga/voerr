@@ -23,14 +23,14 @@ def login():
         if ('email' in form_data) and ('password' in form_data):
             user = User.query.filter(User.email == form_data['email'], User.password == HashValidator.hash(form_data['password'])).first()
             if user is None:
-                raise Error(name='Failed login', message='Unknown email/password combination')
+                raise Error(name='Failed login', message='Combinatie email/wachtwoord is onbekend')
 
             login_user(user)
 
             return make_response(jsonify(to_dict(user, exclude=User.getExclude())))
 
         else:
-            raise Error(name='Failed login', message='Could not log in, email or password not given')
+            raise Error(name='Failed login', message='Kan niet inloggen, email en/of wachtwoord ontbreekt')
     except Error as e:
         return make_response(jsonify({e.name: e.message}), 400)
 
@@ -39,7 +39,7 @@ def login():
 def logout():
     try:
         if not current_user.is_authenticated:
-            raise Error(name='Could not log out', message='Not logged in to log out')
+            raise Error(name='Kan niet uitloggen', message='Moet ingelogd zijn om uit te loggen')
 
         logout_user()
         return make_response("", 204)
