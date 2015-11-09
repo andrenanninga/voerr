@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import ClassNames from 'classnames';
 
 import LoginStore from 'flux/stores/LoginStore';
+import LoginActions from 'flux/actions/LoginActions';
 
 import 'assets/style/nav';
 
@@ -30,6 +31,10 @@ export default class Nav extends React.Component {
 		this.setState({ navOpen: !this.state.navOpen });
 	}
 
+	onLogout() {
+		LoginActions.requestLogout();
+	}
+
 	render() {
 		let ulClasses = ClassNames({ open: this.state.navOpen });
 		let top; 
@@ -45,17 +50,17 @@ export default class Nav extends React.Component {
 
 		if(this.props.user) {
 			links = [
-				<li>Welkom {this.props.user.name}</li>,
-				<li><a href='#'>Account</a></li>,
-				<li><a href='#'>Hoe het werkt</a></li>,
-				<li><a href='#'>Uitloggen</a></li>
+				<li key="welcome">Welkom {this.props.user.name}</li>,
+				<li key="account"><a href='#'>Account</a></li>,
+				<li key="how"><a href='#'>Hoe het werkt</a></li>,
+				<li key="logout"><a href='#' onClick={this.onLogout.bind(this)}>Uitloggen</a></li>
 			];
 		}
 		else {
 			links = [
-				<li><a href='/login'>Inloggen</a></li>,
-				<li><a href='#'>Registeren</a></li>,
-				<li><a href='#'>Hoe het werkt</a></li>
+				<li key="login"><Link to='/login'>Inloggen</Link></li>,
+				<li key="register"><a href='#'>Registeren</a></li>,
+				<li key="how"><a href='#'>Hoe het werkt</a></li>
 			];
 		}
 

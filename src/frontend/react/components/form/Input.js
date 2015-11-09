@@ -1,7 +1,6 @@
 import React from 'react';
 import Formsy from 'formsy-react';
 import reactMixin from 'react-mixin';
-import changable from 'changable';
 
 @reactMixin.decorate(Formsy.Mixin)
 export default class Input extends React.Component {
@@ -45,7 +44,7 @@ export default class Input extends React.Component {
         <label>{this.props.label}</label>
         <div>
           <input type="text" onBlur={this.blurValue.bind(this)} onKeyDown={this.keyDown.bind(this)} onChange={this.changeValue.bind(this)}
-                 value={this.getValue()} placeholder={this.props.placeholder} />
+                 type={this.props.type} value={this.getValue()} placeholder={this.props.placeholder} />
           {error}
         </div>
       </div>

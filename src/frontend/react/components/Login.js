@@ -59,8 +59,8 @@ export default class Login extends React.Component {
 					<h2>login</h2>
 					{error}
 					<Form onSubmit={this.submit} onValid={this.enableSubmit.bind(this)} onInvalid={this.disableSubmit.bind(this)}>
-						<Input name="email" label="emailadres" required validations="isEmail" validationError="Dit is geen geldig emailadres"/>
-						<Input name="password" label="wachtwoord" required validations="minLength:1" validationError="poep" />
+						<Input name="email" label="emailadres" type="text" required validations="isEmail" validationError="Dit is geen geldig emailadres"/>
+						<Input name="password" label="wachtwoord" type="password" required />
 						<button type="submit" disabled={!this.state.canSubmit}>Inloggen</button>
 					</Form>
 					<hr/>

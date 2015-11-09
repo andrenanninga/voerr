@@ -1,6 +1,7 @@
 import alt from 'flux/alt';
 import axios from 'axios';
 import config from 'config';
+import { isEmpty } from 'lodash';
 import { createActions } from 'alt/utils/decorators';
 
 @createActions(alt)
@@ -29,15 +30,29 @@ export default class LoginActions {
 			});
 	}
 
+	requestLogout() {
+		let url = [config.apiEndpoint, 'login', 'logout'].join('/');
+
+		axios.post(url)
+			.then(res => {
+				this.actions.receiveUser(null);
+			})
+			.then(res => {
+				console.log(res);
+			});
+	}
+
 	requestUser() {
 		let url = [config.apiEndpoint, 'login', 'current_user'].join('/');
 
 		axios.get(url)
 			.then(res => {
-				console.log(res.data)
+				if(!isEmpty(res.data)) {
+					this.actions.receiveUser(res.data);
+				}
 			})
 			.catch(res => {
-				console.error(res);
+				console.log(res);
 			});
 	}
 }
