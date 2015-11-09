@@ -39,6 +39,8 @@ class Photo(db.Model):
         image.write(data['base64'])
         image.close()
 
+        del data['base64']
+
         return data
 
 
