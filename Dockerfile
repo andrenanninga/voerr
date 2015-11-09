@@ -12,6 +12,9 @@ RUN apt-get install -q -y mysql-server libmysqlclient-dev
 # install git and pip
 RUN apt-get install -y build-essential git python3-pip python2.7
 
+# install pillow libraries
+sudo apt-get install -y libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+
 # install node
 RUN apt-get install -y software-properties-common apt-transport-https
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 68576280

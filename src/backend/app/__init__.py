@@ -97,7 +97,7 @@ api_manager.create_api(Photo,
                        exclude_columns=Photo.getExclude(),
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
-                           'POST': [check_auth, Photo.post_single_preprocessor]
+                           'POST': [Photo.post_single_preprocessor]
                        })
 
 from app.api.models.review import Review
