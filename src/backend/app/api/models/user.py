@@ -54,8 +54,7 @@ class User(db.Model):
         return '<User %r>' % (self.name)
 
     def getExclude():
-        return []
-        # return ['password']
+        return ['password']
 
     def is_cook(self):
         return self.cook is not None
