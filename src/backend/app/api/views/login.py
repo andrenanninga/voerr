@@ -5,6 +5,7 @@ from app.api.errors.errors import Error
 import json
 
 from app.api.models.user import User
+from app.api.validators.hash import HashValidator
 
 mod = Blueprint('login', __name__, url_prefix='/api/v1/login')
 
@@ -18,7 +19,7 @@ def login():
         form_data = json.loads(request.get_data().decode('utf-8'))
 
         if ('email' in form_data) and ('password' in form_data):
-            user = User.query.filter(User.email == form_data['email'], User.password == form_data['password']).first()
+            user = User.query.filter(User.email == form_data['email'], User.password == HashValidator.hash(form_data['password'])).first()
             if user is None:
                 raise Error(name='Failed login', message='Unknown email/password combination')
 

@@ -1,4 +1,6 @@
 import datetime
+import hashlib
+
 import flask
 
 from flask.ext.login import current_user
@@ -8,6 +10,7 @@ from sqlalchemy.orm import validates
 
 from app import db, login_manager
 from app.api.errors.errors import Error
+from app.api.validators.hash import HashValidator
 from app.api.validators.number import NumberValidator
 
 
@@ -62,6 +65,8 @@ class User(db.Model):
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
+        pass_length = 8
+
         getUser = User.query.filter(User.email == data['email']).first()
         if getUser is not None:
             raise ProcessingException(
@@ -70,6 +75,12 @@ class User(db.Model):
             )
         # todo password validator
 
+        if len(data['password']) < pass_length:
+            raise ProcessingException(
+                description='Password must at least contain %r characters' % pass_length,
+                code=400
+            )
+        data['password'] = HashValidator.hash(data['password'])
         return data
 
     @login_manager.user_loader
