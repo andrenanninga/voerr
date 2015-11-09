@@ -4,6 +4,7 @@ from flask.ext.restless.helpers import to_dict
 
 from app.api.errors.errors import Error
 from app.api.models.dish_allergy import DishAllergy
+from app.api.models.dish_category import DishCategory
 from app.api.models.dish import Dish
 from app.api.models.cook import Cook
 
@@ -24,6 +25,15 @@ def search():
                 dish_ids = DishAllergy.dish_id_exclude_allergies(exclude_ids)
                 dishes = dishes.filter(~Dish.id.in_(dish_ids))
 
+        # api/v1/search/dishes?categories=1,2,3,4 returns all dishes that belong to categories 1,2,3,4
+        categories = request.args.get('categories')
+        if categories is not None:
+
+            if categories is not None:
+                include_ids = categories.split(',')
+                dish_ids = DishCategory.dish_id_include_categories(include_ids)
+                dishes = dishes.filter(Dish.id.in_(dish_ids))
+
         # api/v1/search/dishes?term=zalm finds "zalmfilet", "bereid met zalm", "zeezalm"
         term = request.args.get('term')
         if term is not None:
@@ -38,7 +48,7 @@ def search():
         json = {"objects": []}
         for dish in dishes:
             # json["objects"].append(to_dict(dish, deep={"allergies": {"id": {"id"}}}, include_relations={"allergies": ["id"]}))
-            json["objects"].append(to_dict(dish, deep={'allergies': [], 'cook': []}))
+            json["objects"].append(to_dict(dish, deep={'allergies': [], 'cook': [], 'categories': []}, exclude_relations={'categories': ['parent_id']}))
 
         json["num_results"] = len(dishes)
         return make_response(jsonify(json))
