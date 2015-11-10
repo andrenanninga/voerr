@@ -10,7 +10,7 @@ import Input from 'react/components/form/Input';
 import 'assets/style/login';
 
 @connectToStores
-export default class Login extends React.Component {
+export default class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -54,7 +54,6 @@ export default class Login extends React.Component {
 
 		return (
 			<div>
-				<div className="overlay"></div>
 				<div className="login">
 					<h2>login</h2>
 					{error}
