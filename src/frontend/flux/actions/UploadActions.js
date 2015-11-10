@@ -9,6 +9,7 @@ export default class UploadActions {
 	constructor() {
 		this.generateActions(
 			'addUpload',
+			'updateUpload',
 			'removeUpload'
 		);
 
@@ -26,7 +27,8 @@ export default class UploadActions {
 
 			axios.post(url, payload)
 				.then((res) => {
-					console.log(res);
+					file.doc = res.data;
+					this.actions.updateUpload(file);
 				})
 				.catch((err) => {
 					console.error(err);

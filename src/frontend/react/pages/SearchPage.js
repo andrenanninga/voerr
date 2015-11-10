@@ -41,11 +41,15 @@ export default class SearchPage extends React.Component {
 		let food = this.refs.food.value.trim().toLowerCase();
 		let location = this.state.inputLocation ? this.refs.location.value.trim().toLowerCase() : this.state.location.toLowerCase();
 
-		if(location && food) {
-			this.setState({ formErrors: { food: false, location: false }});
+		if(!location) {
+			this.setState({ formErrors: { location: true }});
 		}
 		else {
-			return this.setState({ formErrors: { food: !food, location: !location }});
+			this.setState({ formErrors: { food: false, location: false }});
+		}
+
+		if(!food) {
+			food = '-';
 		}
 
 		this.props.history.pushState(null, '/s/' + slug(location) + '/' + slug(food));

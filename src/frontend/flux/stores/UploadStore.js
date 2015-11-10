@@ -19,6 +19,17 @@ export default class DishesStore {
 		this.uploads.push(upload);
 	}
 
+	@bind(UploadActions.updateUpload)
+	updateUpload(updatedUpload) {
+		this.uploads = this.uploads.map(upload => {
+			if(upload.name === updatedUpload) {
+				return updatedUpload;
+			}
+
+			return upload;
+		});
+	}
+
 	@bind(UploadActions.removeUpload)
 	removeUpload(upload) {
 		let index = this.uploads.indexOf(upload);

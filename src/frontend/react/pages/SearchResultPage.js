@@ -18,6 +18,10 @@ export default class SearchResultPage extends React.Component {
 			location: props.params.location,
 			term: props.params.term
 		}
+
+		if(props.params.term === '-') {
+			this.state.term = '';
+		}
 	}
 
 	static getStores(props) {

@@ -21,10 +21,6 @@ export default class SearchItemPage extends React.Component {
 		DishesActions.requestDish(this.props.params.id);
 	}
 
-	handleBackToOverview() {
-		// this.props.history.pushState(null, '/s/' + slug(this.props.params.location) + '/' + slug(this.props.params.food));
-	}
-
 	render() {
 		let dish = this.props.dishes[0];
 		let url = '/s/' + this.props.params.location + '/' + this.props.params.term;

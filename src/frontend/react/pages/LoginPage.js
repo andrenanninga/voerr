@@ -1,5 +1,6 @@
 import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import { Link } from 'react-router';
 import { Form } from 'formsy-react';
 
 import LoginStore from 'flux/stores/LoginStore';
@@ -65,7 +66,7 @@ export default class LoginPage extends React.Component {
 					<hr/>
 
 					<p>
-						Nog geen account? <a href="#">Registreer nu!</a>
+						Nog geen account? <Link to="/registeren">Registreer je nu!</Link>
 					</p>
 				</div>
 			</div>

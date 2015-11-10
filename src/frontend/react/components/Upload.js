@@ -74,12 +74,10 @@ export default class Upload extends React.Component {
 
 		return (
 			<div className="upload">
-				<h2>Upload</h2>
 				<Dropzone className="dropzone" onDrop={this.onDrop.bind(this)}>
 					{message}
 					{images}
 				</Dropzone>
-				<button onClick={this.onUpload.bind(this)}>uploaden</button>
 			</div>
 		);
 	}
