@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, make_response, request
+from sqlalchemy import or_
 from app import db
 from flask.ext.restless.helpers import to_dict
 
@@ -37,7 +38,7 @@ def search():
         # api/v1/search/dishes?term=zalm finds "zalmfilet", "bereid met zalm", "zeezalm"
         term = request.args.get('term')
         if term is not None:
-            dishes = dishes.filter(Dish.name.like('%' + term + '%'))
+            dishes = dishes.filter(or_(Dish.name.like('%' + term + '%'), Dish.description.like('%' + term + '%')))
 
         # api/v1/search/dishes?location=gro finds "groningen", "grootegast"
         location = request.args.get('location')
