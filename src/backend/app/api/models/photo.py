@@ -3,6 +3,7 @@ from app import app, db
 from flask import json
 
 from sqlalchemy.orm import validates
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from app.api.errors.errors import Error
 
@@ -46,6 +47,12 @@ class Photo(db.Model):
                 raise Error(name='foreign_id', 
                             message='You need to set one of user_id, cook_id or dish_id')
 
+        return value
+
+    # @hybrid_property
+    # def url(self):
+    #     return 'http://192.168.99.100:5000/' + self.name
+
     @staticmethod
     def post_single_preprocessor(data):
 
@@ -67,4 +74,12 @@ class Photo(db.Model):
 
         return data
 
+    @staticmethod
+    def pre_single_postprocessor(result=None, **kw):
 
+        pass
+
+    @staticmethod
+    def pre_many_postprocessor(result=None, search_params=None, **kw):
+
+        pass

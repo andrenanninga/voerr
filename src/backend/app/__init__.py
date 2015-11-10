@@ -2,7 +2,7 @@ from pprint import pprint
 import flask
 import flask.ext.sqlalchemy
 import flask.ext.restless
-from flask import Flask, session
+from flask import Flask, session, request
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import ProcessingException
 from flask.ext.login import LoginManager, current_user
@@ -101,6 +101,10 @@ api_manager.create_api(Photo,
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
                            'POST': [Photo.post_single_preprocessor]
+                       },
+                       postprocessors={
+                           'GET_SINGLE': [Photo.pre_single_postprocessor],
+                           'GET_MANY': [Photo.pre_many_postprocessor]
                        })
 
 api_manager.create_api(Review,
@@ -123,7 +127,6 @@ api_manager.create_api(User,
                            'POST': [User.post_single_preprocessor],
                            'PATCH_SINGLE': [User.patch_single_preprocessor]
                        })
-
 
 from app import main
 from app.api.views.login import mod as loginModule

@@ -3,11 +3,14 @@ import datetime
 import flask
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
 from app import db, login_manager
 from app.api.errors.errors import Error
 from app.api.validators.hash import HashValidator
 from app.api.validators.number import NumberValidator
+
+from app.api.models.photo import Photo
 
 
 class User(db.Model):
@@ -21,7 +24,6 @@ class User(db.Model):
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
     cook = db.relationship('Cook', uselist=False, backref='user')
-    avatar = db.relationship('Photo')
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
@@ -54,6 +56,14 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.name)
+
+    @hybrid_property
+    def avatar(self):
+        get_photo = Photo.query.filter(Photo.user_id == self.id).first()
+        if get_photo is not None:
+            return get_photo.name
+        else:
+            return None
 
     def getExclude():
         return ['password']

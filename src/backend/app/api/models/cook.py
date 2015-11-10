@@ -1,6 +1,7 @@
 from app import db
 from sqlalchemy.ext.hybrid import hybrid_property
 from app.api.models.user import User
+from app.api.models.photo import Photo
 
 import datetime
 
@@ -31,6 +32,16 @@ class Cook(db.Model):
     @hybrid_property
     def name(self):
         return self.user.name
+
+    @hybrid_property
+    def photos(self):
+        get_photo = Photo.query.filter(Photo.cook_id == self.id).all()
+        photos_dict = []
+        if get_photo is not None:
+            for p in get_photo:
+                photos_dict.append(p.name)
+
+        return photos_dict
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
