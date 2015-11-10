@@ -1,7 +1,8 @@
 import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
-import { Link } from 'react-router';
 import ClassNames from 'classnames';
+import { Link } from 'react-router';
+import { contains } from 'lodash';
 
 import LoginStore from 'flux/stores/LoginStore';
 import LoginActions from 'flux/actions/LoginActions';
@@ -35,23 +36,16 @@ export default class Nav extends React.Component {
 		LoginActions.requestLogout();
 	}
 
+	componentWillMount() {
+	}
+
 	render() {
 		let ulClasses = ClassNames({ open: this.state.navOpen });
-		let top; 
-
-		if(this.state.showSearch) {
-			top = <input type="text" name="search" />;
-		}
-		else {
-			top = <h1><Link to="/">voerr</Link></h1>;
-		}
-
 		let links;
 
 		if(this.props.user) {
 			links = [
 				<li key="account"><a href='#'>{this.props.user.name}</a></li>,
-				<li key="how"><a href='#'>Hoe het werkt</a></li>,
 				<li key="logout"><a href='#' onClick={this.onLogout.bind(this)}>Uitloggen</a></li>
 			];
 		}
@@ -65,7 +59,7 @@ export default class Nav extends React.Component {
 
 		return (
 			<div className="nav">
-				{top}
+				<h1><Link to="/">voerr</Link></h1>
 				<nav onClick={this.onClickHamburger.bind(this)}>
 					<ul className={ulClasses}>
 

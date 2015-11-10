@@ -42,6 +42,10 @@ export default class SearchResultPage extends React.Component {
 			return <Dish key={key} url={url} {...dish} />;
 		});
 
+		if(dishes.length === 0) {
+			dishes = <span>Geen resultaten gevonden</span>;
+		}
+
 		return <div className="searchResults">{dishes}</div>
 	}
 }

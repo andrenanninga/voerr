@@ -13,12 +13,17 @@
 		border-bottom: 1px solid $grey-color;
 
 		h1 {
-			margin: 0;
+			margin: 0 10px 0 0;
 
 			a {
 				color: inherit;
 				text-decoration: none;
 			}
+		}
+
+		input {
+			flex-grow: 1;
+			padding: 2px;
 		}
 
 		nav {
@@ -61,6 +66,7 @@
 		input[name="search"] {
 			flex-grow: 1;
 			margin: 20px 20px 0 20px;
+			padding: 2px;
 		}
 
 		nav {
