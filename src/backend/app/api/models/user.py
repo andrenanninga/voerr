@@ -19,6 +19,7 @@ class User(db.Model):
     password = db.Column('password', db.String(127))
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
+
     cook = db.relationship('Cook', uselist=False, backref='user')
 
     def __init__(self, name=None, email=None, password=None):
