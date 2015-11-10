@@ -10,7 +10,7 @@ export default class Dish extends React.Component {
 		let url = this.props.url || '/gerecht/' + this.props.id;
 		let rating;
 
-		if(this.props.reviews.length) {
+		if(this.props.reviews && this.props.reviews.length) {
 			rating = this.props.reviews.reduce((prev, current) => {
 				return prev + current.rating;
 			}, 0) / this.props.reviews.length;
