@@ -51,7 +51,7 @@ class Photo(db.Model):
 
         # create image directory if it doesn't exists
         if not os.path.exists(app.config['IMAGES_DIR']):
-            os.makedirs(directory)
+            os.makedirs(app.config['IMAGES_DIR'])
 
         # create a random prefix to the photo to prevent collisions
         rand = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
