@@ -1,0 +1,54 @@
+@import "_variables";
+@import "_breakpoints";
+
+.newDish {
+	display: block;
+	margin: 10px;
+
+	@include media-breakpoint-up(md) { 
+		& { 
+			margin: 40px 40px; 
+		} 
+
+		h2 {
+			font-size: 2em;
+		}
+	}
+	
+	@include media-breakpoint-up(lg) { 
+		& { 
+			margin: 40px auto; 
+			max-width: 850px; 
+		} 
+
+		h2 {
+			font-size: 2.6em;
+		}
+	}
+
+	input[type=text], textarea {
+		width: 100%;
+		resize: vertical;
+		margin: 0;
+	}
+
+	input[type=checkbox] {
+		margin: 4px;
+	}
+
+	.categories, .allergies {
+		display: flex;
+		flex-wrap: wrap;
+
+		.category {
+			margin: 0 0 20px 0;
+		}
+		.category, .allergy {
+			min-width: 210px;
+
+			label.minimal {
+				font-weight: normal;
+			}
+		}
+	}
+}
