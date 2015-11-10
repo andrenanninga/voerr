@@ -1,4 +1,5 @@
 import datetime
+import decimal
 
 import flask
 from flask.ext.login import current_user
@@ -8,6 +9,7 @@ from app import db, login_manager
 from app.api.errors.errors import Error
 from app.api.validators.hash import HashValidator
 from app.api.validators.number import NumberValidator
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
 class User(db.Model):
@@ -17,14 +19,16 @@ class User(db.Model):
     name = db.Column('name', db.String(127))
     email = db.Column('email', db.String(127), unique=True)
     password = db.Column('password', db.String(127))
+    credit = db.Column('credit', db.Integer)
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     cook = db.relationship('Cook', uselist=False, backref='user')
 
-    def __init__(self, name=None, email=None, password=None):
+    def __init__(self, name=None, email=None, password=None, credit=None):
         self.name = name
         self.email = email
         self.password = password
+        self.credit = credit
 
     def serialize(self, related=True):
         userDict = {
