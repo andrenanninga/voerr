@@ -2,7 +2,7 @@ from pprint import pprint
 import flask
 import flask.ext.sqlalchemy
 import flask.ext.restless
-from flask import Flask, session
+from flask import Flask, session, request
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import ProcessingException
 from flask.ext.login import LoginManager, current_user
@@ -26,6 +26,15 @@ def check_auth(instance_id=None, **kw):
 
 
 from app.api.models.allergy import Allergy
+from app.api.models.category import Category
+from app.api.models.cook import Cook
+from app.api.models.dish import Dish
+from app.api.models.meal import Meal
+from app.api.models.order import Order
+from app.api.models.photo import Photo
+from app.api.models.review import Review
+from app.api.models.user import User
+
 api_manager.create_api(Allergy,
                        url_prefix='/api/v1',
                        collection_name='allergies',
@@ -34,7 +43,6 @@ api_manager.create_api(Allergy,
                        validation_exceptions=[Error, ProcessingException]
                        )
 
-from app.api.models.category import Category
 api_manager.create_api(Category,
                        url_prefix='/api/v1',
                        collection_name='categories',
@@ -43,7 +51,6 @@ api_manager.create_api(Category,
                        validation_exceptions=[Error, ProcessingException]
                        )
 
-from app.api.models.cook import Cook
 api_manager.create_api(Cook,
                        url_prefix='/api/v1',
                        collection_name='cooks',
@@ -52,7 +59,6 @@ api_manager.create_api(Cook,
                        validation_exceptions=[Error, ProcessingException]
                        )
 
-from app.api.models.dish import Dish
 api_manager.create_api(Dish,
                        url_prefix='/api/v1',
                        collection_name='dishes',
@@ -64,7 +70,6 @@ api_manager.create_api(Dish,
                            'PATCH_SINGLE': [check_auth, Dish.patch_single_preprocessor]
                        })
 
-from app.api.models.meal import Meal
 api_manager.create_api(Meal,
                        url_prefix='/api/v1',
                        collection_name='meals',
@@ -75,7 +80,6 @@ api_manager.create_api(Meal,
                            'POST': [check_auth, Meal.post_single_preprocessor]
                        })
 
-from app.api.models.order import Order
 api_manager.create_api(Order,
                        url_prefix='/api/v1',
                        collection_name='orders',
@@ -89,7 +93,6 @@ api_manager.create_api(Order,
                            'POST': [Order.post_single_postprocessor]
                        })
 
-from app.api.models.photo import Photo
 api_manager.create_api(Photo,
                        url_prefix='/api/v1',
                        collection_name='photos',
@@ -98,9 +101,12 @@ api_manager.create_api(Photo,
                        validation_exceptions=[Error, ProcessingException],
                        preprocessors={
                            'POST': [Photo.post_single_preprocessor]
+                       },
+                       postprocessors={
+                           'GET_SINGLE': [Photo.pre_single_postprocessor],
+                           'GET_MANY': [Photo.pre_many_postprocessor]
                        })
 
-from app.api.models.review import Review
 api_manager.create_api(Review,
                        url_prefix='/api/v1',
                        collection_name='reviews',
@@ -111,7 +117,6 @@ api_manager.create_api(Review,
                            'POST': [check_auth, Review.post_single_preprocessor]
                        })
 
-from app.api.models.user import User
 api_manager.create_api(User,
                        url_prefix='/api/v1',
                        collection_name='users',
@@ -123,7 +128,6 @@ api_manager.create_api(User,
                            'POST': [User.post_single_preprocessor],
                            'PATCH_SINGLE': [User.patch_single_preprocessor]
                        })
-
 
 from app import main
 from app.api.views.login import mod as loginModule

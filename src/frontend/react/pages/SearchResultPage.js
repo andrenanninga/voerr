@@ -1,8 +1,8 @@
 import React from 'react';
 import connectToStores from 'alt/utils/connectToStores';
 
-import DishesStore from 'flux/stores/DishesStore';
-import DishesActions from 'flux/actions/DishesActions';
+import SearchStore from 'flux/stores/SearchStore';
+import SearchActions from 'flux/actions/SearchActions';
 
 import Dish from 'react/components/Dish';	
 
@@ -11,16 +11,28 @@ import 'assets/style/searchResults';
 @connectToStores
 export default class SearchResultPage extends React.Component {
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			location: props.params.location,
+			term: props.params.term
+		}
+	}
+
 	static getStores(props) {
-		return [DishesStore];
+		return [SearchStore];
 	}
 
 	static getPropsFromStores(props) {
-		return DishesStore.getState();
+		return SearchStore.getState();
 	}
 
 	componentWillMount() {
-		DishesActions.requestDishes();
+		SearchActions.requestSearch(
+			this.state.term,
+			this.state.location
+		);
 	}
 
 	render() {
