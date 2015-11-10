@@ -50,16 +50,15 @@ export default class Nav extends React.Component {
 
 		if(this.props.user) {
 			links = [
-				<li key="welcome">Welkom {this.props.user.name}</li>,
-				<li key="account"><a href='#'>Account</a></li>,
+				<li key="account"><a href='#'>{this.props.user.name}</a></li>,
 				<li key="how"><a href='#'>Hoe het werkt</a></li>,
 				<li key="logout"><a href='#' onClick={this.onLogout.bind(this)}>Uitloggen</a></li>
 			];
 		}
 		else {
 			links = [
-				<li key="login"><Link to='/login'>Inloggen</Link></li>,
-				<li key="register"><a href='#'>Registeren</a></li>,
+				<li key="login"><Link to='/inloggen'>Inloggen</Link></li>,
+				<li key="register"><Link to='/registeren'>Registeren</Link></li>,
 				<li key="how"><a href='#'>Hoe het werkt</a></li>
 			];
 		}

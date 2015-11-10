@@ -67,39 +67,39 @@ class Meal(db.Model):
     @validates('price')
     def validate_price(self, key, price):
         if not NumberValidator.is_double(price):
-            raise Error(name='price', message='Not a valid price(int, float)')
+            raise Error(name='price', message='Geen juiste prijs(int, float)')
         return price
 
     @validates('available_from')
     def validate_available_from(self, key, available_from):
         if available_from < datetime.datetime.utcnow():
-            raise Error(name='available_from', message='The date is in the past')
+            raise Error(name='available_from', message='The datum is in het verleden')
         return available_from
 
     @validates('available_until')
     def validate_available_until(self, key, available_until):
         if available_until < datetime.datetime.utcnow():
-            raise Error(name='available_until', message='The date is in the past')
+            raise Error(name='available_until', message='The datum is in het verleden')
         return available_until
 
     @validates('dinner_time')
     def validate_dinner_time(self, key, dinner_time):
         if dinner_time < datetime.datetime.utcnow():
-            raise Error(name='dinner_time', message='The date is in the past')
+            raise Error(name='dinner_time', message='The datum is in het verleden')
         return dinner_time
 
     @validates('portions')
     def validate_portions(self, key, portions):
         if not NumberValidator.is_int(portions):
-            raise Error(name='portions', message='Not a valid number for portions')
+            raise Error(name='portions', message='Geen geldig aantal voor porties')
         if portions < 1:
-            raise Error(name='portions', message='The number portions cannot be 0.')
+            raise Error(name='portions', message='Het aantal porties kan niet 0 zijn.')
         return portions
 
     @validates('portions_claimed')
     def validate_portions_claimed(self, key, portions_claimed):
         if portions_claimed > self.portions:
-            raise Error(name='portions_claimed', message='The number of portions_claimed is higher than the portions.')
+            raise Error(name='portions_claimed', message='Het aantal portions_claimed is hoger dan het aantal porties.')
         return portions_claimed
 
     @validates('is_takeout')

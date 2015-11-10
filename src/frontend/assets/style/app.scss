@@ -48,9 +48,9 @@ input {
 }
 
 button[disabled], button[disabled]:hover {
-	background-color: $grey-color;
-	border: 1px solid $grey-color;
-	color: initial;
+	background-color: #ddd;
+	border-color: #ccc;
+	color: #aaa;
 }
 
 a {

@@ -1,12 +1,14 @@
 from flask import jsonify
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from app import db
 import datetime
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
-from app.api.models.cook import Cook
 from app.api.models.allergy import Allergy
 from app.api.models.category import Category
+from app.api.models.cook import Cook
+from app.api.models.photo import Photo
 
 dish_allergy = db.Table('dish_allergy',
                         db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),
@@ -41,6 +43,16 @@ class Dish(db.Model):
 
     def getExclude():
         return []
+
+    @hybrid_property
+    def photos(self):
+        get_photo = Photo.query.filter(Photo.dish_id == self.id).all()
+        photos_dict = []
+        if get_photo is not None:
+            for p in get_photo:
+                photos_dict.append(p.name)
+
+        return photos_dict
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):
