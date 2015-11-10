@@ -13,9 +13,9 @@ class Photo(db.Model):
 
     id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(127))
-    dish_id = db.Column('dish_id', db.Integer)
-    user_id = db.Column('user_id', db.Integer)
-    cook_id = db.Column('cook_id', db.Integer)
+    dish_id = db.Column('dish_id', db.Integer, db.ForeignKey('dish.id'))
+    user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+    cook_id = db.Column('cook_id', db.Integer, db.ForeignKey('cook.id'))
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 

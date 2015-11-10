@@ -20,6 +20,7 @@ class User(db.Model):
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     cook = db.relationship('Cook', uselist=False, backref='user')
+    avatar = db.relationship('Photo')
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
