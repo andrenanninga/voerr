@@ -65,7 +65,7 @@ class Review(db.Model):
     @validates('content')
     def validate_content(self, key, content):
         if len(content) < 10:
-            raise Error(name='content', message='Review must be longer than or equal to 10 characters')
+            raise Error(name='content', message='Beoordeling  must be longer than or equal to 10 characters')
         return content
 
     @staticmethod
@@ -73,7 +73,7 @@ class Review(db.Model):
         getReview = Review.query.filter(Review.user_id == current_user.id, Review.dish_id == data['dish_id']).first()
         if getReview is not None:
             raise ProcessingException(
-                description='A review was already found for this user and dish: Review with ID %r' % getReview.id,
+                description='Er is al een review gevonden voor deze gebruiker: Review met ID %r' % getReview.id,
                 code=400
             )
 

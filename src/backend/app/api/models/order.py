@@ -43,7 +43,7 @@ class Order(db.Model):
     def validate_amount_meals(self, key, amount_meals):
         if not NumberValidator.is_int(amount_meals) or amount_meals < 1:
             from app.api.errors.errors import Error
-            raise Error(name='amount_meals', message='Not a valid value, must be larger than or equal to 1')
+            raise Error(name='amount_meals', message='Geen juiste waarde, aantal moet groter dan of gelijk zijn aan 1')
         return amount_meals
 
     @staticmethod

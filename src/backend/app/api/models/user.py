@@ -61,6 +61,22 @@ class User(db.Model):
         return self.cook is not None
 
     @staticmethod
+    def get_single_preprocessor(instance_id=None, **kw):
+
+        #convert the credit to a float for easier processing
+
+
+        return instance_id
+
+    @staticmethod
+    def get_single_postprocessor(result=None, **kw):
+
+        #convert the credit to a float for easier processing
+
+
+        return result
+
+    @staticmethod
     def post_single_preprocessor(data=None, **kw):
         pass_length = 8
 
@@ -68,14 +84,14 @@ class User(db.Model):
         getUser = User.query.filter(User.email == data['email']).first()
         if getUser is not None:
             raise ProcessingException(
-                description='Email address already exists: %r' % getUser.email,
+                description='Emailadres bestaat al: %r' % getUser.email,
                 code=400
             )
 
         # Password length check
         if len(data['password']) < pass_length:
             raise ProcessingException(
-                description='Password must at least contain %r characters' % pass_length,
+                description='Wachtwoord moet minimaal %r tekens lang zijn' % pass_length,
                 code=400
             )
 
