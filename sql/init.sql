@@ -11,13 +11,13 @@ VALUES (1, 'Test Testinga', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407a
 
 -- Insert cook
 
-INSERT INTO cook (`id`, `description`, `location`, `coordinates`, `user_id`, `date_created`, `date_updated`) 
+INSERT INTO cook (`id`, `description`, `location`, `address`, `coordinates`, `user_id`, `date_created`, `date_updated`) 
 
-VALUES (1, 'Self made kok', 'Groningen', POINT(0, 0), 1, NOW(), NOW()),
-(2, 'Ik hou niet van koken', 'Amsterdam', POINT(1, 1), 2, NOW(), NOW()),
-(3, 'Specialisatie in Indonesisch', 'Rotterdam', POINT(1, 1), 3, NOW(), NOW()),
-(4, 'Kook dagelijks en hou van strandwandelingen.', 'Gronigen', POINT(1, 1), 4, NOW(), NOW()),
-(5, 'Chefkok geweest in de jaren 60.', 'Groningen', POINT(1, 1), 5, NOW(), NOW());
+VALUES (1, 'Self made kok', 'Groningen','Hofferstraat 11, 9712aa', POINT(0, 0), 1, NOW(), NOW()),
+(2, 'Ik hou niet van koken', 'Amsterdam', 'Miastraat 3a, 1234sm', POINT(1, 1), 2, NOW(), NOW()),
+(3, 'Specialisatie in Indonesisch', 'Rotterdam','Hoofdweg 49, 2345gg', POINT(1, 1), 3, NOW(), NOW()),
+(4, 'Kook dagelijks en hou van strandwandelingen.', 'Groningen','Oudeboteringestraat 119, 9712kk', POINT(1, 1), 4, NOW(), NOW()),
+(5, 'Chefkok geweest in de jaren 60.', 'Groningen','Stationsstraat 12, 9712ss', POINT(1, 1), 5, NOW(), NOW());
 
 --
 
