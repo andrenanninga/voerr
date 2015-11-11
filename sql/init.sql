@@ -223,12 +223,18 @@ VALUES
 (8, 'dish_3.jpg', 3, NULL, NULL, NOW()),
 (9, 'dish_4.jpg', 4, NULL, NULL, NOW()),
 (10, 'dish_5.jpg', 5, NULL, NULL, NOW()),
-(11, 'dish_56jpg', 6, NULL, NULL, NOW()),
+(11, 'dish_6.jpg', 6, NULL, NULL, NOW()),
 
 (12, 'kitchen_1.jpg', NULL, NULL, 1, NOW()),
 (13, 'kitchen_2.jpg', NULL, NULL, 2, NOW()),
 (14, 'kitchen_3.jpg', NULL, NULL, 3, NOW()),
 (15, 'kitchen_4.jpg', NULL, NULL, 4, NOW()),
-(16, 'kitchen_5.jpg', NULL, NULL, 5, NOW());
+(16, 'kitchen_5.jpg', NULL, NULL, 5, NOW()),
+
+(17, 'kitchen_6.jpg', NULL, NULL, 1, NOW()),
+(18, 'kitchen_7.jpg', NULL, NULL, 2, NOW()),
+(19, 'kitchen_8.jpg', NULL, NULL, 3, NOW()),
+(20, 'kitchen_9.jpg', NULL, NULL, 4, NOW()),
+(21, 'kitchen_10.jpg', NULL, NULL, 5, NOW());
 
 --
