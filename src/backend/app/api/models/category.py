@@ -21,7 +21,6 @@ class Category(db.Model):
 
     @hybrid_property
     def parent(self):
-        print(self.parent_id)
         if self.parent_id is None:
             return None
         else: 

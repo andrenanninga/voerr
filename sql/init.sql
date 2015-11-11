@@ -337,8 +337,9 @@ INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (6, 2), (6, 24), (6,
 -- Insert review
 
 INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (1, 'Ik vond het een heerlijke maaltijd!', 5, 1, 1, NOW(), NOW());
+INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (2, 'Het was niet zo mooi als in de foto. Jammer hoor.. 3/5', 3, 2, 1, NOW(), NOW());
 
-INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (2, 'Het was niet zo mooi als in de foto. Jammer hoor.. 4/5', 4, 2, 2, NOW(), NOW());
+INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (3, 'Het was niet zo mooi als in de foto. Jammer hoor.. 4/5', 4, 2, 2, NOW(), NOW());
 
 --
 

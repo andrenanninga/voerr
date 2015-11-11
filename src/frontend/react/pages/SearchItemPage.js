@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
-import { filter, values } from 'lodash';
+import { filter, values, reduce, times } from 'lodash';
+import dateFormat from 'dateformat-light';
 
 import Markdown from 'react-remarkable';
 
@@ -10,6 +11,7 @@ import DishesActions from 'flux/actions/DishesActions';
 
 import 'assets/style/dishDetail';
 import 'assets/style/_allergies';
+import 'assets/style/_hearts';
 
 @connectToStores
 export default class SearchItemPage extends React.Component {
@@ -28,6 +30,7 @@ export default class SearchItemPage extends React.Component {
 	render() {
 		let dish = this.props.dishes[0];
 		let url = '/s/' + this.props.params.location + '/' + this.props.params.term;
+		let hearts = [];
 		let allergies, categories;
 
 		if(!dish) {
@@ -76,6 +79,24 @@ export default class SearchItemPage extends React.Component {
 			});
 		}
 
+		let average = 0;
+		if(dish.reviews.length) {
+			average = reduce(dish.reviews, ((n, r) => { return n + r.rating; }), 0) / dish.reviews.length;
+		}
+
+		times(5, (n) => {
+			if(n < average) {
+				hearts.push(<div className="heart full"></div>);
+			}
+			else {
+				hearts.push(<div className="heart"></div>);
+			}
+		});
+
+		let price = dish.meal.price.toFixed(2).replace('.', ',');
+		let availableFrom = dateFormat(new Date(dish.meal.available_from), 'HH:MM');
+		let availableUntil = dateFormat(new Date(dish.meal.available_until), 'HH:MM');
+
 		return <div className="dishDetail">
 			<Link className="button" to={url}>&lt; Terug naar overzicht</Link>
 			<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + dish.photos[0] + ')' }}></div>
@@ -87,9 +108,18 @@ export default class SearchItemPage extends React.Component {
 				</div>
 				<div className="dish">
 					<h2>{dish.name}</h2>
+					<div className="rating">
+						{hearts}
+						<a href="#">({dish.reviews.length})</a>
+					</div>
 					<div className="allergies">
 						{allergies}
 					</div>
+				</div>
+				<div className="meal">
+					<h4>&euro;{price} per maaltijd</h4>
+					<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>
+					<button className="button-primary">Reservering maken</button>
 				</div>
 			</div>
 
