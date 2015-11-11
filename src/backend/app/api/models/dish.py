@@ -26,7 +26,7 @@ class Dish(db.Model):
 
     id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(127))
-    description = db.Column('description', db.String(255))
+    description = db.Column('description', db.Text)
     cook_id = db.Column('cook_id', db.Integer, db.ForeignKey('cook.id'))
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)

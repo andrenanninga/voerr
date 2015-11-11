@@ -207,3 +207,28 @@ INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_creat
 INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (2, 'Het was niet zo mooi als in de foto. Jammer hoor.. 4/5', 4, 2, 2, NOW(), NOW());
 
 --
+
+-- Insert photo
+
+INSERT INTO photo (`id`, `name`, `dish_id`, `user_id`, `cook_id`, `date_created`)
+VALUES
+(1, 'boy_1.jpg', NULL, 1, NULL, NOW()),
+(2, 'boy_2.jpg', NULL, 2, NULL, NOW()),
+(3, 'boy_3.jpg', NULL, 3, NULL, NOW()),
+(4, 'girl_1.jpg', NULL, 4, NULL, NOW()),
+(5, 'girl_2.jpg', NULL, 5, NULL, NOW()),
+
+(6, 'dish_1.jpg', 1, NULL, NULL, NOW()),
+(7, 'dish_2.jpg', 2, NULL, NULL, NOW()),
+(8, 'dish_3.jpg', 3, NULL, NULL, NOW()),
+(9, 'dish_4.jpg', 4, NULL, NULL, NOW()),
+(10, 'dish_5.jpg', 5, NULL, NULL, NOW()),
+(11, 'dish_56jpg', 6, NULL, NULL, NOW()),
+
+(12, 'kitchen_1.jpg', NULL, NULL, 1, NOW()),
+(13, 'kitchen_2.jpg', NULL, NULL, 2, NOW()),
+(14, 'kitchen_3.jpg', NULL, NULL, 3, NOW()),
+(15, 'kitchen_4.jpg', NULL, NULL, 4, NOW()),
+(16, 'kitchen_5.jpg', NULL, NULL, 5, NOW());
+
+--

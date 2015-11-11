@@ -2,7 +2,7 @@ CREATE TABLE `user` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127
 
 CREATE TABLE `cook` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `description` varchar(255) NOT NULL, `location` varchar(255) NOT NULL, `coordinates` POINT NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
-CREATE TABLE `dish` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `description` varchar(255) NOT NULL, `cook_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
+CREATE TABLE `dish` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `description` text NOT NULL, `cook_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
 CREATE TABLE `category` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(63) NOT NULL, `parent_id` int(13) DEFAULT NULL) ENGINE=InnoDB CHARACTER SET=utf8;
 
