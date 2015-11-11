@@ -4,7 +4,7 @@ var webpack    = require('webpack');
 var path       = require('path');
 
 var srcPath    = path.join(__dirname, 'src/frontend');
-var buildPath  = path.join(__dirname, 'src/frontend/build');
+var buildPath  = path.join(__dirname, 'build');
 var modulePath = path.join(srcPath, 'run.js');
 
 var fileName = '[name]-[hash:7].[ext]';

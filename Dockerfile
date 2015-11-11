@@ -62,6 +62,10 @@ RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysq
 # copy sql files
 ADD sql/*.sql /voerr/sql/
 
+# copy images
+RUN mkdir -p /voerr/build/images
+ADD images/*.* /voerr/build/images/
+
 # expose flask devserver port
 EXPOSE 5000
 
