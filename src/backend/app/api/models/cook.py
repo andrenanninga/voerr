@@ -34,6 +34,10 @@ class Cook(db.Model):
         return self.user.name
 
     @hybrid_property
+    def avatar(self):
+        return self.user.avatar
+
+    @hybrid_property
     def photos(self):
         get_photo = Photo.query.filter(Photo.cook_id == self.id).all()
         photos_dict = []
