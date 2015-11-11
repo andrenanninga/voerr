@@ -71,6 +71,11 @@ class Dish(db.Model):
         else:
             data['allergies'] = []
 
+        if 'categories' in data:
+            data['categories'] = Category.get_categories_by_list(data['categories'])
+        else:
+            data['categories'] = []
+
         return data
 
     @staticmethod
@@ -86,6 +91,9 @@ class Dish(db.Model):
 
         if 'allergies' in data:
             data['allergies'] = Allergy.get_allergies_by_list(data['allergies'])
+
+        if 'categories' in data:
+            data['categories'] = Category.get_categories_by_list(data['categories'])
 
         return instance_id
 

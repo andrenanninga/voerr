@@ -1,4 +1,5 @@
 from app import db
+from flask.ext.restless import ProcessingException
 
 class Category(db.Model):
     __tablename__ = 'category'
@@ -22,3 +23,14 @@ class Category(db.Model):
         # todo stuff
 
         return data
+
+    @staticmethod
+    def get_categories_by_list(list_of_ids):
+        CategoryArray = db.session.query(Category).filter(Category.id.in_(list_of_ids)).all()
+
+        if len(list_of_ids) != len(CategoryArray):
+            raise ProcessingException(
+                description='Invalid category_id in array',
+                code=400
+            )
+        return CategoryArray
