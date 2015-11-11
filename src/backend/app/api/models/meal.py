@@ -20,7 +20,7 @@ class Meal(db.Model):
     location = db.Column('location', db.String(255))
     notes = db.Column('notes', db.String(255))
     is_takeout = db.Column('is_takeout', db.Boolean)
-    dish_id = db.Column('dish_id', db.Integer)
+    dish_id = db.Column('dish_id', db.Integer, db.ForeignKey('dish.id'))
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
