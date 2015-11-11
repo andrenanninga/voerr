@@ -1,0 +1,19 @@
+@import "_variables";
+
+.allergy {
+	width: 50px;
+	height: 50px;
+
+	background-size: 100%;
+	background-position: center center;
+
+	&.egg { background-image: url('/images/icons/egg.png'); }
+	&.fish { background-image: url('/images/icons/fish.png'); }
+	&.milk { background-image: url('/images/icons/milk.png'); }
+	&.nuts { background-image: url('/images/icons/nuts.png'); }
+	&.peanut { background-image: url('/images/icons/peanut.png'); }
+	&.shellfish { background-image: url('/images/icons/shellfish.png'); }
+	&.shrimp { background-image: url('/images/icons/shrimp.png'); }
+	&.soy { background-image: url('/images/icons/soy.png'); }
+	&.wheat { background-image: url('/images/icons/wheat.png'); }
+}

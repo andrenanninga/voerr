@@ -61,3 +61,14 @@ hr {
 	border: 0;
 	border-bottom: 1px solid darken($grey-color, 5);
 }
+
+div.image {
+	background-size: cover;
+	background-position: center center;
+
+	&.aspect_4-3 {	padding-bottom: 75%; }	
+	&.aspect_3-2 { padding-bottom: 66.6666%; }
+	&.aspect_1-1 { padding-bottom: 100%; }
+	&.aspect_16-9 { padding-bottom: 56.25%; }
+	&.aspect_16-10 { padding-bottom: 62.5%; }
+}

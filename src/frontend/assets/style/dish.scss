@@ -2,6 +2,7 @@
 
 .dish {
 	display: block;
+	width: 100%;
 
 	a {
 		color: inherit;
@@ -15,11 +16,5 @@
 	h2 {
 		font-size: 1.6em;
 		margin: 10px 0;
-	}
-
-	img {
-		max-width: 100% !important;
-		height: auto;
-		display: block;
 	}
 }

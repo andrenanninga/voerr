@@ -20,9 +20,6 @@ export default class DishPage extends React.Component {
 		DishesActions.requestDish(this.props.params.id);
 	}
 
-	handleBackToOverview() {
-		// this.props.history.pushState(null, '/s/' + slug(this.props.params.location) + '/' + slug(this.props.params.food));
-	}
 
 	render() {
 		let dish = this.props.dishes[0];
@@ -33,9 +30,8 @@ export default class DishPage extends React.Component {
 		}
 
 		return <div className="dishDetail">
-			<button onClick={this.handleBackToOverview}>&lt; Terug naar overzicht</button>
 			<h2>{dish.name}</h2>
-			<img src={'/static/images/' + dish.photos[0]}/>
+			<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + dish.photos[0] + ')' }}></div>
 			<div className="details">
 				<div className="order">
 					<button className="button-primary">Bestellen</button>
@@ -44,7 +40,7 @@ export default class DishPage extends React.Component {
 					{dish.description}
 				</p>
 				<div className="cook">
-					<img src={'/static/images/' + dish.cook.avatar}/>
+					<div className="image aspect_4-3" style={{ backgroundImage: 'url(/static/images/' + dish.cook.avatar + ')' }}></div>
 					<h3>{dish.cook.name}</h3>
 				</div>
 
