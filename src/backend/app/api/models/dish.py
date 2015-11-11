@@ -8,6 +8,7 @@ from flask.ext.restless import ProcessingException
 from app.api.models.allergy import Allergy
 from app.api.models.category import Category
 from app.api.models.cook import Cook
+from app.api.models.meal import Meal
 from app.api.models.photo import Photo
 
 dish_allergy = db.Table('dish_allergy',
@@ -32,6 +33,7 @@ class Dish(db.Model):
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
     allergies = db.relationship('Allergy', secondary=dish_allergy)
     categories = db.relationship('Category', secondary=dish_category)
+    meals = db.relationship('Meal')
 
     def __init__(self, name=None, description=None, cook_id=None):
         self.name = name

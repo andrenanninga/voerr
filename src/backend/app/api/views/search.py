@@ -1,13 +1,16 @@
 from flask import Blueprint, jsonify, make_response, request
-from sqlalchemy import or_
+from sqlalchemy import or_, cast, Date
+from sqlalchemy.orm import contains_eager
 from app import db
 from flask.ext.restless.helpers import to_dict
+from datetime import date
 
 from app.api.errors.errors import Error
 from app.api.models.dish_allergy import DishAllergy
 from app.api.models.dish_category import DishCategory
-from app.api.models.dish import Dish
 from app.api.models.cook import Cook
+from app.api.models.dish import Dish
+from app.api.models.meal import Meal
 
 mod = Blueprint('search', __name__, url_prefix='/api/v1/search')
 
@@ -16,6 +19,11 @@ mod = Blueprint('search', __name__, url_prefix='/api/v1/search')
 def search():
     try:
         dishes = Dish.query
+
+        # get only dishes that have meals for the current day
+        dishes = dishes.join(Dish.meals)
+        dishes = dishes.filter(Meal.available_from.like('%' + str(date.today()) + '%'))
+        dishes = dishes.options(contains_eager('meals'))
 
         # api/v1/search/dishes?allergies=1,2,3,4 returns all dishes that have no allergies 1,2,3,4
         allergies = request.args.get('allergies')
@@ -49,7 +57,7 @@ def search():
         json = {"objects": []}
         for dish in dishes:
             # json["objects"].append(to_dict(dish, deep={"allergies": {"id": {"id"}}}, include_relations={"allergies": ["id"]}))
-            json["objects"].append(to_dict(dish, deep={'allergies': [], 'cook': [], 'categories': []}, exclude_relations={'categories': ['parent_id']}))
+            json["objects"].append(to_dict(dish, deep={'allergies': [], 'cook': [], 'categories': [], 'meals': []}, exclude_relations={'categories': ['parent_id']}))
 
         json["num_results"] = len(dishes)
         return make_response(jsonify(json))

@@ -24,9 +24,23 @@ export default class SearchItemPage extends React.Component {
 	render() {
 		let dish = this.props.dishes[0];
 		let url = '/s/' + this.props.params.location + '/' + this.props.params.term;
+		let allergies;
 
 		if(!dish) {
 			return <div></div>;
+		}
+
+		if(dish.allergies.length) {
+		
+			allergies = (
+				<ul key="allergies">
+					{dish.allergies.map((allergy) => {
+						return (
+							<li key={allergy.id}>{allergy.name}</li>
+						);
+					})}	
+				</ul>
+			);
 		}
 
 		return <div className="dishDetail">
@@ -40,6 +54,8 @@ export default class SearchItemPage extends React.Component {
 				<p>
 					{dish.description}
 				</p>
+				<h5>Allergie&euml;n</h5>
+				{allergies}
 				<div className="cook">
 					<img src="http://unsplash.it/500/300?random"/>
 					<h3>{dish.cook.name}</h3>

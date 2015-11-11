@@ -1,4 +1,3 @@
 flask: python3 /voerr/src/backend/run.py
 webpack: webpack --colors --watch --progress --profile
-livereload: livereload /voerr/src
-dummyapi: node /voerr/src/dummy-api/index.js
+livereload: livereload /voerr/build
