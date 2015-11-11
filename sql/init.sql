@@ -93,8 +93,14 @@ VALUES (1, 'Lamsrack met warme salade van gemengde bonen en langzaam-geroosterde
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (1, 2), (1,11);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (1, 48), (1, 39), (1, 24), (1, 14), (1, 2);
 
-INSERT INTO meal (`id`, `price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
-VALUES (1, 2, "2015-11-10 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW());
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (2, "2015-11-11 13:00:00", "2015-11-11 19:00:00", "2015-11-11 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (2, "2015-11-12 13:00:00", "2015-11-12 19:00:00", "2015-11-12 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (2, "2015-11-13 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW());
 -- 
 
 -- Insert dish Beef Wellington
@@ -105,9 +111,14 @@ VALUES (2, 'Beef Wellington', 'Gordon Ramsay\'s versie van het klassieke steak g
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (2, 2), (2, 10);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (2, 48), (2, 38), (2, 24), (2, 14), (2, 2);
 
-INSERT INTO meal (`id`, `price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
-VALUES (2, 4, "2015-11-10 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 2, NOW());
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (4, "2015-11-11 13:00:00", "2015-11-11 19:00:00", "2015-11-11 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 2, NOW());
 -- 
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (4, "2015-11-12 13:00:00", "2015-11-12 19:00:00", "2015-11-12 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 2, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (4, "2015-11-13 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 2, NOW());
 
 -- Insert dish Citroentaart met zomer bessen
 INSERT INTO dish (`id`, `name`, `description`, `cook_id`, `date_created`) 
@@ -116,8 +127,14 @@ VALUES (3, 'Citroentaart met zomer bessen', 'Een zingy lemon tart van de heer Ra
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (3, 2), (3, 10);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (3, 48), (3, 39), (3, 24), (3, 2);
 
-INSERT INTO meal (`id`, `price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
-VALUES (3, 7, "2015-11-10 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 3, NOW());
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-11 13:00:00", "2015-11-11 19:00:00", "2015-11-11 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 3, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-12 13:00:00", "2015-11-12 19:00:00", "2015-11-12 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 3, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-13 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 3, NOW());
 -- 
 
 -- Insert dish Mediterrane zalmfilet
@@ -128,8 +145,15 @@ VALUES (4, 'Mediterrane zalmfilet', 'Zalm gevuld met mediterrane smaken, dit lic
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (4, 4), (4, 1);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (4, 48), (4, 25), (4, 2);
 
-INSERT INTO meal (`id`, `price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
-VALUES (4, 7, "2015-11-10 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 4, NOW());
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-11 13:00:00", "2015-11-11 19:00:00", "2015-11-11 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 4, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-12 13:00:00", "2015-11-12 19:00:00", "2015-11-12 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 4, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-13 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 4, NOW());
+
 -- 
 
 -- Insert dish Zomer bessen meringues
@@ -140,8 +164,14 @@ VALUES (5, 'Zomer bessen meringues', 'Gordon Ramsay geeft ons een masterclass in
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) VALUES (5, 2), (5, 10);
 INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (5, 48), (5, 39), (5, 4);
 
-INSERT INTO meal (`id`, `price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
-VALUES (5, 7, "2015-11-10 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 5, NOW());
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-11 13:00:00", "2015-11-11 19:00:00", "2015-11-11 18:30:00", 6, 0, "Groningen", "", 1, 5, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-12 13:00:00", "2015-11-12 19:00:00", "2015-11-12 18:30:00", 6, 0, "Groningen", "", 1, 5, NOW());
+
+INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`) 
+VALUES (7, "2015-11-13 13:00:00", "2015-11-13 19:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 5, NOW());
 -- 
 
 -- Insert review
