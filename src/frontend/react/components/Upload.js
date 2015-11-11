@@ -10,6 +10,14 @@ import 'assets/style/upload';
 
 @connectToStores
 export default class Upload extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			startUpload: false
+		};
+	}
+
 	static getStores(props) {
 		return [UploadStore];
 	}
@@ -23,8 +31,6 @@ export default class Upload extends React.Component {
 		let images = files.filter((file) => {
 			return contains(['image/png', 'image/jpg', 'image/jpeg', 'image/gif'], file.type);
 		});
-
-		console.log(images);
 
 		images.forEach((image) => {
 			UploadActions.addUpload(image);
@@ -43,18 +49,7 @@ export default class Upload extends React.Component {
 
 		e.stopPropagation();
 	}
-
-	onUpload() {
-		this.props.uploads.forEach((upload) => {
-			let data = {
-				name: upload.name,
-				dish_id: 1
-			};
-
-			UploadActions.postImage(data, upload);
-		});
-	}
-
+	
 	render() {
 		let message;
 		let images = this.props.uploads.map((image) => {

@@ -8,13 +8,17 @@ import connectToStores from 'alt/utils/connectToStores';
 
 import CategoriesStore from 'flux/stores/CategoriesStore';
 import CategoriesActions from 'flux/actions/CategoriesActions';
+
 import AllergiesStore from 'flux/stores/AllergiesStore';
 import AllergiesActions from 'flux/actions/AllergiesActions';
+
+import UploadStore from 'flux/stores/UploadStore';
+import UploadActions from 'flux/actions/UploadActions';
 
 import Input from 'react/components/form/Input';
 import TextArea from 'react/components/form/TextArea';
 
-import { difference, filter } from 'lodash';
+import { difference, every, filter } from 'lodash';
 
 import 'assets/style/newDish';
 
@@ -24,18 +28,20 @@ export default class NewDishPage extends React.Component {
 		super(props);
 	
 		this.state = {
-			canSubmit: false
+			canSubmit: false,
+			isSubmitting: false
 		};
 	}
 
 	static getStores(props) {
-		return [AllergiesStore, CategoriesStore];
+		return [AllergiesStore, CategoriesStore, UploadStore];
 	}
 
 	static getPropsFromStores(props) {
 		return {
 			allergies: AllergiesStore.getState(),
-			categories: CategoriesStore.getState()
+			categories: CategoriesStore.getState(),
+			uploads: UploadStore.getState()
 		}
 	}
 
@@ -44,19 +50,48 @@ export default class NewDishPage extends React.Component {
 		AllergiesActions.requestAllergies();
 	}
 
+	componentWillReceiveProps() {
+		if(this.state.isSubmitting) {
+			let uploads = this.props.uploads.uploads.map((file) => {
+				return !!file.doc;
+			});
+
+			if(every(uploads)) {
+				this.props.history.pushState(null, '/gerecht/' + this.state.id);
+
+				console.log('done');				
+			}
+		}
+
+	}
+
 	submit(data) {
-		console.log(data);
+		data.allergies = data.allergies || '';
+		data.categories = data.categories || '';
 
 		let url = [config.apiEndpoint, 'dishes'].join('/');
 		let payload = {
 			name: data.name,
-			description: data.description,
-			allergies: data.allergies.split(','),
-			categories: data.categories.split(',')
+			description: data.description
+		};
+
+		if(data.allergies) {
+			payload.allergies = data.allergies.split(',');
 		}
+
+		if(data.categories) {
+			payload.categories = data.categories.split(',');
+		}
+
+		this.setState({ isSubmitting: true });
+		this.disableSubmit();
 		axios.post(url, payload)
 			.then(res => {
-				console.log(res);
+				let id = res.data.id;
+				this.setState({ id: id });
+				this.props.uploads.uploads.forEach((file) => {
+					UploadActions.postImage({ name: file.name, dish_id: id }, file);
+				});
 			})
 			.catch(e => {
 				console.error(e);
@@ -101,12 +136,22 @@ export default class NewDishPage extends React.Component {
 		this.refs.allergies.setValue(allergies.join(','));
 	}
 
+	enableSubmit() {
+		this.setState({ canSubmit: true });
+	}
+
+	disableSubmit() {
+		this.setState({ canSubmit: false });
+	}
+
 	render() {
 		let error;
 
 		if(this.props.error) {
 			error = <span className="error">{this.props.error}</span>
 		}
+
+		let submitText = this.state.isSubmitting ? 'bezig met opslaan ...' : 'opslaan';
 
 		let categories = this.props.categories.categories.map(category => {
 			return <div key={category.id} className="category">
@@ -136,13 +181,15 @@ export default class NewDishPage extends React.Component {
 				<h2>Nieuw gerecht</h2>
 				
 				<Form onSubmit={this.submit.bind(this)} onValid={this.enableSubmit.bind(this)} onInvalid={this.disableSubmit.bind(this)}>
-					<Input name="name" label="Naam" type="text" required
-								 validations={{ maxLength: 127 }} validationErrors={{ maxLength: 'Maximaal 127 tekens.' }} />
+				<Input name="name" label="Naam" type="text" required
+								 validations={{ maxLength: 127, minLength: 10 }} validationErrors={{ 
+								 	maxLength: 'Maximaal 127 tekens', 
+								 	minLength: 'Minimaal 10 tekens' 
+								 }} />
 					<TextArea name="description" label="Beschrijving" required/>
 
 					<h5>Foto's</h5>
 					<Upload ref="uploads"/>
-					<Input type="hidden" name="images" required validation={{ minLength: 1 }} validationErrors={{ minLength: 'Minimaal 1 foto'}} />
 
 					<hr/>
 
@@ -160,7 +207,7 @@ export default class NewDishPage extends React.Component {
 					
 					<hr/>
 
-					<button>Opslaan</button>
+					<button type="submit" disabled={!this.state.canSubmit}>{submitText}</button>
 				</Form>
 			</div>
 		);

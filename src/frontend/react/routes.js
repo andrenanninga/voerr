@@ -9,6 +9,7 @@ import SearchResultPage from 'react/pages/SearchResultPage';
 import SearchItemPage from 'react/pages/SearchItemPage';
 import AccountPage from 'react/pages/AccountPage';
 import NewDishPage from 'react/pages/NewDishPage';
+import DishPage from 'react/pages/DishPage';
 import Upload from 'react/components/Upload';
 
 export default (
@@ -21,6 +22,7 @@ export default (
 		<Route name="account" path="/account" components={AccountPage}/>
 
 		<Route name="newDish" path="/nieuw-gerecht" components={NewDishPage}/>
+		<Route name="dish" path="/gerecht/:id" components={DishPage}/>
 
 		<Route name="results" path="s/:location/:term" components={SearchResultPage} />
 		<Route name="dish" path="s/:location/:term/:id" components={SearchItemPage} />

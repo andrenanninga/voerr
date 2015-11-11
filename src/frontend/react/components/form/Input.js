@@ -44,7 +44,7 @@ export default class Input extends React.Component {
         <label>{this.props.label}</label>
         <div>
           <input type="text" onBlur={this.blurValue.bind(this)} onKeyDown={this.keyDown.bind(this)} onChange={this.changeValue.bind(this)}
-                 type={this.props.type} value={this.getValue()} placeholder={this.props.placeholder} />
+                 type={this.props.type} required={this.props.required} value={this.getValue()} placeholder={this.props.placeholder} />
           {error}
         </div>
       </div>
