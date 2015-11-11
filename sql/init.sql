@@ -5,7 +5,7 @@ VALUES (1, 'Test Testinga', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407a
 (2, 'Henk van de Woude', 'henk@aol.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 500),			-- pw = wachtwoord
 (3, 'Johen Croif', 'jcroif@live.nl', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0),		-- pw = wachtwoord
 (4, 'Tim Schaap', 'timm@gmail.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0),	-- pw = wachtwoord
-(5, 'dr. Andre Hazes', 'de-real-dr-dre@hotmail.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0);		-- pw = wachtwoord
+(5, 'dr. Andre Nanninga', 'de-real-dr-dre@hotmail.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0);		-- pw = wachtwoord
 
 --
 
@@ -17,7 +17,7 @@ VALUES (1, 'Self made kok', 'Groningen', POINT(0, 0), 1),
 (2, 'Ik hou niet van koken', 'Amsterdam', POINT(1, 1), 2),
 (3, 'Specialisatie in Indonesisch', 'Rotterdam', POINT(1, 1), 3),
 (4, 'Kook dagelijks en hou van strandwandelingen.', 'Gronigen', POINT(1, 1), 4),
-(5, 'Chefkok geweest', 'Groningen', POINT(1, 1), 5);
+(5, 'Chefkok geweest in de jaren 60.', 'Groningen', POINT(1, 1), 5);
 
 --
 
@@ -106,7 +106,7 @@ VALUES (1, 'Lamsrack met warme salade van gemengde bonen en langzaam-geroosterde
 (2, 'Beef Wellington', 'Een versie van het klassieke steak gerecht - het middelpunt op een speciale gelegenheid.
 ', 1, NOW()),
 
-(3, 'Citroentaart met zomer bessen', 'Een zingy lemon tart van de heer Ramsay. Gordon\'s versie van de klassieke Franse Tarte au citron is de moeite waard.',
+(3, 'Citroentaart met zomer bessen', 'Een zingy lemon tart van de heer Ramsay. Gordons versie van de klassieke Franse Tarte au citron is de moeite waard.',
  2, NOW()),
 
 (4, 'Mediterrane zalmfilet', 'Zalm gevuld met mediterrane smaken, dit licht, gezonde voorjaar lunch wordt gemaakt om te delen met vrienden.
