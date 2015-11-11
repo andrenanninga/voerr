@@ -8,7 +8,7 @@ from flask.ext.restless import ProcessingException
 from flask.ext.login import LoginManager, current_user
 from app.api.errors.errors import Error
 
-app = Flask(__name__, static_url_path='/static', static_folder='../../frontend/build')
+app = Flask(__name__, static_url_path='/static', static_folder='../../../build')
 app.config.from_object('config')
 
 db = SQLAlchemy(app)

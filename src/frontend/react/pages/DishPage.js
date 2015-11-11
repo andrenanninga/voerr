@@ -35,7 +35,7 @@ export default class DishPage extends React.Component {
 		return <div className="dishDetail">
 			<button onClick={this.handleBackToOverview}>&lt; Terug naar overzicht</button>
 			<h2>{dish.name}</h2>
-			<img src="http://unsplash.it/1000/600?random"/>
+			<img src={'/static/images/' + dish.photos[0]}/>
 			<div className="details">
 				<div className="order">
 					<button className="button-primary">Bestellen</button>
@@ -44,7 +44,7 @@ export default class DishPage extends React.Component {
 					{dish.description}
 				</p>
 				<div className="cook">
-					<img src="http://unsplash.it/500/300?random"/>
+					<img src={'/static/images/' + dish.cook.avatar}/>
 					<h3>{dish.cook.name}</h3>
 				</div>
 
