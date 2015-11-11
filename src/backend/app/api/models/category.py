@@ -1,4 +1,5 @@
 from app import db
+from sqlalchemy.ext.hybrid import hybrid_property
 from flask.ext.restless import ProcessingException
 
 class Category(db.Model):
@@ -17,6 +18,14 @@ class Category(db.Model):
 
     def getExclude():
         return []
+
+    @hybrid_property
+    def parent(self):
+        print(self.parent_id)
+        if self.parent_id is None:
+            return None
+        else: 
+            return Category.query.filter(Category.id == self.parent_id).first()
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):

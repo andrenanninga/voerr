@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
-import { filter } from 'lodash';
+import { filter, values } from 'lodash';
 
 import Markdown from 'react-remarkable';
 
@@ -28,22 +28,16 @@ export default class SearchItemPage extends React.Component {
 	render() {
 		let dish = this.props.dishes[0];
 		let url = '/s/' + this.props.params.location + '/' + this.props.params.term;
-		let allergies;
+		let allergies, categories;
 
 		if(!dish) {
 			return <div></div>;
 		}
 
 		let allergiesMap = {
-			1: 'wheat',
-			2: 'shellfish',
-			3: 'egg',
-			4: 'fish',
-			6: 'peanut',
-			7: 'soy',
-			8: 'milk',
-			9: 'nuts'
-		}
+			1: 'wheat', 2: 'shellfish', 3: 'egg', 4: 'fish', 
+			6: 'peanut', 7: 'soy', 8: 'milk', 9: 'nuts'
+		};
 
 		if(dish.allergies.length) {
 			allergies = dish.allergies.map(allergy => {
@@ -54,6 +48,32 @@ export default class SearchItemPage extends React.Component {
 			});
 
 			allergies = filter(allergies);
+		}
+
+		if(dish.categories.length) {
+			let cats = {};
+
+			dish.categories.forEach((cat) => {
+				if(!cats[cat.parent.id]) {
+					cats[cat.parent.id] = {
+						name: cat.parent.name,
+						cats: []
+					};
+				}
+
+				cats[cat.parent.id].cats.push({ id: cat.id, name: cat.name });
+			});
+
+			categories = values(cats).map((cat) => {
+				return (
+					<ul key={cat.id} className="category">
+						<li key={"__" + cat.id}><strong>{cat.name}</strong></li>
+						{cat.cats.map(c => {
+							return <li key={c.id}>{c.name}</li>
+						})}
+					</ul>
+				);
+			});
 		}
 
 		return <div className="dishDetail">
@@ -75,30 +95,17 @@ export default class SearchItemPage extends React.Component {
 
 			<hr/>
 
-			<Markdown>
-				{dish.description}
-			</Markdown>
-
-			{/*			
-			<div className="availability">
-				tussen <b>18:00</b> en <b>21:00</b>
-			</div>
-
 			<div className="details">
-				<div className="order">
-					<button className="button-primary">Bestellen</button>
+				<div className="description">
+					<Markdown>
+						{dish.description}
+					</Markdown>
 				</div>
-				<p>
-					{dish.description}
-				</p>
-				<h5>Allergie&euml;n</h5>
-				{allergies}
-				<div className="cook">
-					<div className="image aspect_4-3" style={{ backgroundImage: 'url(/static/images/' + dish.cook.avatar + ')' }}></div>
-					<h3>{dish.cook.name}</h3>
+
+				<div className="categories">
+					{categories}
 				</div>
 			</div>
-				*/}
 		</div>;		
 	}
 }

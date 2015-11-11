@@ -23,7 +23,7 @@
 	@include media-breakpoint-up(lg) { 
 		& { 
 			margin: 40px auto; 
-			max-width: 850px; 
+			max-width: 1000px; 
 		} 
 
 		h2 {
@@ -81,32 +81,24 @@
 	}
 
 	.details {
-		margin: 30px 0;
+		display: flex;
 
-		p {
-			font-size: 1.3em;
-			order: 0;
-			box-sizing: border-box;
-			flex-shrink: 0;
+		.description {
+			flex-grow: 1;
 		}
 
-		.order {
-			order: 1;
-			flex-shrink: 0;
+		.categories {
+			flex-grow: 0;
+			min-width: 100px;
+			padding: 0 0 0 40px;
 
-			button {
-				width: 100%;
-			}
-		}		
+			@include media-breakpoint-up(sm) { & { min-width: 150px; } }
 
-		.cook {
-			order: 2;
-			flex-shrink: 0;
-
-			img {
-				max-width: 100% !important;
-				height: auto;
-				display: block;
+			ul {
+				li {
+					list-style-type: none;
+					margin-bottom: 0;
+				}
 			}
 		}
 	}

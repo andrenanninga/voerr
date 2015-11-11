@@ -6,6 +6,9 @@
 	flex-wrap: wrap;
 	margin: 10px;
 
+	max-width: 1200px;
+	margin: 10px auto;
+
 	span {
 		display: block;
 		width: 100%;
@@ -19,8 +22,8 @@
 		box-sizing: border-box;
 		padding: 10px;
 
-		@include media-breakpoint-up(md) { & { width: 50%; } }
-		@include media-breakpoint-up(lg) { & { width: 33%; } }
-		@include media-breakpoint-up(xl) { & { width: 25%; } }
+		@include media-breakpoint-up(sm) { & { width: 50%; } }
+		@include media-breakpoint-up(md) { & { width: 33%; } }
+		@include media-breakpoint-up(lg) { & { width: 25%; } }
 	}
 }

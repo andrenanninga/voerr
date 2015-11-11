@@ -58,11 +58,8 @@ export default class NewDishPage extends React.Component {
 
 			if(every(uploads)) {
 				this.props.history.pushState(null, '/gerecht/' + this.state.id);
-
-				console.log('done');				
 			}
 		}
-
 	}
 
 	submit(data) {
