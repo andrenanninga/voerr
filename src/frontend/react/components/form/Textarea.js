@@ -43,7 +43,7 @@ export default class Textarea extends React.Component {
       <div className={className}>
         <label>{this.props.label}</label>
         <div>
-          <textarea onBlur={this.blurValue.bind(this)} onKeyDown={this.keyDown.bind(this)} onChange={this.changeValue.bind(this)}  placeholder={this.props.placeholder}>
+          <textarea rows="5" onBlur={this.blurValue.bind(this)} onKeyDown={this.keyDown.bind(this)} onChange={this.changeValue.bind(this)}  placeholder={this.props.placeholder}>
             {this.getValue()}
           </textarea>
           {error}
