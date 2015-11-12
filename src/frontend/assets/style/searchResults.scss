@@ -21,6 +21,35 @@
 		display: inline-block;
 		box-sizing: border-box;
 		padding: 10px;
+		position: relative;
+
+		.avatar {
+			width: 80px;
+			height: 80px;
+			padding: 0;
+			border-radius: 200px;
+
+			position: absolute;
+			right: 20px;
+			margin-top: -60px;
+			border: 2px solid #eee;
+		}
+
+		.rating {
+			padding: 4px 0 0 0;
+		}
+
+		h2 {
+			margin: 0;
+		}
+
+		.allergies {
+			margin: 20px 0 0 0;
+			.allergy {
+				margin: 0 10px;
+				display: inline-block;
+			}
+		}
 
 		@include media-breakpoint-up(sm) { & { width: 50%; } }
 		@include media-breakpoint-up(md) { & { width: 33%; } }

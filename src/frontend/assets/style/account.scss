@@ -118,9 +118,10 @@
 					&:nth-child(1):before { content: '#'; }
 					&:nth-child(2):before { content: 'Gerecht'; }
 					&:nth-child(3):before { content: 'Kok'; }
-					&:nth-child(4):before { content: 'Besteldatum'; }
-					&:nth-child(5):before { content: 'Aanvang'; }
-					&:nth-child(6):before { content: 'adres'; }
+					&:nth-child(4):before { content: 'Prijs'; }
+					&:nth-child(5):before { content: 'Besteldatum'; }
+					&:nth-child(6):before { content: 'Aanvang'; }
+					&:nth-child(7):before { content: 'Adres'; }
 				}
 			}
 

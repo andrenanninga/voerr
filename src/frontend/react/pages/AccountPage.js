@@ -36,25 +36,19 @@ export default class AccountPage extends React.Component {
 	}
 
 	componentDidUpdate() {
+	}
+
+	render() {
+		let orders;
 		let user = this.props.login.user;
+
+		if(!user) {
+			return <div></div>;
+		}
 
 		if(user && this.state.needsOrders) {
 			OrderActions.requestUserOrders(user.id);
 			this.setState({ needsOrders: false });
-		}
-		// console.log('')
-		// if(this.props.login) {
-		// 	console.log(this.props.login.user);
-		// }
-	}
-
-	render() {
-		let user = this.props.login.user;
-
-		let orders;
-
-		if(!user) {
-			return <div></div>;
 		}
 
 		let credit = (user.credit / 100).toFixed(2).replace('.', ',');
@@ -95,6 +89,7 @@ export default class AccountPage extends React.Component {
 						<td>{order.id}</td>
 						<td><Link to={'/gerecht/' + order.id}>{order.dish_name}</Link></td>
 						<td><Link to="#">{order.cook_name}</Link></td>
+						<td>&euro;{price}</td>
 						<td>{orderTime}</td>
 						<td>{startTime}</td>
 						<td>{address}</td>
@@ -109,19 +104,19 @@ export default class AccountPage extends React.Component {
 			</div>
 		);
 
-		console.log(this);
 		return (
 			<div className="accountPage">
 				{account}
 				<hr/>
 				<div className="orders">
-					<h4>Bestellingen</h4>
+					<h4>Maaltijden</h4>
 					<table>
 						<thead>
 							<tr>
 								<td>#</td>
 								<td>Gerecht</td>
 								<td>Kok</td>
+								<td>Prijs</td>
 								<td>Besteldatum</td>
 								<td>Aanvang</td>
 								<td>adres</td>
@@ -134,6 +129,8 @@ export default class AccountPage extends React.Component {
 				</div>
 				<div className="dishes">
 					<h4>Gerechten</h4>
+					<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
+
 				</div>
 			</div>
 		);
