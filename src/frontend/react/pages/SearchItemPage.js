@@ -108,21 +108,27 @@ export default class SearchItemPage extends React.Component {
 			let order = this.props.order.orders[0];
 			let startTime = dateFormat(new Date(order.start_time), 'HH:MM');
 
-			meal = ([
+			meal = [
 				<h4>Je mag mee-eten</h4>,
-				<p>Etenstijd vanavond om <strong>{startTime}</strong></p>
-			]);
+				<p>Etenstijd is vanavond om <strong>{startTime}</strong></p>
+			];
 		}
 		else {
 			let price = dish.meal.price.toFixed(2).replace('.', ',');
 			let availableFrom = dateFormat(new Date(dish.meal.available_from), 'HH:MM');
 			let availableUntil = dateFormat(new Date(dish.meal.available_until), 'HH:MM');
+			let error;
 
-			meal = ([
+			if(this.props.order.error) {
+				error = <span className="error-message">{this.props.order.error}</span>;
+			}
+
+			meal = [
 				<h4>&euro;{price} per maaltijd</h4>,
 				<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>,
-				<button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>
-			]);
+				<button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>,
+				error
+			];
 		}
 
 
