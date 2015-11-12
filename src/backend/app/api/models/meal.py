@@ -24,7 +24,8 @@ class Meal(db.Model):
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
-    def __init__(self, price=None, available_from=None, available_until=None, dinner_time=None, portions=None, portions_claimed=None, location=None, notes=None, is_takeout=None, dish_id=None):
+    def __init__(self, price=None, available_from=None, available_until=None, dinner_time=None, portions=None, portions_claimed=None, location=None,
+                 notes=None, is_takeout=None, dish_id=None):
         self.price = price
         self.available_from = available_from
         self.available_until = available_until
@@ -34,10 +35,10 @@ class Meal(db.Model):
         self.location = location
         self.notes = notes
         self.is_takeout = is_takeout
-        self.dish_id = dish_id 
+        self.dish_id = dish_id
 
     def __repr__(self):
-        return '<Meal %r>' % (self.price)
+        return '<Meal %r>' % self.price
 
     def getExclude():
         return []
@@ -48,18 +49,18 @@ class Meal(db.Model):
 
         return data
 
-    def serialize(self, related = True):
+    def serialize(self, related=True):
         mealDict = {
-            'price' : self.price,
-            'available_from' : self.available_from,
-            'available_until' : self.available_until,
-            'dinner_time' : self.dinner_time,
-            'portions' : self.portions,
-            'portions_claimed' : self.portions_claimed,
-            'location' : self.location,
-            'notes' : self.notes,
-            'is_takeout' : self.is_takeout,
-            'dish_id' : self.dish_id
+            'price': self.price,
+            'available_from': self.available_from,
+            'available_until': self.available_until,
+            'dinner_time': self.dinner_time,
+            'portions': self.portions,
+            'portions_claimed': self.portions_claimed,
+            'location': self.location,
+            'notes': self.notes,
+            'is_takeout': self.is_takeout,
+            'dish_id': self.dish_id
         }
 
         return mealDict
@@ -107,5 +108,3 @@ class Meal(db.Model):
         if not bool(is_takeout):
             raise Error(name='is_takeout', message='Not a boolean for is_takeout.')
         return is_takeout
-
-

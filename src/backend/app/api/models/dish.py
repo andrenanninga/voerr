@@ -2,7 +2,7 @@ from flask import jsonify
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from app import db
-import datetime
+import datetime, operator
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
 from app.api.models.allergy import Allergy
@@ -10,6 +10,7 @@ from app.api.models.category import Category
 from app.api.models.cook import Cook
 from app.api.models.meal import Meal
 from app.api.models.photo import Photo
+# from app.api.models.reviews import Reviews
 
 dish_allergy = db.Table('dish_allergy',
                         db.Column('dish_id', db.Integer, db.ForeignKey('dish.id')),
@@ -55,6 +56,15 @@ class Dish(db.Model):
                 photos_dict.append(p.name)
 
         return photos_dict
+
+    @hybrid_property
+    def meal(self):
+        today = datetime.date.today()
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
+        meal = Meal.query.filter(Meal.dish_id == self.id).filter(Meal.available_until.between(today, tomorrow)).first()
+
+        return meal
 
     @staticmethod
     def post_single_preprocessor(data=None, **kw):

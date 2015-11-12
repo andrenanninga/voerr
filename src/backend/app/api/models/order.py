@@ -1,7 +1,6 @@
 import datetime
 import flask
 
-
 from app import db
 
 from app.api.models.meal import Meal
@@ -9,7 +8,11 @@ from app.api.models.meal import Meal
 from sqlalchemy.orm import validates
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
+from sqlalchemy.ext.hybrid import hybrid_property
 from app.api.validators.number import NumberValidator
+
+from app.api.models.meal import Meal
+from app.api.models.user import User
 
 
 class Order(db.Model):
@@ -36,6 +39,15 @@ class Order(db.Model):
     def __repr__(self):
         return '<Order %r>' % self.total_amount
 
+    @hybrid_property
+    def dish_id(self):
+        meal = Meal.query.filter(Meal.id == self.meal_id).first()
+
+        if meal:
+            return meal.dish_id
+
+        return None
+
     def getExclude():
         return []
 
@@ -55,11 +67,31 @@ class Order(db.Model):
                 code=400
             )
 
+        if current_user.credit < (data['amount_meals'] * getMeal.price):
+            raise ProcessingException(
+                description='Je hebt niet genoeg geld in je portemonnee!',
+                code=400
+            )
+
+        if data['amount_meals'] > (getMeal.portions - getMeal.portions_claimed):
+            raise ProcessingException(
+                description='Er zijn niet genoeg maaltijden om aan je te reserveren',
+                code=400
+            )
+
         data['total_amount'] = getMeal.price * data['amount_meals']
         data['user_id'] = current_user.id
 
         return data
 
     @staticmethod
-    def post_single_postprocessor(data=None, **kw):
-        return data
+    def post_single_postprocessor(result=None, **kw):
+        getMeal = Meal.query.get(result['meal_id'])
+        getMeal.portions_claimed += result['amount_meals']
+
+        getUser = User.query.get(current_user.id)
+        getUser.credit -= result['total_amount']
+
+        db.session.commit()
+
+        return result

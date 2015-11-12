@@ -1,0 +1,15 @@
+@import "_variables";
+
+.heart {
+	display: inline-block;
+	margin: 2px;
+	width: 18px;
+	height: 18px;
+
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+	background-image: url('/images/icons/heart-empty.png');
+	&.full { background-image: url('/images/icons/heart-full.png'); }
+}
