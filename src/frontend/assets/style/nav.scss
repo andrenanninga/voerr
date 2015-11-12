@@ -113,6 +113,11 @@
 				li {
 					display: block;
 					margin: 10px 0;
+					color: #FFF !important;
+
+					&.hidden {
+						display: none;
+					}
 
 					a {
 						color: #FFF;

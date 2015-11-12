@@ -56,6 +56,13 @@ class Order(db.Model):
     def dish_name(self):
         return Dish.query.filter(Dish.id == self.dish_id).first().name
 
+    @hybrid_property
+    def cook_name(self):
+        return Dish.query.filter(Dish.id == self.dish_id).first().cook.name
+
+    @hybrid_property
+    def cook_address(self):
+        return Dish.query.filter(Dish.id == self.dish_id).first().cook.address
 
     def getExclude():
         return []

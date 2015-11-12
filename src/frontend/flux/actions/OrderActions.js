@@ -22,7 +22,7 @@ export default class OrderActions {
 				{ name: 'user_id', op: 'eq', val: user_id }
 			],
 			order_by: [
-				{ field: 'date_created', 'direction': 'desc' }
+				{ field: 'start_time', 'direction': 'desc' }
 			]
 		};
 

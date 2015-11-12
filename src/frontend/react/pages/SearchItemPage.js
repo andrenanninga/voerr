@@ -136,7 +136,6 @@ export default class SearchItemPage extends React.Component {
 			);
 		}
 
-
 		return <div className="dishDetail">
 			<Link className="button" to={url}>&lt; Terug naar overzicht</Link>
 			<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + dish.photos[0] + ')' }}></div>
@@ -148,6 +147,7 @@ export default class SearchItemPage extends React.Component {
 				</div>
 				<div className="dish">
 					<h2>{dish.name}</h2>
+					<a target="_blank" href={'http://maps.google.com/?q=' + dish.cook.address}>{dish.cook.address}</a>
 					<div className="rating">
 						{hearts}
 						<a href="#">({dish.reviews.length})</a>

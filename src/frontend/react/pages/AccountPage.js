@@ -37,7 +37,6 @@ export default class AccountPage extends React.Component {
 
 	componentDidUpdate() {
 		let user = this.props.login.user;
-		console.log('update');
 
 		if(user && this.state.needsOrders) {
 			OrderActions.requestUserOrders(user.id);
@@ -58,6 +57,8 @@ export default class AccountPage extends React.Component {
 			return <div></div>;
 		}
 
+		let credit = (user.credit / 100).toFixed(2).replace('.', ',');
+
 		let account = (
 			<div className="account">
 				<div className="avatar">
@@ -67,6 +68,10 @@ export default class AccountPage extends React.Component {
 					<h2>{user.name}</h2>
 					<p>{user.email}</p>
 				</div>
+				<div className="credit">
+					<h4>&euro;{credit} credit</h4>
+					<button disabled>credits toevoegen</button>
+				</div>
 			</div>
 		);
 
@@ -75,19 +80,26 @@ export default class AccountPage extends React.Component {
 				let orderTime = dateFormat(order.date_created, 'd mmmm yyyy').toLowerCase();
 				let startTime = dateFormat(order.start_time, 'd mmmm yyyy "om" hh:MM').toLowerCase();
 				let price = (order.total_amount / 100).toFixed(2).replace('.', ',');
+				let url = '/gerecht/' + order.id;
+				let dinnerTime, address;
+
+				if(new Date(order.start_time) < Date.now()) {
+					startTime = <span className="muted">{startTime}</span>;
+				}
+				else {
+					address = <a target="_blank" href={'http://maps.google.com/?q=' + order.cook_address}>{order.cook_address}</a>;
+				}
 
 				return (
-					<div className="order" key={order.id}> 
-						<h3>{order.dish_name}</h3>
-						<p>
-							{orderTime} &euro;{price}
-						</p>
-						<p>
-							aan tafel om <strong>{startTime}</strong>
-						</p>
-					</div>
+					<tr key={order.id}>
+						<td>{order.id}</td>
+						<td><Link to={'/gerecht/' + order.id}>{order.dish_name}</Link></td>
+						<td><Link to="#">{order.cook_name}</Link></td>
+						<td>{orderTime}</td>
+						<td>{startTime}</td>
+						<td>{address}</td>
+					</tr>
 				);
-				console.log(order);
 			});
 		}
 
@@ -102,41 +114,27 @@ export default class AccountPage extends React.Component {
 			<div className="accountPage">
 				{account}
 				<hr/>
-				{orders}
-				<hr/>
-				{dishes}
-			</div>
-		);
-
-		return <div></div>;
-
-		return (
-			<div className="account">
-
-				<div>
+				<div className="orders">
+					<h4>Bestellingen</h4>
 					<table>
-
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>Gerecht</td>
+								<td>Kok</td>
+								<td>Besteldatum</td>
+								<td>Aanvang</td>
+								<td>adres</td>
+							</tr>
+						</thead>
+						<tbody>
+							{orders}
+						</tbody>
 					</table>
 				</div>
-
-				<table>
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Maaltijd</th>
-							<th>Kok</th>
-							<th>Datum</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>23</td>
-							<td>Hutspot</td>
-							<td>Gordon Ramsey</td>
-							<td>12 januari 2016</td>
-						</tr>
-					</tbody>
-				</table>
+				<div className="dishes">
+					<h4>Gerechten</h4>
+				</div>
 			</div>
 		);
 	}

@@ -88,6 +88,10 @@
 				}
 			}
 
+			a:first-of-type {
+				text-decoration: underline;
+			}
+
 			.rating{ 
 				display: flex;
 				align-items: flex-end;
