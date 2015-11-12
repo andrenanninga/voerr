@@ -21,6 +21,7 @@ class Meal(db.Model):
     notes = db.Column('notes', db.String(255))
     is_takeout = db.Column('is_takeout', db.Boolean)
     dish_id = db.Column('dish_id', db.Integer, db.ForeignKey('dish.id'))
+    dish = db.relationship('Dish')
     data_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     data_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 

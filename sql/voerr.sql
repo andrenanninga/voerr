@@ -20,6 +20,8 @@ CREATE TABLE `order` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `amount_meals` in
 
 CREATE TABLE `photo` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127), `dish_id` int(13) DEFAULT NULL, `user_id` int(13) DEFAULT NULL,  `cook_id` int(13) DEFAULT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 
+CREATE TABLE `transaction_log` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `type` varchar(15) NOT NULL, `amount` int(6) NOT NULL,  `description` text NOT NULL, `user_id` int(13) NOT NULL, `order_id` int(13) NOT NULL, `date_created` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
+
 ALTER TABLE `user` ADD INDEX `ix_user_id` (`id`);
 ALTER TABLE `cook` ADD INDEX `ix_cook_id` (`id`);
 ALTER TABLE `cook` ADD INDEX `ix_cook_user_id` (`user_id`);
@@ -42,6 +44,8 @@ ALTER TABLE `photo` ADD INDEX `ix_photo_id` (`id`);
 ALTER TABLE `photo` ADD INDEX `ix_photo_dish_id` (`dish_id`);
 ALTER TABLE `photo` ADD INDEX `ix_photo_user_id` (`user_id`);
 ALTER TABLE `photo` ADD INDEX `ix_photo_cook_id` (`cook_id`);
+ALTER TABLE `transaction_log` ADD INDEX `ix_transaction_user_id` (`user_id`);
+ALTER TABLE `transaction_log` ADD INDEX `ix_transaction_order_id` (`order_id`);
 
 -- ALTER TABLE `cook` ADD SPATIAL INDEX `sp_cook_coordinates` (`coordinates`);
 
@@ -63,6 +67,8 @@ ALTER TABLE `photo` ADD FOREIGN KEY (`cook_id`) REFERENCES `cook`(`id`) ON DELET
 ALTER TABLE `review` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; 
 ALTER TABLE `review` ADD FOREIGN KEY (`dish_id`) REFERENCES `dish`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; 
 ALTER TABLE `user` ADD FOREIGN KEY (`avatar`) REFERENCES `photo`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; 
+ALTER TABLE `transaction_log` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; 
+ALTER TABLE `transaction_log` ADD FOREIGN KEY (`order_id`) REFERENCES `order`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT; 
 ALTER TABLE `user` ADD CONSTRAINT UQ_User_Email UNIQUE (`email`)
 
 

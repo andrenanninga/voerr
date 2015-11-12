@@ -22,7 +22,7 @@ api_manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 def check_auth(instance_id=None, **kw):
     if not current_user.is_authenticated:
-        raise ProcessingException(description='Not Authorized', code=401)
+        raise ProcessingException(description='Niet ingelogd', code=401)
 
 
 from app.api.models.allergy import Allergy
@@ -33,6 +33,7 @@ from app.api.models.meal import Meal
 from app.api.models.order import Order
 from app.api.models.photo import Photo
 from app.api.models.review import Review
+from app.api.models.transaction_log import TransactionLog
 from app.api.models.user import User
 
 api_manager.create_api(Allergy,
@@ -116,6 +117,14 @@ api_manager.create_api(Review,
                        preprocessors={
                            'POST': [check_auth, Review.post_single_preprocessor]
                        })
+
+api_manager.create_api(TransactionLog,
+                       url_prefix='/api/v1',
+                       collection_name='transactionlogs',
+                       methods=['GET'],
+                       exclude_columns=TransactionLog.getExclude(),
+                       validation_exceptions=[Error, ProcessingException]
+                       )
 
 api_manager.create_api(User,
                        url_prefix='/api/v1',

@@ -1,7 +1,7 @@
 import datetime
 import flask
 
-from app import db
+from app import db, app
 
 from app.api.models.meal import Meal
 
@@ -11,9 +11,12 @@ from flask.ext.restless import ProcessingException
 from sqlalchemy.ext.hybrid import hybrid_property
 from app.api.validators.number import NumberValidator
 
+from app.api.models.cook import Cook
+from app.api.models.dish import Dish
 from app.api.models.meal import Meal
 from app.api.models.dish import Dish
 from app.api.models.user import User
+from app.api.models.transaction_log import TransactionLog
 
 class Order(db.Model):
     __tablename__ = 'order'
@@ -25,6 +28,7 @@ class Order(db.Model):
     total_amount = db.Column('total_amount', db.Integer)
     meal_id = db.Column('meal_id', db.Integer)
     user_id = db.Column('user_id', db.Integer)
+    transactions = db.relationship('TransactionLog')
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
@@ -97,6 +101,32 @@ class Order(db.Model):
         getUser = User.query.get(current_user.id)
         getUser.credit -= result['total_amount']
 
+        getDish = Dish.query.get(getMeal.dish_id)
+        getCook = Cook.query.get(getDish.cook_id)
+        getUser2 = User.query.get(getCook.user_id)
+
+        percentage = result['total_amount'] * (app.config['PAYMENT_PERCENTAGE'] / 100)
+        gain = result['total_amount'] - percentage
+        getUser2.credit += gain
+
+        transaction_log_buyer = TransactionLog(
+            getUser.id,
+            'DEBIT',
+            result['total_amount'],
+            'Order transaction from user %r to user %r' % (getUser.id, getUser2.id),
+            result['id']
+        )
+
+        transaction_log_seller = TransactionLog(
+            getUser2.id,
+            'CREDIT',
+            gain,
+            'Order transaction from user %r to user %r' % (getUser.id, getUser2.id),
+            result['id']
+        )
+
+        db.session.add(transaction_log_buyer)
+        db.session.add(transaction_log_seller)
         db.session.commit()
 
         return result
