@@ -1,7 +1,7 @@
 import datetime
 import flask
 
-from app import db
+from app import db, app
 
 from app.api.models.meal import Meal
 
@@ -11,8 +11,11 @@ from flask.ext.restless import ProcessingException
 from sqlalchemy.ext.hybrid import hybrid_property
 from app.api.validators.number import NumberValidator
 
+from app.api.models.cook import Cook
+from app.api.models.dish import Dish
 from app.api.models.meal import Meal
 from app.api.models.user import User
+from app.api.models.transaction_log import TransactionLog
 
 
 class Order(db.Model):
@@ -92,6 +95,22 @@ class Order(db.Model):
         getUser = User.query.get(current_user.id)
         getUser.credit -= result['total_amount']
 
+        getDish = Dish.query.get(getMeal.dish_id)
+        getCook = Cook.query.get(getDish.cook_id)
+        getUser2 = User.query.get(getCook.user_id)
+
+        percentage = result['total_amount'] * (app.config['PAYMENT_PERCENTAGE'] / 100)
+        getUser2.credit += (result['total_amount'] - percentage)
+
+        transaction_log = TransactionLog(
+            getUser.id,
+            getUser2.id,
+            percentage,
+            'Order transaction from user %r to user %r' % (getUser.id, getUser2.id),
+            result['id']
+        )
+
+        db.session.add(transaction_log)
         db.session.commit()
 
         return result
