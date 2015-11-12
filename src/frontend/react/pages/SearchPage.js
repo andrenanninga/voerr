@@ -6,6 +6,9 @@ import slug from 'http-slug';
 
 import 'assets/style/search';
 
+import splashVideo from 'assets/videos/steak.mp4';
+import splashImage from 'assets/images/steak.jpg';
+
 // geolocator needs to a global variable for the locateIp fallback method
 window.geolocator = geolocator;
 
@@ -94,12 +97,19 @@ export default class SearchPage extends React.Component {
 
 		return (
 			<div className="search">
+				<div className="video">
+					<video poster="splashImage" autoPlay="autoplay" loop="loop" width="480" height="320">
+						<source src={splashVideo} type="video/mp4"/>
+					</video>
+				</div>
 				<form onSubmit={this.onSubmit.bind(this)}>
-					<h2>waar heb je zin in?</h2>
-					<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot of barbeque" className={foodClass} />
-					<div className="options">
-						{location}
-						<button type="submit" className="button button-primary">zoeken</button>
+					<div className="block">
+						<h2>waar heb je zin in?</h2>
+						<input ref="food" name="food" type="text" placeholder="bijv. rijst, hutspot of barbeque" className={foodClass} />
+						<div className="options">
+							{location}
+							<button type="submit" className="button button-primary">zoeken</button>
+						</div>
 					</div>
 				</form>
 			</div>

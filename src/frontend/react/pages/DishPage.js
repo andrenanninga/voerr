@@ -23,7 +23,6 @@ export default class DishPage extends React.Component {
 		DishesActions.requestDish(this.props.params.id);
 	}
 
-
 	render() {
 		let dish = this.props.dishes[0];
 		let allergies, categories;

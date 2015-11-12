@@ -10,8 +10,34 @@ export default class OrderActions {
 		this.generateActions(
 			'clear',
 			'receiveOrder',
+			'receiveOrders',
 			'receiveError'
 		);
+	}
+
+	requestUserOrders(user_id) {
+		let url = [config.apiEndpoint, 'orders'].join('/');
+		let query = {
+			filters: [
+				{ name: 'user_id', op: 'eq', val: user_id }
+			],
+			order_by: [
+				{ field: 'date_created', 'direction': 'desc' }
+			]
+		};
+
+		url = url + '?q=' + JSON.stringify(query);
+		console.log(url);
+
+		axios.get(url)
+			.then(res => {
+				if(res.data.num_results) {
+					this.actions.receiveOrders(res.data.objects);
+				}
+			})
+			.catch(e => {
+				console.error(e);
+			})
 	}
 
 	requestOrder(dish_id, user_id) {
