@@ -28,6 +28,7 @@ class Order(db.Model):
     total_amount = db.Column('total_amount', db.Integer)
     meal_id = db.Column('meal_id', db.Integer)
     user_id = db.Column('user_id', db.Integer)
+    transactions = db.relationship('TransactionLog')
     date_created = db.Column('date_created', db.DateTime, default=datetime.datetime.now)
     date_updated = db.Column('date_updated', db.DateTime, onupdate=datetime.datetime.now)
 
@@ -100,17 +101,27 @@ class Order(db.Model):
         getUser2 = User.query.get(getCook.user_id)
 
         percentage = result['total_amount'] * (app.config['PAYMENT_PERCENTAGE'] / 100)
-        getUser2.credit += (result['total_amount'] - percentage)
+        gain = result['total_amount'] - percentage
+        getUser2.credit += gain
 
-        transaction_log = TransactionLog(
+        transaction_log_buyer = TransactionLog(
             getUser.id,
-            getUser2.id,
-            percentage,
+            'DEBIT',
+            result['total_amount'],
             'Order transaction from user %r to user %r' % (getUser.id, getUser2.id),
             result['id']
         )
 
-        db.session.add(transaction_log)
+        transaction_log_seller = TransactionLog(
+            getUser2.id,
+            'CREDIT',
+            gain,
+            'Order transaction from user %r to user %r' % (getUser.id, getUser2.id),
+            result['id']
+        )
+
+        db.session.add(transaction_log_buyer)
+        db.session.add(transaction_log_seller)
         db.session.commit()
 
         return result
