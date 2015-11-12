@@ -62,7 +62,7 @@ class Dish(db.Model):
         today = datetime.date.today()
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
-        meal = Meal.query.filter(Meal.available_until.between(today, tomorrow)).first()
+        meal = Meal.query.filter(Meal.dish_id == self.id).filter(Meal.available_until.between(today, tomorrow)).first()
 
         return meal
 

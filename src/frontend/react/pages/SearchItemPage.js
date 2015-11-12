@@ -119,7 +119,7 @@ export default class SearchItemPage extends React.Component {
 				<div className="meal">
 					<h4>&euro;{price} per maaltijd</h4>
 					<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>
-					<button className="button-primary">Bord bestellen</button>
+					<button className="button-primary">Ik wil mee-eten</button>
 				</div>
 			</div>
 
