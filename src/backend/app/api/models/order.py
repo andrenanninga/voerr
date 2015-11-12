@@ -8,8 +8,10 @@ from app.api.models.meal import Meal
 from sqlalchemy.orm import validates
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
+from sqlalchemy.ext.hybrid import hybrid_property
 from app.api.validators.number import NumberValidator
 
+from app.api.models.meal import Meal
 from app.api.models.user import User
 
 
@@ -36,6 +38,10 @@ class Order(db.Model):
 
     def __repr__(self):
         return '<Order %r>' % self.total_amount
+
+    @hybrid_property
+    def dish_id(self):
+        return Meal.query.filter(Meal.id == self.meal_id).first().dish_id
 
     def getExclude():
         return []
