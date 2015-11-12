@@ -10,9 +10,10 @@ export default class OrderStore {
 		this.error = null;
 	}
 
-	@bind(OrderActions.clearOrders)
-	clearOrders() {
+	@bind(OrderActions.clear)
+	clear() {
 		this.orders = [];
+		this.error = null;
 	}
 
 	@bind(OrderActions.receiveOrder)
