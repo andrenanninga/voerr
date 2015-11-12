@@ -29,7 +29,7 @@ export default class SearchItemPage extends React.Component {
 	}
 
 	componentWillMount() {
-		OrderActions.clearOrders();
+		OrderActions.clear();
 		OrderActions.requestOrder(parseInt(this.props.params.id), 1);
 		DishesActions.requestDish(this.props.params.id);
 	}

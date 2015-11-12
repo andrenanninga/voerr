@@ -54,6 +54,8 @@
 		}
 		.category, .allergy {
 			min-width: 210px;
+			width: inherit;
+			height: inherit;
 
 			label.minimal {
 				font-weight: normal;
