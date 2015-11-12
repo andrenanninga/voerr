@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router';
 import connectToStores from 'alt/utils/connectToStores';
-import { filter, values, reduce, times } from 'lodash';
 import dateFormat from 'dateformat-light';
+import { filter, values, reduce, times } from 'lodash';
+import { Link } from 'react-router';
 
 import Markdown from 'react-remarkable';
 
 import DishesStore from 'flux/stores/DishesStore';
 import DishesActions from 'flux/actions/DishesActions';
+import OrderStore from 'flux/stores/OrderStore';
+import OrderActions from 'flux/actions/OrderActions';
 
 import 'assets/style/dishDetail';
 import 'assets/style/_allergies';
@@ -16,22 +18,31 @@ import 'assets/style/_hearts';
 @connectToStores
 export default class SearchItemPage extends React.Component {
 	static getStores(props) {
-		return [DishesStore];
+		return [DishesStore, OrderStore];
 	}
 
 	static getPropsFromStores(props) {
-		return DishesStore.getState();
+		return {
+			dishes: DishesStore.getState(),
+			order: OrderStore.getState()
+		};
 	}
 
 	componentWillMount() {
 		DishesActions.requestDish(this.props.params.id);
+		OrderActions.requestOrder(parseInt(this.props.params.id), 1);
+	}
+
+	onMakeOrder() {
+		let meal = this.props.dishes.dishes[0].meal;
+		OrderActions.postOrder(meal);
 	}
 
 	render() {
-		let dish = this.props.dishes[0];
+		let dish = this.props.dishes.dishes[0];
 		let url = '/s/' + this.props.params.location + '/' + this.props.params.term;
 		let hearts = [];
-		let allergies, categories;
+		let allergies, categories, meal;
 
 		if(!dish) {
 			return <div></div>;
@@ -93,9 +104,27 @@ export default class SearchItemPage extends React.Component {
 			}
 		});
 
-		let price = dish.meal.price.toFixed(2).replace('.', ',');
-		let availableFrom = dateFormat(new Date(dish.meal.available_from), 'HH:MM');
-		let availableUntil = dateFormat(new Date(dish.meal.available_until), 'HH:MM');
+		if(this.props.order.orders.length) {
+			let order = this.props.order.orders[0];
+			let startTime = dateFormat(new Date(order.start_time), 'HH:MM');
+
+			meal = ([
+				<h4>Je mag mee-eten</h4>,
+				<p>Etenstijd vanavond om <strong>{startTime}</strong></p>
+			]);
+		}
+		else {
+			let price = dish.meal.price.toFixed(2).replace('.', ',');
+			let availableFrom = dateFormat(new Date(dish.meal.available_from), 'HH:MM');
+			let availableUntil = dateFormat(new Date(dish.meal.available_until), 'HH:MM');
+
+			meal = ([
+				<h4>&euro;{price} per maaltijd</h4>,
+				<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>,
+				<button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>
+			]);
+		}
+
 
 		return <div className="dishDetail">
 			<Link className="button" to={url}>&lt; Terug naar overzicht</Link>
@@ -117,9 +146,7 @@ export default class SearchItemPage extends React.Component {
 					</div>
 				</div>
 				<div className="meal">
-					<h4>&euro;{price} per maaltijd</h4>
-					<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>
-					<button className="button-primary">Ik wil mee-eten</button>
+					{meal}
 				</div>
 			</div>
 
