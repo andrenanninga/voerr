@@ -8,7 +8,7 @@ import { createActions } from 'alt/utils/decorators';
 export default class OrderActions {
 	constructor() {
 		this.generateActions(
-			'clearOrders',
+			'clear',
 			'receiveOrder',
 			'receiveError'
 		);
