@@ -41,7 +41,12 @@ class Order(db.Model):
 
     @hybrid_property
     def dish_id(self):
-        return Meal.query.filter(Meal.id == self.meal_id).first().dish_id
+        meal = Meal.query.filter(Meal.id == self.meal_id).first()
+
+        if meal:
+            return meal.dish_id
+
+        return None
 
     def getExclude():
         return []

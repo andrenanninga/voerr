@@ -29,8 +29,9 @@ export default class SearchItemPage extends React.Component {
 	}
 
 	componentWillMount() {
-		DishesActions.requestDish(this.props.params.id);
+		OrderActions.clearOrders();
 		OrderActions.requestOrder(parseInt(this.props.params.id), 1);
+		DishesActions.requestDish(this.props.params.id);
 	}
 
 	onMakeOrder() {
@@ -56,7 +57,7 @@ export default class SearchItemPage extends React.Component {
 		if(dish.allergies.length) {
 			allergies = dish.allergies.map(allergy => {
 				if(allergiesMap[allergy.id]) {
-					return <div key={allergy.id} className={'allergy ' + allergiesMap[allergy.id]}></div>;
+					return <span title={allergy.name} key={allergy.id} className={'allergy ' + allergiesMap[allergy.id]}></span>;
 				}
 				return false;
 			});
@@ -108,27 +109,31 @@ export default class SearchItemPage extends React.Component {
 			let order = this.props.order.orders[0];
 			let startTime = dateFormat(new Date(order.start_time), 'HH:MM');
 
-			meal = [
-				<h4>Je mag mee-eten</h4>,
-				<p>Etenstijd is vanavond om <strong>{startTime}</strong></p>
-			];
+			meal = (
+				<div>
+					<h4>Je mag mee-eten</h4>
+					<p>Etenstijd is vanavond om <strong>{startTime}</strong></p>
+				</div>
+			);
 		}
 		else {
-			let price = dish.meal.price.toFixed(2).replace('.', ',');
+			let price = (dish.meal.price / 100).toFixed(2).replace('.', ',');
 			let availableFrom = dateFormat(new Date(dish.meal.available_from), 'HH:MM');
 			let availableUntil = dateFormat(new Date(dish.meal.available_until), 'HH:MM');
 			let error;
 
 			if(this.props.order.error) {
-				error = <span className="error-message">{this.props.order.error}</span>;
+				error = <p className="error-message">{this.props.order.error}</p>;
 			}
 
-			meal = [
-				<h4>&euro;{price} per maaltijd</h4>,
-				<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>,
-				<button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>,
-				error
-			];
+			meal = (
+				<div>
+					<h4>&euro;{price} per maaltijd</h4>
+					<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>
+					<button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>
+					{error}
+				</div>
+			);
 		}
 
 

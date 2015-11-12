@@ -10,6 +10,11 @@ export default class OrderStore {
 		this.error = null;
 	}
 
+	@bind(OrderActions.clearOrders)
+	clearOrders() {
+		this.orders = [];
+	}
+
 	@bind(OrderActions.receiveOrder)
 	updateOrder(order) {
 		this.orders = [order];

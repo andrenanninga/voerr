@@ -8,6 +8,7 @@ import { createActions } from 'alt/utils/decorators';
 export default class OrderActions {
 	constructor() {
 		this.generateActions(
+			'clearOrders',
 			'receiveOrder',
 			'receiveError'
 		);
@@ -56,8 +57,7 @@ export default class OrderActions {
 				this.actions.receiveOrder(res.data);
 			})
 			.catch(res => {
-				console.error(res.data);
-				// this.actions.receiveError(res.data[''])
+				this.actions.receiveError(res.data.message);
 			});
 	}
 }
