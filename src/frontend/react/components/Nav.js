@@ -44,8 +44,10 @@ export default class Nav extends React.Component {
 		let links;
 
 		if(this.props.user) {
+			let price = (this.props.user.credit / 100).toFixed(2).replace('.', ',');
 			links = [
-				<li key="account"><a href='#'>{this.props.user.name}</a></li>,
+				<li key="credit"><Link to='/portemonnee'>&euro; {price}</Link></li>,
+				<li key="account"><Link to='/profiel'>{this.props.user.name}</Link></li>,
 				<li key="logout"><a href='#' onClick={this.onLogout.bind(this)}>Uitloggen</a></li>
 			];
 		}

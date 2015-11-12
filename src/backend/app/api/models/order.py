@@ -71,7 +71,7 @@ class Order(db.Model):
                 code=400
             )
 
-        if current_user.credit < (data['amount_meals'] * getMeal.price):
+        if current_user.credit is None or current_user.credit < (data['amount_meals'] * getMeal.price):
             raise ProcessingException(
                 description='Je hebt niet genoeg geld in je portemonnee!',
                 code=400

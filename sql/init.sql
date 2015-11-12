@@ -430,7 +430,6 @@ et pater hoc mortisque morbi molarem cornu procellamnos Dianae calido, quem et!
 INSERT INTO photo (`id`, `name`, `dish_id`, `user_id`, `cook_id`, `date_created`)
 VALUES
 (1, 'boy_1.jpg', NULL, 1, NULL, NOW()),
-(2, 'boy_2.jpg', NULL, 2, NULL, NOW()),
 (3, 'boy_3.jpg', NULL, 3, NULL, NOW()),
 (4, 'girl_1.jpg', NULL, 4, NULL, NOW()),
 (5, 'girl_2.jpg', NULL, 5, NULL, NOW()),

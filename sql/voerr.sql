@@ -1,4 +1,4 @@
-CREATE TABLE `user` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(127) NOT NULL, `avatar` int(13) DEFAULT NULL, `credit` int(13) DEFAULT 0, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;;
+CREATE TABLE `user` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `name` varchar(127) NOT NULL, `email` varchar(127) NOT NULL, `password` varchar(127) NOT NULL, `avatar` int(13) DEFAULT NULL, `credit` int(13) DEFAULT 0 NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;;
 
 CREATE TABLE `cook` (`id` int(13) PRIMARY KEY AUTO_INCREMENT, `description` varchar(255) NOT NULL, `location` varchar(255) NOT NULL,`address` varchar(255) NOT NULL, `coordinates` POINT NOT NULL, `user_id` int(13) NOT NULL, `date_created` datetime, `date_updated` datetime) ENGINE=InnoDB CHARACTER SET=utf8;
 

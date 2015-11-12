@@ -28,4 +28,16 @@ export default class RegisterAccountActions {
 				this.actions.receiveError(res.data.message);
 			});
 	}
+
+	editAccount(payload, user_id) {
+		let url = [config.apiEndpoint, 'users', user_id].join('/');
+
+		axios.patch(url, payload)
+			.then(res => {
+				LoginActions.requestUser();
+			})
+			.catch(res => {
+				this.actions.receiveError(res.data.message);
+			});
+	}
 }
