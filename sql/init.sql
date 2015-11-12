@@ -304,29 +304,29 @@ haec.', 1, NOW(), NOW());
 INSERT INTO meal (`price`, `available_from`, `available_until`, `dinner_time`, `portions`, `portions_claimed`, `location`, `notes`, `is_takeout`, `dish_id`, `date_created`, `date_updated`) 
 VALUES 
 
-(2, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW(), NOW()),
-(2, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW(), NOW()),
-(2, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW(), NOW()),
+(2.50, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW(), NOW()),
+(2.50, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW(), NOW()),
+(2.50, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 10, 0, "Groningen", "", 0, 1, NOW(), NOW()),
 
-(7, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Groningen", "", 1, 2, NOW(), NOW()),
-(7, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Groningen", "", 1, 2, NOW(), NOW()),
-(7, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 2, NOW(), NOW()),
+(3, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Groningen", "", 1, 2, NOW(), NOW()),
+(3, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Groningen", "", 1, 2, NOW(), NOW()),
+(3, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 2, NOW(), NOW()),
 
-(4, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 3, NOW(), NOW()),
-(4, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 3, NOW(), NOW()),
-(4, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 3, NOW(), NOW()),
+(2, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 3, NOW(), NOW()),
+(2, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 3, NOW(), NOW()),
+(2, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 8, 0, "Rotterdam", "Zelfgemaakte ingredienten", 1, 3, NOW(), NOW()),
 
-(7, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 4, NOW(), NOW()),
-(7, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 4, NOW(), NOW()),
-(7, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 4, NOW(), NOW()),
+(4, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 4, NOW(), NOW()),
+(4, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 4, NOW(), NOW()),
+(4, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Volendam", "Biologisch", 1, 4, NOW(), NOW()),
 
-(7, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 5, NOW(), NOW()),
-(7, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 5, NOW(), NOW()),
-(7, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 5, NOW(), NOW()),
+(3, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 5, NOW(), NOW()),
+(3, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 5, NOW(), NOW()),
+(3, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Nieuw Amsterdam", "Fair Trade", 1, 5, NOW(), NOW()),
 
-(7, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW()),
-(7, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW()),
-(7, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW());
+(2, "2015-11-11 18:00:00", "2015-11-11 20:00:00", "2015-11-11 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW()),
+(2, "2015-11-12 18:00:00", "2015-11-12 20:00:00", "2015-11-12 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW()),
+(2, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW());
 --
 
 -- Insert dish_allergy
@@ -364,9 +364,92 @@ INSERT INTO dish_category (`dish_id`, `category_id`) VALUES (6, 2), (6, 24), (6,
 
 -- Insert review
 
-INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (1, 'Ik vond het een heerlijke maaltijd!', 5, 1, 1, NOW(), NOW());
+INSERT INTO review (`content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) 
+VALUES 
+('Ik vond het een heerlijke maaltijd!', 5, 1, 1, NOW(), NOW()),
 
-INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (2, 'Het was niet zo mooi als in de foto. Jammer hoor.. 4/5', 4, 2, 2, NOW(), NOW());
+('Lorem markdownum fortibus aquis pluviale totidem, tellure ipse vir verbis ferrea
+comitique, hoc. Non humus maternae quid, mira est relictum gurgite. Urbs
+dicuntur crebros pondus te reus, iam sic imbrem, raptor tamen. Ignes Cretenque
+et pater hoc mortisque morbi molarem cornu procellamnos Dianae calido, quem et!', 4, 2, 1, NOW(), NOW()),
+
+('Saepe clipeus, primaque auro si Polymestoris comis; verum nec qui plebemque
+pedum, est. Tot nota tulit parentem: ore Phrygia delicta Creteque ensis,
+indignis tuque illi bellum. Iacui haec ilia lapidum canibus claro proripit
+Cretaei armos sic Danais.', 3, 3, 1, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 2, 4, 1, NOW(), NOW()),
+
+('Niet lekker.', 1, 5, 1, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 5, 1, 2, NOW(), NOW()),
+
+('Saepe clipeus, primaque auro si Polymestoris comis; verum nec qui plebemque
+pedum, est. Tot nota tulit parentem: ore Phrygia delicta Creteque ensis,
+indignis tuque illi bellum. Iacui haec ilia lapidum canibus claro proripit
+Cretaei armos sic Danais.', 4, 2, 2, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 4, 3, 2, NOW(), NOW()),
+
+('Het was prima!', 5, 4, 2, NOW(), NOW()),
+
+('Saepe clipeus, primaque auro si Polymestoris comis; verum nec qui plebemque
+pedum, est. Tot nota tulit parentem: ore Phrygia delicta Creteque ensis,
+indignis tuque illi bellum. Iacui haec ilia lapidum canibus claro proripit
+Cretaei armos sic Danais.', 4, 5, 2, NOW(), NOW()),
+
+('Aptas surgis dedecus Bacchi. Pudor nomen mutataque pressit rupit curvos; aut
+arbore facies sagittis, preme exposcere, sol. Adsim et sumptis gramina taxo..', 5, 1, 3, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 2, 2, 3, NOW(), NOW()),
+
+('Lorem markdownum fortibus aquis pluviale totidem, tellure ipse vir verbis ferrea
+comitique, hoc. Non humus maternae quid, mira est relictum gurgite. Urbs
+dicuntur crebros pondus te reus, iam sic imbrem, raptor tamen. Ignes Cretenque
+et pater hoc mortisque morbi molarem cornu procellamnos Dianae calido, quem et!', 2, 3, 3, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 5, 4, 3, NOW(), NOW()),
+
+('Saepe clipeus, primaque auro si Polymestoris comis; verum nec qui plebemque
+pedum, est. Tot nota tulit parentem: ore Phrygia delicta Creteque ensis,
+indignis tuque illi bellum. Iacui haec ilia lapidum canibus claro proripit
+Cretaei armos sic Danais.', 3, 5, 3, NOW(), NOW()),
+
+('Tortum descendere inponere
+- Unum satum quod gloria noxque quem rupta
+- Admoto et quo novat qui
+- Ante fluctibus Echion turpe priori emerguntque caeca', 3, 2, 4, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 5, 3, 4, NOW(), NOW()),
+
+('De kok was niet aardig.', 1, 4, 4, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 1, 5, 4, NOW(), NOW()),
+
+('Lorem markdownum fortibus aquis pluviale totidem, tellure ipse vir verbis ferrea
+comitique, hoc. Non humus maternae quid, mira est relictum gurgite. Urbs
+dicuntur crebros pondus te reus, iam sic imbrem, raptor tamen. Ignes Cretenque
+et pater hoc mortisque morbi molarem cornu procellamnos Dianae calido, quem et!', 5, 1, 5, NOW(), NOW()),
+
+('Saepe clipeus, primaque auro si Polymestoris comis; verum nec qui plebemque
+pedum, est. Tot nota tulit parentem: ore Phrygia delicta Creteque ensis,
+indignis tuque illi bellum. Iacui haec ilia lapidum canibus claro proripit
+Cretaei armos sic Danais.
+Aptas surgis dedecus Bacchi. Pudor nomen mutataque pressit rupit curvos; aut
+arbore facies sagittis, preme exposcere, sol. Adsim et sumptis gramina taxo..',2, 2, 5, NOW(), NOW()),
+
+('Lorem markdownum fortibus aquis pluviale totidem, tellure ipse vir verbis ferrea
+comitique, hoc. Non humus maternae quid, mira est relictum gurgite. Urbs
+dicuntur crebros pondus te reus, iam sic imbrem, raptor tamen. Ignes Cretenque
+et pater hoc mortisque morbi molarem cornu procellamnos Dianae calido, quem et!
+- Tortum descendere inponere
+- Unum satum quod gloria noxque quem rupta
+- Admoto et quo novat qui
+- Ante fluctibus Echion turpe priori emerguntque caeca', 5, 3, 5, NOW(), NOW()),
+
+('Ik vond het een heerlijke maaltijd!', 5, 4, 5, NOW(), NOW()),
+
+('Het was niet zo mooi als in de foto. Jammer hoor.. 4/5', 4, 2, 2, NOW(), NOW());
 
 --
 
