@@ -340,7 +340,6 @@ INSERT INTO review (`content`, `rating`, `user_id`, `dish_id`, `date_created`, `
 VALUES 
 ('Ik vond het een heerlijke maaltijd!', 5, 1, 1, NOW(), NOW()),
 
-INSERT INTO review (`id`, `content`, `rating`, `user_id`, `dish_id`, `date_created`, `date_updated`) VALUES (2, 'Het was niet zo mooi als in de foto. Jammer hoor.. 4/5', 4, 2, 2, NOW(), NOW());
 ('Lorem markdownum fortibus aquis pluviale totidem, tellure ipse vir verbis ferrea
 comitique, hoc. Non humus maternae quid, mira est relictum gurgite. Urbs
 dicuntur crebros pondus te reus, iam sic imbrem, raptor tamen. Ignes Cretenque
