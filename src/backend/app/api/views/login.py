@@ -51,6 +51,6 @@ def logout():
 def current():
     if current_user.is_authenticated:
         user = User.query.filter(User.id == current_user.id).first()
-        return make_response(jsonify(to_dict(user, exclude=User.getExclude())))
+        return make_response(jsonify(to_dict(user, deep={"cook": [] }, exclude=User.getExclude())))
     else:
         return make_response(jsonify([]))

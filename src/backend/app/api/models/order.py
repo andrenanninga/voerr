@@ -14,9 +14,9 @@ from app.api.validators.number import NumberValidator
 from app.api.models.cook import Cook
 from app.api.models.dish import Dish
 from app.api.models.meal import Meal
+from app.api.models.dish import Dish
 from app.api.models.user import User
 from app.api.models.transaction_log import TransactionLog
-
 
 class Order(db.Model):
     __tablename__ = 'order'
@@ -51,6 +51,11 @@ class Order(db.Model):
             return meal.dish_id
 
         return None
+
+    @hybrid_property
+    def dish_name(self):
+        return Dish.query.filter(Dish.id == self.dish_id).first().name
+
 
     def getExclude():
         return []

@@ -1,0 +1,30 @@
+@import "_variables";
+@import "_breakpoints";
+
+.accountPage {
+
+	margin: 40px;
+
+	.account {
+		display: flex;
+		align-items: center;
+
+		.avatar {
+			width: 100px;
+			height: 100px;
+			padding: 0;
+			border-radius: 200px;
+			margin: 0 20px 0 0;
+		}
+
+		.name {
+			h2 {
+				margin: 0;
+			}
+			p {
+				font-size: 1.1em;
+			}
+		}
+
+	}
+}

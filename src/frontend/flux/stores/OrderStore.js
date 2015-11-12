@@ -21,6 +21,11 @@ export default class OrderStore {
 		this.orders = [order];
 	}
 
+	@bind(OrderActions.receiveOrders)
+	updateOrders(orders) {
+		this.orders = orders;
+	}
+
 	@bind(OrderActions.receiveError)
 	updateError(error) {
 		this.error = error;
