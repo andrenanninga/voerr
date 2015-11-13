@@ -22,7 +22,7 @@ api_manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 def check_auth(instance_id=None, **kw):
     if not current_user.is_authenticated:
-        raise ProcessingException(description='Niet ingelogd', code=401)
+        raise ProcessingException(description='Je moet ingelogd om dit te doen', code=401)
 
 
 from app.api.models.allergy import Allergy

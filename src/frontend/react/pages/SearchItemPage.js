@@ -24,6 +24,7 @@ export default class SearchItemPage extends React.Component {
 
 	static getPropsFromStores(props) {
 		return {
+			login: LoginStore.getState(),
 			dishes: DishesStore.getState(),
 			order: OrderStore.getState(),
 			login: LoginStore.getState()
@@ -126,16 +127,24 @@ export default class SearchItemPage extends React.Component {
 			let availableFrom = dateFormat(new Date(dish.meal.available_from), 'HH:MM');
 			let availableUntil = dateFormat(new Date(dish.meal.available_until), 'HH:MM');
 			let error;
+			let button;
 
 			if(this.props.order.error) {
 				error = <p className="error-message">{this.props.order.error}</p>;
+			}
+
+			if(this.props.login.user) {
+				button = <button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>;
+			}
+			else {
+				button = <Link className="button" to="/inloggen">inloggen</Link>;
 			}
 
 			meal = (
 				<div>
 					<h4>&euro;{price} per maaltijd</h4>
 					<p>Vanavond tussen <strong>{availableFrom}</strong> en <strong>{availableUntil}</strong></p>
-					<button className="button-primary" onClick={this.onMakeOrder.bind(this)}>Ik wil mee-eten</button>
+					{button}
 					{error}
 				</div>
 			);
