@@ -9,6 +9,7 @@ export default class LoginStore {
 	constructor() {
 		this.user = null;
 		this.error = null;
+		this.success = null;
 	}
 
 	@bind(LoginActions.receiveUser)

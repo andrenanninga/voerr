@@ -58,7 +58,7 @@ export default class SearchPage extends React.Component {
 			food = slug(food);
 		}
 
-		this.props.history.pushState(null, '/s/' + slug(location) + '/' + food + '/');
+		this.props.history.pushState({}, '', '/s/' + slug(location) + '/' + food + '/');
 	}
 
 	componentWillMount() {

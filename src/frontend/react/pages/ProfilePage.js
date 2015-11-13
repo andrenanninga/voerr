@@ -29,9 +29,9 @@ export default class ProfilePage extends React.Component {
 	}
 
 	componentWillReceiveProps(props) {
-		// if(LoginStore.state.user) {
-		// 	this.props.history.pushState(null, '/');
-		// }
+		if(!LoginStore.state.user) {
+			this.props.history.pushState({}, '', '/');
+		}
 	}
 
 	submitAccountInfo(data) {

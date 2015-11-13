@@ -21,7 +21,7 @@ export default (
 		<Route name="login" path="/inloggen" components={LoginPage}/>
 		<Route name="register" path="/registeren" components={RegisterAccountPage}/>
 		
-		<Route name="profiel" path="/profiel" components={ProfilePage}/>
+		<Route name="profiel" path="/profiel-bewerken" components={ProfilePage}/>
 		<Route name="wallet" path="/wallet" components={WalletPage}/>
 
 		<Route name="account" path="/account" components={AccountPage}/>

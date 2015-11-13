@@ -3,12 +3,11 @@ import connectToStores from 'alt/utils/connectToStores';
 import { Form } from 'formsy-react';
 
 import LoginStore from 'flux/stores/LoginStore';
-import RegisterAccountStore from 'flux/stores/RegisterAccountStore';
 import RegisterAccountActions from 'flux/actions/RegisterAccountActions';
 
 import Input from 'react/components/form/Input';
 
-import 'assets/style/registerAccount';
+import 'assets/style/wallet';
 
 @connectToStores
 export default class WalletPage extends React.Component {
@@ -21,27 +20,25 @@ export default class WalletPage extends React.Component {
 	}
 
 	static getStores(props) {
-		return [RegisterAccountStore, LoginStore];
+		return [LoginStore];
 	}
 
 	static getPropsFromStores(props) {
-		return RegisterAccountStore.getState();
+		return LoginStore.getState();
 	}
 
 	componentWillReceiveProps(props) {
-		if(LoginStore.state.user) {
-			this.props.history.pushState(null, '/');
+		if(!LoginStore.state.user) {
+			this.props.history.pushState({}, '', '/');
 		}
 	}
 
 	submit(data) {
 		let payload = {
-			name: data.name,
-			email: data.email,
-			password: data.password
+			credit: (parseInt(this.props.user.credit, 10) + parseInt(data.credits.replace(',', '').replace('.', ''), 10)),
 		};
 
-		RegisterAccountActions.requestRegisterAccount(payload);
+		RegisterAccountActions.addCreditsToAccount(payload, this.props.user.id);
 	}
 
 	enableSubmit() {
@@ -55,24 +52,28 @@ export default class WalletPage extends React.Component {
 	render() {
 
 		let error;
+		let success;
 
 		if(this.props.error) {
 			error = <span className="error">{this.props.error}</span>
 		}
 
+		console.log(this.props);
+
+		if(this.props.success) {
+			success = <span className="success">{this.props.success}</span>
+		}
+
 		return (
-			<div className="registerAccount">
-				<h2>Profiel</h2>
+			<div className="addCredits">
+				<h2>Geld toevoegen</h2>
 				{error}
-				<Form onSubmit={this.submit} onValid={this.enableSubmit.bind(this)} onInvalid={this.disableSubmit.bind(this)}>
-					<Input name="name" label="naam" type="text" required/>
-					<Input name="email" label="emailadres" type="text" required 
-								 validations={{ isEmail: true }} validationErrors={{ isEmail: 'Dit is geen geldig emailadres' }} />
-					<Input name="password" label="wachtwoord" type="password" required
-								 validations={{ minLength: 8 }} validationErrors={{ minLength: 'Het wachtwoord moet minimaal 8 karakters lang zijn' }}/>
-					<Input name="password_confirm" label="wachtwoord herhalen" type="password" required 
-								 validations={{ equalsField: 'password' }} validationErrors={{ equalsField: 'De wachtwoorden zijn niet gelijk' }}/>
-					<button type="submit" disabled={!this.state.canSubmit}>Account registeren</button>
+				{success}
+				<Form onSubmit={this.submit.bind(this)} onValid={this.enableSubmit.bind(this)} onInvalid={this.disableSubmit.bind(this)}>
+					<Input name="credits" label="Geld toevoegen" type="text" required 
+								 validations={{ isNumeric: true }} validationErrors={{ isNumeric: 'Dit is geen geldig bedrag' }}
+					 />
+					<button type="submit" disabled={!this.state.canSubmit}>Credits toevoegen</button>
 				</Form>
 			</div>
 		);

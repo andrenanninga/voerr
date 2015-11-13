@@ -30,7 +30,7 @@ export default class RegisterAccountPage extends React.Component {
 
 	componentWillReceiveProps(props) {
 		if(LoginStore.state.user) {
-			this.props.history.pushState(null, '/');
+			this.props.history.pushState({}, '', '/');
 		}
 	}
 

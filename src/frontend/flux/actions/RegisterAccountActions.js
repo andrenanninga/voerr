@@ -12,7 +12,7 @@ export default class RegisterAccountActions {
 	constructor() {
 		this.generateActions(
 			'receiveUser',
-			'receiveError'
+			'receiveError',
 		);
 	}
 
@@ -30,6 +30,18 @@ export default class RegisterAccountActions {
 	}
 
 	editAccount(payload, user_id) {
+		let url = [config.apiEndpoint, 'users', user_id].join('/');
+
+		axios.patch(url, payload)
+			.then(res => {
+				LoginActions.requestUser();
+			})
+			.catch(res => {
+				this.actions.receiveError(res.data.message);
+			});
+	}
+
+	addCreditsToAccount(payload, user_id) {
 		let url = [config.apiEndpoint, 'users', user_id].join('/');
 
 		axios.patch(url, payload)

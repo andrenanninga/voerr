@@ -30,7 +30,7 @@ export default class LoginPage extends React.Component {
 
 	componentWillReceiveProps(props) {
 		if(props.user) {
-			this.props.history.pushState(null, '/');
+			this.props.history.pushState({}, '', '/');
 		}
 	}
 

@@ -64,10 +64,11 @@ export default class AccountPage extends React.Component {
 				<div className="name">
 					<h2>{user.name}</h2>
 					<p>{user.email}</p>
+					<p><a href="/profiel-bewerken">Profiel bewerken</a></p>
 				</div>
 				<div className="credit">
 					<h4>&euro;{credit} credit</h4>
-					<button disabled>credits toevoegen</button>
+					<a href="/wallet" className="button">credits toevoegen</a>
 				</div>
 			</div>
 		);
