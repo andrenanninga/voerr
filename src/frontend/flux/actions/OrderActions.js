@@ -27,7 +27,6 @@ export default class OrderActions {
 		};
 
 		url = url + '?q=' + JSON.stringify(query);
-		console.log(url);
 
 		axios.get(url)
 			.then(res => {
@@ -40,12 +39,12 @@ export default class OrderActions {
 			})
 	}
 
-	requestOrder(dish_id, user_id) {
+	requestOrder(meal_id, user_id) {
 		let today = dateFormat(new Date(), 'yyyy-mm-dd') + 'T00:00:00';
 		let url = [config.apiEndpoint, 'orders'].join('/');
 		let query = { 
 			filters: [
-				{ name: 'dish_id', op: 'eq', val: dish_id }, 
+				{ name: 'meal_id', op: 'eq', val: meal_id }, 
 				{ name: 'user_id', op: 'eq', val: user_id },
 				{ name: 'start_time', op: 'gt', val: today },
 			],
@@ -56,9 +55,11 @@ export default class OrderActions {
 		};
 
 		url = url + '?q=' + JSON.stringify(query);
+		console.log(url);
 
 		axios.get(url)
 			.then(res => {
+				console.log(res.data);
 				if(res.data.num_results) {
 					this.actions.receiveOrder(res.data.objects[0]);
 				}

@@ -130,4 +130,58 @@
 			}
 		}
 	}
+
+	.dishes {
+		.dish {
+			padding: 20px 0 0 0;
+			display: flex;
+
+			@include media-breakpoint-down(xs) { 
+				flex-direction: column;
+			}
+
+			.photo {
+				width: 200px;
+				flex-grow: 0;
+
+				@include media-breakpoint-down(xs) { 
+					width: 100%;
+				}
+			}
+
+			&:not(:last-child) {
+				border-bottom: 1px solid #e1e1e1;
+			}
+
+			.details {
+				flex-grow: 1;
+				padding: 0 0 0 20px;
+				
+				@include media-breakpoint-down(xs) { 
+					padding: 0;
+				}
+
+				h2 {
+
+					margin: 0;
+
+					@include media-breakpoint-down(xs) { 
+						margin: 10px 0;
+					}
+				}
+
+				.meals {
+					width: 100%;
+
+					thead {
+						font-weight: bold;
+					}
+
+					tr td {
+						padding: 4px 10px;
+					}
+				}
+			}
+		}
+	}
 }

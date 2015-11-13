@@ -70,8 +70,6 @@ export default class SearchResultPage extends React.Component {
 				average = reduce(dish.reviews, ((n, r) => { return n + r.rating; }), 0) / dish.reviews.length;
 			}
 
-			console.log(dish);
-
 			times(5, (n) => {
 				if(n < average) {
 					hearts.push(<div className="heart full"></div>);

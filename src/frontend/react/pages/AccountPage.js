@@ -20,35 +20,38 @@ export default class AccountPage extends React.Component {
 		super(props);
 
 		this.state = {
-			needsOrders: true
+			needRelations: true
 		};
 	}
 
 	static getStores(props) {
-		return [LoginStore, OrderStore];
+		return [LoginStore, OrderStore, DishesStore];
 	}
 
 	static getPropsFromStores(props) {
 		return {
 			login: LoginStore.getState(),
-			orders: OrderStore.getState()
+			orders: OrderStore.getState(),
+			dishes: DishesStore.getState()
 		};
 	}
 
-	componentDidUpdate() {
-	}
-
 	render() {
-		let orders;
+		let orders, dishes;
 		let user = this.props.login.user;
 
 		if(!user) {
 			return <div></div>;
 		}
 
-		if(user && this.state.needsOrders) {
+		if(user && this.state.needRelations) {
 			OrderActions.requestUserOrders(user.id);
-			this.setState({ needsOrders: false });
+
+			if(user.cook) {
+				DishesActions.requestUserDishes(user.cook.id);
+			}
+
+			this.setState({ needRelations: false });
 		}
 
 		let credit = (user.credit / 100).toFixed(2).replace('.', ',');
@@ -98,11 +101,55 @@ export default class AccountPage extends React.Component {
 			});
 		}
 
-		let dishes = (
-			<div className="dishes">
-				<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
-			</div>
-		);
+		console.log(this.props.dishes.dishes);
+
+		if(this.props.dishes.dishes) {
+			dishes = this.props.dishes.dishes.map(dish => {
+				let meals = dish.meals.map(meal => {
+					let price = (meal.price / 100).toFixed(2).replace('.', ',');
+					let date = dateFormat(new Date(meal.available_from), 'dd-mmm-yyyy');
+					let availableFrom = dateFormat(new Date(meal.available_from), 'HH:MM');
+					let availableUntil = dateFormat(new Date(meal.available_until), 'HH:MM');
+
+					return (
+						<tr key={meal.id} className="meal">
+							<td>{meal.id}</td>
+							<td>&euro;{price}</td>
+							<td>{date}</td>
+							<td>{availableFrom}</td>
+							<td>{availableUntil}</td>
+							<td>{meal.portions_claimed}/{meal.portions}</td>
+						</tr>
+					);
+				});
+
+				return (
+					<div className="dish" key={dish.id}>
+						<div className="photo">
+							<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + dish.photos[0] + ')' }}></div>
+						</div>
+						<div className="details">
+							<h2><Link to={'/gerecht/' + dish.id }>{dish.name}</Link></h2>
+							<table className="meals">
+								<thead>
+									<tr>
+										<td>#</td>
+										<td>Prijs</td>
+										<td>Datum</td>
+										<td>Van</td>
+										<td>Tot</td>
+										<td>Porties besteld</td>
+									</tr>
+								</thead>
+								<tbody>
+									{meals}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				);
+			});
+		}
 
 		return (
 			<div className="accountPage">
@@ -128,9 +175,9 @@ export default class AccountPage extends React.Component {
 					</table>
 				</div>
 				<div className="dishes">
-					<h4>Gerechten</h4>
+					<h4>Mijn gerechten</h4>
 					<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
-
+					{dishes}
 				</div>
 			</div>
 		);
