@@ -1,16 +1,10 @@
 @import "_variables";
 @import "_breakpoints";
 
-/*
-body {
-	background: url('/images/beach.jpg');
-	background-position: center center;
-	background-size: cover;
-}
-*/
 body {
 	max-width: 100%;
 }
+
 .search {
 	height: 100%;
 	display: flex;
@@ -22,12 +16,12 @@ body {
 
 	.video {
 		position: absolute;
-		top: 0;
+		top: 60px;
 		bottom: 0;
 		right: 0;
 		left: 0;
 		z-index: -1;
-		background-image: url('/images/steak.jpg');
+		background-color: #000;
 		background-position: center;
 		background-size: cover;
 		

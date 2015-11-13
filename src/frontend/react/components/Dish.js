@@ -17,7 +17,7 @@ export default class Dish extends React.Component {
 
 		return (
 			<div className="dish">
-				<Link to={url}>
+				<Link to={url}>dish
 					<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + this.props.photos[0] + ')' }}></div>
 					<h2>{this.props.name}</h2>
 				</Link>

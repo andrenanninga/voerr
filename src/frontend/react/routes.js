@@ -4,6 +4,8 @@ import { Route, IndexRoute } from 'react-router';
 import App from 'react/App';
 import LoginPage from 'react/pages/LoginPage';
 import RegisterAccountPage from 'react/pages/RegisterAccountPage';
+import ProfilePage from 'react/pages/ProfilePage';
+import WalletPage from 'react/pages/WalletPage';
 import SearchPage from 'react/pages/SearchPage';
 import SearchResultPage from 'react/pages/SearchResultPage';
 import SearchItemPage from 'react/pages/SearchItemPage';
@@ -18,6 +20,9 @@ export default (
 		
 		<Route name="login" path="/inloggen" components={LoginPage}/>
 		<Route name="register" path="/registeren" components={RegisterAccountPage}/>
+		
+		<Route name="profiel" path="/profiel" components={ProfilePage}/>
+		<Route name="wallet" path="/wallet" components={WalletPage}/>
 
 		<Route name="account" path="/account" components={AccountPage}/>
 

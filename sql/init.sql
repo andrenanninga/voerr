@@ -2,9 +2,9 @@
 
 INSERT INTO user (`id`, `name`, `email`, `password`, `credit`, `date_created`, `date_updated`) 
 VALUES (1, 'Peter Testinga', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 1000, NOW(), NOW()), 	-- pw = wachtwoord
-(2, 'Henk van de Woude', 'henk@aol.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 500, NOW(), NOW()),			-- pw = wachtwoord
-(3, 'Johen Croif', 'jcroif@live.nl', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0, NOW(), NOW()),		-- pw = wachtwoord
-(4, 'Carolien Schaap', 'timm@gmail.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0, NOW(), NOW()),	-- pw = wachtwoord
+(2, 'Henk van de Woude', 'henk@aol.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 2500, NOW(), NOW()),			-- pw = wachtwoord
+(3, 'Johen Croif', 'jcroif@live.nl', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 1500, NOW(), NOW()),		-- pw = wachtwoord
+(4, 'Carolien Schaap', 'timm@gmail.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 1800, NOW(), NOW()),	-- pw = wachtwoord
 (5, 'Vera Schipper', 'de-real-dr-dre@hotmail.com', '885597b5cc68711f43f6b76e05abcf407a32831533b54bafe5ddc28e', 0, NOW(), NOW());		-- pw = wachtwoord
 
 --
@@ -13,11 +13,11 @@ VALUES (1, 'Peter Testinga', 'test@test.com', '885597b5cc68711f43f6b76e05abcf407
 
 INSERT INTO cook (`id`, `description`, `location`, `address`, `coordinates`, `user_id`, `date_created`, `date_updated`) 
 
-VALUES (1, 'Self made kok', 'Groningen','Hofferstraat 11, 9712aa', POINT(0, 0), 1, NOW(), NOW()),
-(2, 'Ik hou niet van koken', 'Amsterdam', 'Miastraat 3a, 1234sm', POINT(1, 1), 2, NOW(), NOW()),
-(3, 'Specialisatie in Indonesisch', 'Rotterdam','Hoofdweg 49, 2345gg', POINT(1, 1), 3, NOW(), NOW()),
-(4, 'Kook dagelijks en hou van strandwandelingen.', 'Groningen','Oudeboteringestraat 119, 9712kk', POINT(1, 1), 4, NOW(), NOW()),
-(5, 'Chefkok geweest in de jaren 60.', 'Groningen','Stationsstraat 12, 9712ss', POINT(1, 1), 5, NOW(), NOW());
+VALUES (1, 'Self made kok', 'Groningen','Brugstraat 11a, 9711 AS Groningen', POINT(0, 0), 1, NOW(), NOW()),
+(2, 'Ik hou niet van koken', 'Amsterdam', 'Miastraat 3a, 1234 SM Amsterdam', POINT(1, 1), 2, NOW(), NOW()),
+(3, 'Specialisatie in Indonesisch', 'Rotterdam','Hoofdweg 49, 2345 GG Rotterdam', POINT(1, 1), 3, NOW(), NOW()),
+(4, 'Kook dagelijks en hou van strandwandelingen.', 'Groningen','Oudeboteringestraat 119, 9712 KK Groningen', POINT(1, 1), 4, NOW(), NOW()),
+(5, 'Chefkok geweest in de jaren 60.', 'Groningen','Stationsstraat 12, 9712 SS Groningen', POINT(1, 1), 5, NOW(), NOW());
 
 --
 
@@ -99,7 +99,7 @@ INSERT INTO allergy (`id`, `name`, `description`) VALUES
 
 -- Insert dish 
 INSERT INTO dish (`id`, `name`, `description`, `cook_id`, `date_created`, `date_updated`) 
-VALUES (1, 'Lamsrack met warme salade van gemengde bonen en langzaam-geroosterde tomaten', 'Lorem markdownum pastor verberis. Haerent et humi manus pressit; quoque
+VALUES (1, 'Lamsrack met warme salade', 'Lorem markdownum pastor verberis. Haerent et humi manus pressit; quoque
 concretam tenentes guttur in. Pennis tamen. Flumineis levant incertam; sub
 alienae, satia vultus erat cognosse receperat favillae tetigisse tempora calcat.
 
@@ -301,6 +301,18 @@ VALUES
 (700, "2015-11-13 18:00:00", "2015-11-13 20:00:00", "2015-11-13 18:30:00", 6, 0, "Groningen", "", 1, 6, NOW(), NOW());
 --
 
+-- Insert orders
+INSERT INTO `order` (`amount_meals`, `is_takeout`, `start_time`, `total_amount`, `meal_id`, `user_id`, `date_created`)
+VALUES 
+(1, 0, "2015-11-08 18:00:00", 200, 1, 1, "2015-11-08 10:31:22"),
+(2, 0, "2015-11-05 19:40:00", 600, 4, 1, "2015-11-05 08:25:22"),
+(1, 0, "2015-11-10 19:30:00", 700, 10, 2, "2015-11-06 08:25:22"),
+(1, 0, "2015-11-11 18:30:00", 600, 8, 3, "2015-11-06 08:25:22"),
+(3, 0, "2015-11-10 19:30:00", 1200, 16, 1, "2015-11-06 08:25:22"),
+(1, 0, "2015-11-14 19:30:00", 620, 9, 1, "2015-11-06 08:25:22"),
+(1, 0, "2015-11-14 19:30:00", 500, 8, 3, "2015-11-06 08:25:22"),
+(1, 0, "2015-11-11 19:30:00", 500, 13, 4, "2015-11-06 08:25:22");
+
 -- Insert dish_allergy
 
 INSERT INTO dish_allergy (`dish_id`, `allergy_id`) 
@@ -430,7 +442,6 @@ et pater hoc mortisque morbi molarem cornu procellamnos Dianae calido, quem et!
 INSERT INTO photo (`id`, `name`, `dish_id`, `user_id`, `cook_id`, `date_created`)
 VALUES
 (1, 'boy_1.jpg', NULL, 1, NULL, NOW()),
-(2, 'boy_2.jpg', NULL, 2, NULL, NOW()),
 (3, 'boy_3.jpg', NULL, 3, NULL, NOW()),
 (4, 'girl_1.jpg', NULL, 4, NULL, NOW()),
 (5, 'girl_2.jpg', NULL, 5, NULL, NOW()),

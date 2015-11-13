@@ -3,6 +3,7 @@ import flask
 
 from flask.ext.login import current_user
 from flask.ext.restless import ProcessingException
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from sqlalchemy.orm import validates
 
@@ -11,7 +12,6 @@ from app.api.errors.errors import Error
 from app.api.validators.number import NumberValidator
 from app.api.models.user import User
 from app.api.models.dish import Dish
-
 
 class Review(db.Model):
     __tablename__ = 'review'

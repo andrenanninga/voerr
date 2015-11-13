@@ -67,10 +67,15 @@ class User(db.Model):
         if get_photo is not None:
             return get_photo.name
         else:
-            return None
+            import random
+            foo = [1, 2]
+
+            return "anon" + str(random.choice(foo)) + ".png"
 
     def getExclude():
-        return ['password']
+        return [
+            'password'
+        ]
 
     def is_cook(self):
         return self.cook is not None
@@ -112,10 +117,25 @@ class User(db.Model):
 
         # Hash password
         data['password'] = HashValidator.hash(data['password'])
+        data['credit'] = 200
         return data
 
     @staticmethod
     def patch_single_preprocessor(instance_Id=None, data=None, **kw):
+        print(data)
+        if 'password' in data:
+            pass_length = 8
+
+            # Password length check
+            if len(data['password']) < pass_length:
+                raise ProcessingException(
+                    description='Wachtwoord moet minimaal %r tekens lang zijn' % pass_length,
+                    code=400
+                )
+
+            # Hash password
+            data['password'] = HashValidator.hash(data['password'])
+
         return instance_Id
 
     @login_manager.user_loader

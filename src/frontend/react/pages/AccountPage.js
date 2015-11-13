@@ -20,43 +20,41 @@ export default class AccountPage extends React.Component {
 		super(props);
 
 		this.state = {
-			needsOrders: true
+			needRelations: true
 		};
 	}
 
 	static getStores(props) {
-		return [LoginStore, OrderStore];
+		return [LoginStore, OrderStore, DishesStore];
 	}
 
 	static getPropsFromStores(props) {
 		return {
 			login: LoginStore.getState(),
-			orders: OrderStore.getState()
+			orders: OrderStore.getState(),
+			dishes: DishesStore.getState()
 		};
 	}
 
-	componentDidUpdate() {
-		let user = this.props.login.user;
-		console.log('update');
-
-		if(user && this.state.needsOrders) {
-			OrderActions.requestUserOrders(user.id);
-			this.setState({ needsOrders: false });
-		}
-		// console.log('')
-		// if(this.props.login) {
-		// 	console.log(this.props.login.user);
-		// }
-	}
-
 	render() {
+		let orders, dishes;
 		let user = this.props.login.user;
-
-		let orders;
 
 		if(!user) {
 			return <div></div>;
 		}
+
+		if(user && this.state.needRelations) {
+			OrderActions.requestUserOrders(user.id);
+
+			if(user.cook) {
+				DishesActions.requestUserDishes(user.cook.id);
+			}
+
+			this.setState({ needRelations: false });
+		}
+
+		let credit = (user.credit / 100).toFixed(2).replace('.', ',');
 
 		let account = (
 			<div className="account">
@@ -67,76 +65,128 @@ export default class AccountPage extends React.Component {
 					<h2>{user.name}</h2>
 					<p>{user.email}</p>
 				</div>
+				<div className="credit">
+					<h4>&euro;{credit} credit</h4>
+					<button disabled>credits toevoegen</button>
+				</div>
 			</div>
 		);
+
+		let dishesContainer;
 
 		if(this.props.orders.orders) {
 			orders = this.props.orders.orders.map(order => {
 				let orderTime = dateFormat(order.date_created, 'd mmmm yyyy').toLowerCase();
 				let startTime = dateFormat(order.start_time, 'd mmmm yyyy "om" hh:MM').toLowerCase();
 				let price = (order.total_amount / 100).toFixed(2).replace('.', ',');
+				let url = '/gerecht/' + order.id;
+				let dinnerTime, address;
+
+				if(new Date(order.start_time) < Date.now()) {
+					startTime = <span className="muted">{startTime}</span>;
+				}
+				else {
+					address = <a target="_blank" href={'http://maps.google.com/?q=' + order.cook_address}>{order.cook_address}</a>;
+				}
 
 				return (
-					<div className="order" key={order.id}> 
-						<h3>{order.dish_name}</h3>
-						<p>
-							{orderTime} &euro;{price}
-						</p>
-						<p>
-							aan tafel om <strong>{startTime}</strong>
-						</p>
-					</div>
+					<tr key={order.id}>
+						<td>{order.id}</td>
+						<td><Link to={'/gerecht/' + order.id}>{order.dish_name}</Link></td>
+						<td><Link to="#">{order.cook_name}</Link></td>
+						<td>&euro;{price}</td>
+						<td>{orderTime}</td>
+						<td>{startTime}</td>
+						<td>{address}</td>
+					</tr>
 				);
-				console.log(order);
 			});
 		}
 
-		let dishes = (
-			<div className="dishes">
-				<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
-			</div>
-		);
+		if(user.cook) {
+			dishes = this.props.dishes.dishes.map(dish => {
+				let meals = dish.meals.map(meal => {
+					let price = (meal.price / 100).toFixed(2).replace('.', ',');
+					let date = dateFormat(new Date(meal.available_from), 'dd-mmm-yyyy');
+					let availableFrom = dateFormat(new Date(meal.available_from), 'HH:MM');
+					let availableUntil = dateFormat(new Date(meal.available_until), 'HH:MM');
 
-		console.log(this);
+					return (
+						<tr key={meal.id} className="meal">
+							<td>{meal.id}</td>
+							<td>&euro;{price}</td>
+							<td>{date}</td>
+							<td>{availableFrom}</td>
+							<td>{availableUntil}</td>
+							<td>{meal.portions_claimed}/{meal.portions}</td>
+						</tr>
+					);
+				});
+
+				return (
+					<div className="dish" key={dish.id}>
+						<div className="photo">
+							<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + dish.photos[0] + ')' }}></div>
+						</div>
+						<div className="details">
+							<h2><Link to={'/gerecht/' + dish.id }>{dish.name}</Link></h2>
+							<table className="meals">
+								<thead>
+									<tr>
+										<td>#</td>
+										<td>Prijs</td>
+										<td>Datum</td>
+										<td>Van</td>
+										<td>Tot</td>
+										<td>Porties besteld</td>
+									</tr>
+								</thead>
+								<tbody>
+									{meals}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				);
+			});
+
+			dishesContainer = (
+				<div className="dishes">
+					<h4>Mijn gerechten</h4>
+					<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
+					{dishes}
+				</div>
+			);
+		} else {
+			dishesContainer = (
+				<ul></ul>
+			);
+		}
+
 		return (
 			<div className="accountPage">
 				{account}
 				<hr/>
-				{orders}
-				<hr/>
-				{dishes}
-			</div>
-		);
-
-		return <div></div>;
-
-		return (
-			<div className="account">
-
-				<div>
+				<div className="orders">
+					<h4>Maaltijden</h4>
 					<table>
-
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>Gerecht</td>
+								<td>Kok</td>
+								<td>Prijs</td>
+								<td>Besteldatum</td>
+								<td>Aanvang</td>
+								<td>adres</td>
+							</tr>
+						</thead>
+						<tbody>
+							{orders}
+						</tbody>
 					</table>
 				</div>
-
-				<table>
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Maaltijd</th>
-							<th>Kok</th>
-							<th>Datum</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>23</td>
-							<td>Hutspot</td>
-							<td>Gordon Ramsey</td>
-							<td>12 januari 2016</td>
-						</tr>
-					</tbody>
-				</table>
+				{dishesContainer}
 			</div>
 		);
 	}

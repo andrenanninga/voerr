@@ -19,21 +19,21 @@ import 'assets/style/_hearts';
 @connectToStores
 export default class SearchItemPage extends React.Component {
 	static getStores(props) {
-		return [DishesStore, OrderStore];
+		return [DishesStore, OrderStore, LoginStore];
 	}
 
 	static getPropsFromStores(props) {
 		return {
 			login: LoginStore.getState(),
 			dishes: DishesStore.getState(),
-			order: OrderStore.getState()
+			order: OrderStore.getState(),
+			login: LoginStore.getState()
 		};
 	}
 
 	componentWillMount() {
 		OrderActions.clear();
-		OrderActions.requestOrder(parseInt(this.props.params.id), 1);
-		DishesActions.requestDish(this.props.params.id);
+		DishesActions.requestDish(parseInt(this.props.params.id));
 	}
 
 	onMakeOrder() {
@@ -46,6 +46,10 @@ export default class SearchItemPage extends React.Component {
 		let url = '/s/' + this.props.params.location + '/' + this.props.params.term;
 		let hearts = [];
 		let allergies, categories, meal;
+
+		if(this.props.login.user && this.props.dishes.dishes.length && !this.props.order.orders.length) {
+			OrderActions.requestOrder(this.props.dishes.dishes[0].meal.id, this.props.login.user.id);
+		}
 
 		if(!dish) {
 			return <div></div>;
@@ -146,7 +150,6 @@ export default class SearchItemPage extends React.Component {
 			);
 		}
 
-
 		return <div className="dishDetail">
 			<Link className="button" to={url}>&lt; Terug naar overzicht</Link>
 			<div className="image aspect_16-10" style={{ backgroundImage: 'url(/static/images/' + dish.photos[0] + ')' }}></div>
@@ -158,6 +161,7 @@ export default class SearchItemPage extends React.Component {
 				</div>
 				<div className="dish">
 					<h2>{dish.name}</h2>
+					<a target="_blank" href={'http://maps.google.com/?q=' + dish.cook.address}>{dish.cook.address}</a>
 					<div className="rating">
 						{hearts}
 						<a href="#">({dish.reviews.length})</a>

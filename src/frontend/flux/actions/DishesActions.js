@@ -34,4 +34,28 @@ export default class DishesActions {
 				console.error(e);
 			});
 	}
+
+	requestUserDishes(cook_id) {
+		let url = [config.apiEndpoint, 'dishes'].join('/');
+		let query = {
+			filters: [
+				{ name: 'cook_id', op: 'eq', val: cook_id }
+			],
+			order_by: [
+				{ field: 'date_updated', 'direction': 'desc' }
+			]
+		};
+
+		url = url + '?q=' + JSON.stringify(query);
+
+		axios.get(url)
+			.then(res => {
+				if(res.data.num_results) {
+					this.actions.receiveDishes(res.data.objects);
+				}
+			})
+			.catch(e => {
+				console.error(e);
+			})
+	}
 }

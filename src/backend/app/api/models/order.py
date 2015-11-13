@@ -56,6 +56,13 @@ class Order(db.Model):
     def dish_name(self):
         return Dish.query.filter(Dish.id == self.dish_id).first().name
 
+    @hybrid_property
+    def cook_name(self):
+        return Dish.query.filter(Dish.id == self.dish_id).first().cook.name
+
+    @hybrid_property
+    def cook_address(self):
+        return Dish.query.filter(Dish.id == self.dish_id).first().cook.address
 
     def getExclude():
         return []
@@ -76,7 +83,7 @@ class Order(db.Model):
                 code=400
             )
 
-        if current_user.credit < (data['amount_meals'] * getMeal.price):
+        if current_user.credit is None or current_user.credit < (data['amount_meals'] * getMeal.price):
             raise ProcessingException(
                 description='Je hebt niet genoeg geld in je portemonnee!',
                 code=400
