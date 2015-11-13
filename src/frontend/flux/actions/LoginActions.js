@@ -39,7 +39,7 @@ export default class LoginActions {
 			})
 			.then(res => {
 				window.location.href = 'http://192.168.99.100:5000';
-				this.props.history.pushState({}, '', '/');
+				this.props.history.pushState({}, '/', '/');
 				console.log(res);
 			});
 	}

@@ -30,7 +30,7 @@ export default class ProfilePage extends React.Component {
 
 	componentWillReceiveProps(props) {
 		if(!LoginStore.state.user) {
-			this.props.history.pushState({}, '', '/');
+			this.props.history.pushState({}, '/', '/');
 		}
 	}
 

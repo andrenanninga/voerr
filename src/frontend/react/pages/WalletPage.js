@@ -29,7 +29,7 @@ export default class WalletPage extends React.Component {
 
 	componentWillReceiveProps(props) {
 		if(!LoginStore.state.user) {
-			this.props.history.pushState({}, '', '/');
+			this.props.history.pushState({}, '/', '/');
 		}
 	}
 
