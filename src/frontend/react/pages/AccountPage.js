@@ -72,6 +72,8 @@ export default class AccountPage extends React.Component {
 			</div>
 		);
 
+		let dishesContainer;
+
 		if(this.props.orders.orders) {
 			orders = this.props.orders.orders.map(order => {
 				let orderTime = dateFormat(order.date_created, 'd mmmm yyyy').toLowerCase();
@@ -101,9 +103,7 @@ export default class AccountPage extends React.Component {
 			});
 		}
 
-		console.log(this.props.dishes.dishes);
-
-		if(this.props.dishes.dishes) {
+		if(user.cook) {
 			dishes = this.props.dishes.dishes.map(dish => {
 				let meals = dish.meals.map(meal => {
 					let price = (meal.price / 100).toFixed(2).replace('.', ',');
@@ -149,6 +149,18 @@ export default class AccountPage extends React.Component {
 					</div>
 				);
 			});
+
+			dishesContainer = (
+				<div className="dishes">
+					<h4>Mijn gerechten</h4>
+					<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
+					{dishes}
+				</div>
+			);
+		} else {
+			dishesContainer = (
+				<ul></ul>
+			);
 		}
 
 		return (
@@ -174,11 +186,7 @@ export default class AccountPage extends React.Component {
 						</tbody>
 					</table>
 				</div>
-				<div className="dishes">
-					<h4>Mijn gerechten</h4>
-					<Link className="button" to="/nieuw-gerecht">Nieuw gerecht toevoegen</Link>
-					{dishes}
-				</div>
+				{dishesContainer}
 			</div>
 		);
 	}
