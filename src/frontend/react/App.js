@@ -11,6 +11,10 @@ export default class App extends React.Component {
 		LoginActions.requestUser();
 	}
 
+	componentDidUpdate() {
+		LoginActions.requestUser();
+	}
+
 	render() {
 		return (
 			<div>

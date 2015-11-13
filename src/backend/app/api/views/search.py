@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, make_response, request
-from sqlalchemy import or_, cast, Date
+from sqlalchemy import or_, cast, Date, asc
 from sqlalchemy.orm import contains_eager
 from app import db
 from flask.ext.restless.helpers import to_dict
@@ -24,6 +24,7 @@ def search():
         dishes = dishes.join(Dish.meals)
         dishes = dishes.filter(Meal.available_from.like('%' + str(date.today()) + '%'))
         dishes = dishes.options(contains_eager('meals'))
+        dishes = dishes.order_by(asc(Dish.id))
 
         # api/v1/search/dishes?allergies=1,2,3,4 returns all dishes that have no allergies 1,2,3,4
         allergies = request.args.get('allergies')
@@ -53,7 +54,7 @@ def search():
         if location is not None:
             dishes = dishes.join(Dish.cook).filter(Cook.location.like('%' + location + '%'))
 
-        dishes = dishes.all()
+        dishes = dishes.limit(100).all()
         json = {"objects": []}
         for dish in dishes:
             # json["objects"].append(to_dict(dish, deep={"allergies": {"id": {"id"}}}, include_relations={"allergies": ["id"]}))
