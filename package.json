@@ -26,7 +26,7 @@
     "faker": "^3.0.1",
     "formsy-react": "^0.17.0",
     "geolocator": "fakeyou/geolocator",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-dropzone": "^3.0.0",
