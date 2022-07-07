@@ -19,7 +19,7 @@ pygobject==3.12.0
 python-apt==0.9.3.5ubuntu1
 python-dateutil==2.4.2
 python-mimeparse==0.1.4
-requests==2.2.1
+requests==2.20.0
 six==1.5.2
 unattended-upgrades==0.1
 urllib3==1.7.1
